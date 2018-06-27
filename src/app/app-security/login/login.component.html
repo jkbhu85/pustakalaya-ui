@@ -1,0 +1,49 @@
+<div class="row mb-4 mt-3">
+  <div class="col-md-7 col-lg-5 mx-auto">
+    <form class="card"
+          (ngSubmit)="onSubmit()"
+          [formGroup]="loginForm">
+      <h2 class="card-header">{{'login.title' | translate}}</h2>
+
+      <div class="card-body">
+        <div class="form-group">
+          <label for="userId">{{'login.userId' | translate}}</label>
+          <input type="text"
+                 class="form-control"
+                 id="userId"
+                 [formControl]="userId" />
+          <div *ngIf="(userId.touched || userId.dirty) && userId.errors"
+               class="text-danger">
+            <div *ngIf="userId.errors.required">{{'login.vld.userIdReq' | translate}}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">{{'login.password' | translate}}</label>
+          <input type="password"
+                 class="form-control"
+                 id="password"
+                 [formControl]="password" />
+          <div *ngIf="(password.touched || password.dirty) && password.errors"
+               class="text-danger">
+            <div *ngIf="password.errors.required">{{'login.vld.passwordReq' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="text-danger" *ngIf="showError">{{errorText$ | async}}</div>
+      </div>
+
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <button class="btn btn-block btn-primary" [disabled]="submitted"
+                    type="submit">{{'login.title' | translate}}</button>
+          </div>
+          <div class="col-md-6">
+            <a [routerLink]="['/forgotPassword']"
+               class="btn btn-block btn-secondary">{{'forgotPwd.title' | translate}}</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

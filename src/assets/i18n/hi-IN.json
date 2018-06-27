@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "पुस्तकालय"
+  },
+  "navbar": {
+    "dashboard": "गृह",
+    "searchBook": "किताब खोजें",
+    "profile": "रूपरेखा",
+    "logout": "लॉगआउट",
+    "book": "पुस्तक",
+    "addBook": "पुस्तक जोड़ें",
+    "removeBook": "पुस्तक हटाएं",
+    "assignBook": "पुस्तक सौपें",
+    "user": "उपयोगकर्ता",
+    "addUser": "उपयोगकर्ता जोड़े",
+    "modifyUser": "उपयोगकर्ता संपादन",
+    "login": "लॉगिन करें"
+  },
+  "login": {
+    "title": "लॉगिन करें",
+    "userId": "यूजरनेम",
+    "password": "पासवर्ड",
+    "vld": {
+      "userIdReq": "यूजरनेम आवश्यक है",
+      "userIdInvalid": "ईमेल गलत है",
+      "passwordReq": "पासवर्ड आवश्यक है",
+      "invalidCredentials": "पहचान जानकारी गलत है",
+      "accountLocked": "आपका खाता बंद है",
+      "accessRevoked": "आपकी पहुँच रोक दी गयी है"
+    }
+  },
+  "forgotPwd": {
+    "title": "पासवर्ड भूल गए"
+  },
+  "common": {
+    "errorOccurred": "कोई गड़बड़ हुई है",
+    "pageNotFound": "पेज नहीं मिला",
+    "submit": "भेजें",
+    "reset": "पूर्ववत् करें"
+  },
+  "home": {
+    "welcomeText": "पुस्तकालय में आपका स्वागत है |"
+  },
+  "profile": {
+    "firstName": "प्रथम नाम",
+    "lastName": "अन्तिम नाम",
+    "email": "ईमेल",
+    "locale": "भाषा"
+  },
+  "user": {
+    "add": {
+      "vld": {
+        "firstNameRequired": "प्रथम नाम आवश्यक है",
+        "firstNameMaxLength": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए",
+        "lastNameRequired": "अन्तिम नाम आवश्यक है",
+        "lastNameMaxLength": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए",
+        "emailRequired": "ईमेल आवश्यक है",
+        "emailInvalid": "ईमेल गलत है",
+        "localeRequired": "भाषा आवश्यक है"
+      }
+    }
+  },
+  "langs": {
+    "enUS": "अंग्रेजी (यूएस)",
+    "hiIN": "हिन्दी (भारत)"
+  }
+}

@@ -1,0 +1,15 @@
+- To create angular project
+    > ng new frontend
+
+- Add jquery
+    > npm install --save jquery
+
+- Add popper.js and bootstrap 4
+    > npm install --save popper.js bootstrap
+
+- Add ngx-translate for internationalization
+    > npm install --save @ngx-translate/core @ngx-translate/http-loader
+
+- Add font-awesome for awesome icons
+    > npm install --save font-awesome
+- moved to angular 6 from angular 5 using https://update.angular.io/

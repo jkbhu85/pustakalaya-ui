@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "Pustakalaya"
+  },
+  "navbar": {
+    "dashboard": "Home",
+    "searchBook": "Search Book",
+    "profile": "Profile",
+    "logout": "Logout",
+    "book": "Book",
+    "addBook": "Add book",
+    "removeBook": "Remove book",
+    "assignBook": "Assign book",
+    "user": "User",
+    "addUser": "Add user",
+    "modifyUser": "Modify user",
+    "login": "Login"
+  },
+  "login": {
+    "title": "Login",
+    "userId": "Username",
+    "password": "Password",
+    "vld": {
+      "userIdReq": "Username is required",
+      "userIdInvalid": "Email is invalid",
+      "passwordReq": "Password is required",
+      "invalidCredentials": "Invalid credentials",
+      "accountLocked": "Your account is locked",
+      "accessRevoked": "Your account access has been revoked"
+    }
+  },
+  "forgotPwd": {
+    "title": "Forgot Password"
+  },
+  "common": {
+    "errorOccurred": "Some error occurred.",
+    "pageNotFound": "Page not found",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "home": {
+    "welcomeText": "You are welcome in Pustakalaya."
+  },
+  "profile": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "locale": "Locale"
+  },
+  "user": {
+    "add": {
+      "vld": {
+        "firstNameRequired": "First name is required",
+        "firstNameMaxLength": "Maximum {{firstNameMaxLen}} character are allowed",
+        "lastNameRequired": "Last name is require",
+        "lastNameMaxLength": "Maximum {{lastNameMaxLen}} character are allowed",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Email is invalid",
+        "localeRequired": "Locale is required"
+      }
+    }
+  },
+  "langs": {
+    "enUS": "English (US)",
+    "hiIN": "Hindi (Bharat)"
+  }
+}
