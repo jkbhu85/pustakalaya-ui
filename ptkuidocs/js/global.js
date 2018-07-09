@@ -30,16 +30,22 @@ function loadHeader() {
         const imgUrl = imgPrefix + 'img/saraswati.png';
         // image source: https://pngimg.com/download/41911
 
-        header.innerHTML = 
-        `<div>
-            <a href="${newUrl}">
-                <img src="${imgUrl}"/>
-                <div class="header-text">
-                    <div class="header-text-top">Pustakalaya</div>
-                    <div class="header-text-bottom">User Interface</div>
-                </div>
-            </a>
-        </div>`;
+        header.innerHTML =
+        `<a href="${newUrl}" class="header-link">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><img class="header-logo" src="${imgUrl}"/></td>
+                        <td>
+                            <div class="header-text">
+                                <div class="header-text-top">Pustakalaya</div>
+                                <div class="header-text-bottom">User Interface</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </a>`;
     }
 }
 

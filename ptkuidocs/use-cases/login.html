@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Pustakalaya UI</title>
-    <link type="text/css" rel="stylesheet" href="../css/pustakalaya.css" />
+    <title>Pustakalaya UI | Use case | User Login</title>
+    <link type="text/css" rel="stylesheet" href="../css/pustakalaya-ui.css" />
 </head>
 
 <body>
@@ -17,7 +17,11 @@
             This website does not work without JavaScript. Please enable JavaScript or use a browser that supports JavaScript.
         </noscript>
 
-        <h1>Login</h1>
+        <div class="back-button">
+            <a href="./toc-uses-cases.html">Back</a>
+        </div>
+
+        <h1>User login</h1>
 
         <h2>Login with username and password</h2>
 
@@ -40,7 +44,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <h3>Form data submisssion</h3>
         <table class="ptk-table-simple">
             <tbody>
@@ -60,7 +64,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
 
         <h3>Form controls</h3>
         <dl class="ctrl-list">
@@ -106,7 +110,7 @@
                                             <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td>&gt;length</td>
+                                            <td>length &gt; max</td>
                                             <td>Maximum length is 80 characters.</td>
                                         </tr>
                                     </tbody>
@@ -196,7 +200,7 @@
             </dd>
         </dl>
 
-        <h3>Condition for valid form</h3>
+        <h4>Condition for valid form</h4>
         <ul>
             <li>All form fields are valid.</li>
         </ul>
@@ -204,7 +208,7 @@
         <h3>Action on response</h3>
 
         <div class="ptk-table-wrapper">
-            <table class="ptk-table table-valign-top mb-0">
+            <table class="ptk-table table-valign-top">
                 <thead>
                     <tr>
                         <th>HRC</th>
@@ -215,36 +219,65 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>422</td>
-                        <td>2x:ERROR_LOGIN_UNSUCCESSFUL</td>
-                        <td>string</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>41:ERROR_SYSTEM_INACCESSIBLE</td>
-                        <td>string</td>
-                        <td><span class="p-alert danger"></span> System error. Try after sometime.</td>
-                    </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>41:ERROR_UNKNOWN</td>
-                        <td>string</td>
-                        <td><span class="p-alert danger"></span> System error. Try after sometime.</td>
-                    </tr>
-                    <tr>
                         <td>200</td>
                         <td>::JWT is received</td>
                         <td>base64</td>
                         <td>
                             <ul class="list-style-inside zero-bottom">
                                 <li>Store JWT to browser's local storage.</li>
-                                <li>Redirect user to URL <code class="url">/home</code>.</li>
+                                <li>Redirect user to URL
+                                    <code class="url">/home</code>.</li>
                             </ul>
                         </td>
                     </tr>
+                    <tr>
+                        <td>422</td>
+                        <td>2x:ERROR_LOGIN_UNSUCCESSFUL</td>
+                        <td>string</td>
+                        <td>
+                            <p>For error codes, see <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">this</a> document.</p>
+                            <table class="ptk-table-compact">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Error Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>21</td>
+                                        <td>Invalid credentials.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>22</td>
+                                        <td>Account is locked.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>23</td>
+                                        <td>Access to account has been revoked.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>41:ERROR_SYSTEM_INACCESSIBLE</td>
+                        <td>string</td>
+                        <td>Pass response to error handler.</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>41:ERROR_UNKNOWN</td>
+                        <td>string</td>
+                        <td>Pass response to error handler.</td>
+                    </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="back-button">
+            <a href="./toc-uses-cases.html">Back</a>
         </div>
         <hr/>
     </div>
