@@ -55,28 +55,12 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Access condition fails</td>
+                    <td>Redirect to <code class="url">/home</code></td>
+                </tr>
+                <tr>
                     <td>Type</td>
                     <td>Form</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Form data submisssion</h3>
-        <table class="ptk-table-simple">
-            <tbody>
-                <tr>
-                    <td>Endpoint</td>
-                    <td>
-                        <code class="url">&lt;api-domain&gt;/ptk/newUser</code>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Method</td>
-                    <td>POST</td>
-                </tr>
-                <tr>
-                    <td>Content-type</td>
-                    <td>JSON</td>
                 </tr>
             </tbody>
         </table>
@@ -91,11 +75,11 @@
                     <tbody>
                         <tr>
                             <td>Description</td>
-                            <td>First name of new user</td>
+                            <td>First name of the new user</td>
                         </tr>
                         <tr>
                             <td>Label</td>
-                            <td>Firat name</td>
+                            <td>First name</td>
                         </tr>
                         <tr>
                             <td>Type</td>
@@ -144,7 +128,7 @@
                     <tbody>
                         <tr>
                             <td>Description</td>
-                            <td>Last name of new user</td>
+                            <td>Last name of the new user</td>
                         </tr>
                         <tr>
                             <td>Label</td>
@@ -241,6 +225,10 @@
                                             <td>length &gt; max</td>
                                             <td>Maximum length is 30 characters.</td>
                                         </tr>
+                                        <tr>
+                                            <td>Doesn't match with the pattern</td>
+                                            <td>Email is invalid.</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -278,18 +266,61 @@
                         <tr>
                             <td>Fetch data</td>
                             <td>
-                                To populate option fields, fetch data from the url
-                                <code class="url">
-                                    &lt;api-endpoint&gt;/ptk/locale</code>.
-                                See the
-                                <a href="https://github.com/optimus29/pustakalaya/tree/master/src/ptkdocs/use-cases/locale.html">
-                                    document</a>
-                                for more information.
+                                <p>To fetch data:</p>                        
+                                <table class="ptk-table-simple table-valign-top zero-bottom">
+                                    <tbody>
+                                        <tr>
+                                            <td>Endpoint</td>
+                                            <td>
+                                                <code class="url">&lt;api-domain&gt;/ptk/locale</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Method</td>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Content-type</td>
+                                            <td>JSON</td>
+                                        </tr>
+                                        <tr>
+                                            <td>JSON format</td>
+                                            <td>
+<pre class="m-0">[
+    {
+        "code": "some_locale_code",
+        "name": "some_locale_name"
+    },
+    ...
+]</pre>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Options</td>
+                            <td>
+                                <table class="ptk-table-compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>&lt;name&gt;</td>
+                                            <td>&lt;code&gt;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td>One of the locales must be selected.</td>
+                            <td>Exactly one option must be selected.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -303,7 +334,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>None of the locales is selected</td>
+                                            <td>exactly one option is not selected</td>
                                             <td>Required field.</td>
                                         </tr>
                                     </tbody>
@@ -333,7 +364,7 @@
                         </tr>
                         <tr>
                             <td>Action</td>
-                            <td>Submit the form if form is valid.</td>
+                            <td>Submit the form if it is valid.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -367,6 +398,27 @@
         </ul>
 
 
+        <h3>Form data submisssion</h3>
+        <table class="ptk-table-simple">
+            <tbody>
+                <tr>
+                    <td>Endpoint</td>
+                    <td>
+                        <code class="url">&lt;api-domain&gt;/ptk/newUser</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Method</td>
+                    <td>POST</td>
+                </tr>
+                <tr>
+                    <td>Content-type</td>
+                    <td>JSON</td>
+                </tr>
+            </tbody>
+        </table>
+
+
         <h3>Action on response</h3>
 
         <div class="ptk-table-wrapper">
@@ -393,33 +445,34 @@
                     </tr>
                     <tr>
                         <td>422</td>
-                        <td>3x:ERROR_INVALID_[FIRST_INVALID_FIELD_NAME]</td>
+                        <td>3x:ERROR_INVALID_[INVALID_FIELD_NAME]</td>
                         <td>string</td>
                         <td>
-                            <p>
-                                For error codes, see 
-                                <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">this</a>
-                                document.
-                            </p>
-                            <p>Error messages remain same as given above in their description.</p>
-                            <p>The below cases were not covered in the above description.</p>
-                            <table class="ptk-table-compact">
-                                <thead>
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Error Message</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2">email</td>
-                                    </tr>
-                                    <tr>
-                                        <td>35</td>
-                                        <td>Email already exists.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <ul class="list-style-inside zero-bottom">
+                                <li>For error codes, see this
+                                    <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">document</a>.
+                                </li>
+                                <li>Error messages remain same as given above in their description.</li>
+                                <li><span>The cases below were not covered in the above description.</span><br/><br/>
+                                    <table class="ptk-table-compact">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Error Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2"><em>email</em></td>
+                                            </tr>
+                                            <tr>
+                                                <td>35</td>
+                                                <td>Email already exists.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
                         </td>
                     </tr>
                     <tr>
@@ -448,46 +501,3 @@
 </body>
 
 </html>
-
-<!--
-
-    <table class="ptk-table-simple table-valign-top">
-        <tbody>
-            <tr>
-                <td>Description</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Label</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Type</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Required</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Validation</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Error messages</td>
-                <td>
-                    <table class="ptk-table-compact">
-                        <thead>
-                            <tr>
-                                <th>Condition</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
--->

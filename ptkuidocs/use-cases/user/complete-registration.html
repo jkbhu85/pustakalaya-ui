@@ -24,17 +24,31 @@
         <h1>Complete Registration</h1>
 
         <h3>Page Details</h3>
-        <table class="ptk-table-simple">
+        <table class="ptk-table-simple table-valign-top">
             <tbody>
                 <tr>
                     <td>URL</td>
                     <td>
-                        <code class="url">&lt;domain&gt;/user/registration</code>
+                        <code class="url">&lt;domain&gt;/user/registration/&lt;registration_id&gt;</code>
                     </td>
                 </tr>
                 <tr>
                     <td>Access condition</td>
-                    <td>No user is logged in.</td>
+                    <td>
+                        <ol class="list-style-inside zero-bottom">
+                            <li>No user is logged in.</li>
+                            <li>&lt;registration_id&gt; gets some default data.</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Access condition fails</td>
+                    <td>
+                        <ol class="list-style-inside zero-bottom">
+                            <li>Redirect to <code class="url">/home</code></li>
+                            <li>Redirect to <code class="url">/pageNotFound</code></li>
+                        </ol>
+                    </td>
                 </tr>
                 <tr>
                     <td>Type</td>
@@ -44,8 +58,13 @@
         </table>
 
 
-        <h3>Form data submisssion</h3>
-        <table class="ptk-table-simple">
+
+        <h3>Form: Complete Registration</h3>
+        <h4>Form title</h4>
+        <p>Complete Registration</p>
+
+        <h4>Fetch default form data</h4>
+        <table class="ptk-table-simple table-valign-top">
             <tbody>
                 <tr>
                     <td>Endpoint</td>
@@ -55,19 +74,56 @@
                 </tr>
                 <tr>
                     <td>Method</td>
-                    <td>POST</td>
+                    <td>GET</td>
                 </tr>
                 <tr>
                     <td>Content-type</td>
                     <td>JSON</td>
+                </tr>
+                <tr>
+                    <td>Field names</td>
+                    <td>
+                        <ul class="list-style-inside zero-bottom">
+                            <li>
+                                <code>firstName</code>
+                            </li>
+                            <li>
+                                <code>lastName</code>
+                            </li>
+                            <li>
+                                <code>email</code>
+                            </li>
+                            <li>
+                                <code>locale</code>
+                            </li>
+                        </ul>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
 
 
-        <h3>Form controls</h3>
+        <h4>Controls</h4>
         <dl class="ctrl-list">
+            <dt>
+                <span class="ctrl-name">email</span>
+            </dt>
+            <dd>
+                <table class="ptk-table-simple table-valign-top">
+                    <tbody>
+                        <tr>
+                            <td>Description</td>
+                            <td>Email of the user. This field is shown as text to the user.</td>
+                        </tr>
+                        <tr>
+                            <td>Label</td>
+                            <td>Email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </dd>
+
             <dt>
                 <span class="ctrl-name">firstName</span>
             </dt>
@@ -92,7 +148,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Length must be between 1-30 characters.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -106,12 +162,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length &gt; max</td>
+                                            <td>Maximum length is 30 characters.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -144,7 +200,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Length must be between 1-30 characters.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -158,12 +214,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length &gt; max</td>
+                                            <td>Maximum length is 30 characters.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -191,12 +247,39 @@
                             <td>select</td>
                         </tr>
                         <tr>
+                            <td>Options</td>
+                            <td>
+                                <table class="ptk-table-compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Male</td>
+                                            <td>M</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Female</td>
+                                            <td>F</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Other</td>
+                                            <td>O</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Required</td>
                             <td>Yes</td>
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Exactly one option must be selected.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -210,12 +293,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>exactly one option is not selected</td>
+                                            <td>Required field</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -239,6 +318,10 @@
                             <td>Date of birth</td>
                         </tr>
                         <tr>
+                            <td>Placeholder</td>
+                            <td>DD/MM/YYYY</td>
+                        </tr>
+                        <tr>
                             <td>Type</td>
                             <td>text</td>
                         </tr>
@@ -248,7 +331,12 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>
+                                <ul class="list-style-inside zero-bottom">
+                                    <li>Must pass the regular expression: <code class="pattern">\d{2}/\d{2}/\d{4}</code></li>
+                                    <li>In the format DD/MM/YYYY (day/month/year). Date should be in the range [today minus 100] years to [today minus 3] years.</li>
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -262,15 +350,21 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>Field is empty</td>
+                                            <td>Required field</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>Fails regular expression</td>
+                                            <td>Invalid date. Date should be in DD/MM/YYYY format.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Out of range</td>
+                                            <td>Date should be in the range [today minus 100] to [today minus 3].</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <br/>
+                                <p class="note mb-0">Replace range values to actual values in DD/MM/YYYY format while displaying error.</p>
                             </td>
                         </tr>
                     </tbody>
@@ -300,7 +394,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Must pass the regular expression: <code class="pattern">[1-9][0-9]{9}</code></td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -314,12 +408,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>Fails regular expression</td>
+                                            <td>Mobile number should have exactly 10 digits. First digit can not be zero.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -351,8 +445,67 @@
                             <td>Yes</td>
                         </tr>
                         <tr>
+                            <td>Fetch data</td>
+                            <td>
+                                <p>To fetch data:</p>
+                                <table class="ptk-table-simple table-valign-top zero-bottom">
+                                    <tbody>
+                                        <tr>
+                                            <td>Endpoint</td>
+                                            <td>
+                                                <code class="url">&lt;api-domain&gt;/ptk/newUser/&lt;registration_id&gt;</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Method</td>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Content-type</td>
+                                            <td>JSON</td>
+                                        </tr>
+                                        <tr>
+                                            <td>JSON format</td>
+                                            <td>
+
+<pre class="m-0">[
+    {
+        "id": some_id,
+        "countryName": "some_country_name",
+        "isdCode": "some_isd_code",
+        "abbreviation": "short_country_name"
+    },
+    ...
+]
+</pre>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Options</td>
+                            <td>
+                                <table class="ptk-table-compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>&lt;country_id&gt;</td>
+                                            <td>&lt;country_name&gt;&nbsp;(&lt;isd_code &gt;)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Exactly one option must be selected.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -366,12 +519,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>exactly one option is not selected</td>
+                                            <td>Required field</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -403,8 +552,63 @@
                             <td>Yes</td>
                         </tr>
                         <tr>
+                            <td>Fetch data</td>
+                            <td>
+                                <p>To fetch data:</p>                        
+                                <table class="ptk-table-simple table-valign-top zero-bottom">
+                                    <tbody>
+                                        <tr>
+                                            <td>Endpoint</td>
+                                            <td>
+                                                <code class="url">&lt;api-domain&gt;/ptk/locale</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Method</td>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Content-type</td>
+                                            <td>JSON</td>
+                                        </tr>
+                                        <tr>
+                                            <td>JSON format</td>
+                                            <td>
+<pre class="m-0">[
+    {
+        "code": "some_locale_code",
+        "name": "some_locale_name"
+    },
+    ...
+]</pre>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Options</td>
+                            <td>
+                                <table class="ptk-table-compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>&lt;name&gt;</td>
+                                            <td>&lt;code&gt;</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Exactly one option must be selected.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -418,12 +622,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>exactly one option is not selected</td>
+                                            <td>Required field</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -456,7 +656,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Length must be between 6-12 characters.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -470,12 +670,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length &lt; min</td>
+                                            <td>Minimum length is 6 characters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>length &gt; max</td>
+                                            <td>Maximum length is 12 characters.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -508,7 +712,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Same as <code>password</code> field.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -522,12 +726,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>doesn't match with <code>password</code></td>
+                                            <td>Passwords didn't match.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -560,7 +764,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Length must be between 15-100 characters.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -574,12 +778,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length &lt; min</td>
+                                            <td>Minimum length is 15 characters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>length &gt; max</td>
+                                            <td>Maximum length is 100 characters.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -612,7 +820,7 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td></td>
+                            <td>Length must be between 3-50 characters.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -626,16 +834,44 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length is 0</td>
+                                            <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
+                                            <td>length &lt; min</td>
+                                            <td>Minimum length is 3 characters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>length &gt; max</td>
+                                            <td>Maximum length is 50 characters.</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </dd>
+        </dl>
+        <hr/>
+        <dl class="ctrl-list">
+            <dt>
+                <span class="ctrl-name">submit</span>
+            </dt>
+            <dd>
+                <table class="ptk-table-simple table-valign-top">
+                    <tbody>
+                        <tr>
+                            <td>Label</td>
+                            <td>Submit</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>button</td>
+                        </tr>
+                        <tr>
+                            <td>Action</td>
+                            <td>Submit the form if it is valid.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -649,7 +885,29 @@
         </ul>
 
 
-        <h3>Action on response</h3>
+        <h4>Form data submisssion</h4>
+        <table class="ptk-table-simple">
+            <tbody>
+                <tr>
+                    <td>Endpoint</td>
+                    <td>
+                        <code class="url">&lt;api-domain&gt;/ptk/newUser/&lt;registration_id&gt;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Method</td>
+                    <td>POST</td>
+                </tr>
+                <tr>
+                    <td>Content-type</td>
+                    <td>JSON</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <h4>Action on response</h4>
 
         <div class="ptk-table-wrapper">
             <table class="ptk-table table-valign-top">
@@ -664,15 +922,27 @@
                 <tbody>
                     <tr>
                         <td>200</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>10:SUCCESS_REGISTRATION_COMPLETE</td>
+                        <td>text</td>
+                        <td>
+                            <ul class="list-style-inside zero-bottom">
+                                <li>Remove the form from the page.</li>
+                                <li>Show message "Registration complete".</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <td>422</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>3x:ERROR_INVALID_[INVALID_FIELD_NAME]</td>
+                        <td>string</td>
+                        <td>
+                            <ul class="list-style-inside zero-bottom">
+                                <li>For error codes, see this
+                                    <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">document</a>.</li>
+                                <li>Error messages remain same as given above in their description.</li>
+                                <li>The error code 34 indicates there is some problem with UI.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <td>500</td>

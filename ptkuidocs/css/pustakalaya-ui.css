@@ -114,6 +114,9 @@ hr {
 .full-width {
   width: 100%;
 }
+.m-0 {
+  margin: 0 !important;
+}
 .mb-0 {
   margin-bottom: 0 !important;
 }
@@ -125,6 +128,9 @@ hr {
 }
 .mr-0 {
   margin-right: 0 !important;
+}
+.p-0 {
+  padding: 0 !important;
 }
 .pb-0 {
   padding-bottom: 0 !important;
@@ -148,8 +154,7 @@ hr {
 
 /* common structures */
 .list-style-inside {
-  padding-left: 0 !important;
-  list-style-position: inside;
+  padding-left: 1rem !important;
 }
 .toc {
   list-style: square;
