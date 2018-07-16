@@ -29,7 +29,7 @@
                 <tr>
                     <td>URL</td>
                     <td>
-                        <code class="url">&lt;domain&gt;/user/registration/&lt;registration_id&gt;</code>
+                        <code class="url">&lt;domain&gt;/user/registration?id=&lt;registration_id&gt;</code>
                     </td>
                 </tr>
                 <tr>
@@ -37,7 +37,8 @@
                     <td>
                         <ol class="list-style-inside zero-bottom">
                             <li>No user is logged in.</li>
-                            <li>&lt;registration_id&gt; gets some default data.</li>
+                            <li>
+                                <code>&lt;registration_id&gt;</code> returns default data.</li>
                         </ol>
                     </td>
                 </tr>
@@ -45,8 +46,12 @@
                     <td>Access condition fails</td>
                     <td>
                         <ol class="list-style-inside zero-bottom">
-                            <li>Redirect to <code class="url">/home</code></li>
-                            <li>Redirect to <code class="url">/pageNotFound</code></li>
+                            <li>Redirect to
+                                <code class="url">/home</code>
+                            </li>
+                            <li>Redirect to
+                                <code class="url">/pageNotFound</code>
+                            </li>
                         </ol>
                     </td>
                 </tr>
@@ -63,7 +68,7 @@
         <h4>Form title</h4>
         <p>Complete Registration</p>
 
-        <h4>Fetch default form data</h4>
+        <h4>Default form data</h4>
         <table class="ptk-table-simple table-valign-top">
             <tbody>
                 <tr>
@@ -83,20 +88,39 @@
                 <tr>
                     <td>Field names</td>
                     <td>
-                        <ul class="list-style-inside zero-bottom">
-                            <li>
-                                <code>firstName</code>
-                            </li>
-                            <li>
-                                <code>lastName</code>
-                            </li>
-                            <li>
-                                <code>email</code>
-                            </li>
-                            <li>
-                                <code>locale</code>
-                            </li>
-                        </ul>
+                        <div class="ptk-table-wrapper">
+                            <table class="ptk-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Field name</th>
+                                        <th>Data type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>name</td>
+                                        <td>string</td>
+                                        <td>First name of the user</td>
+                                    </tr>
+                                    <tr>
+                                        <td>email</td>
+                                        <td>string</td>
+                                        <td>Email of the user</td>
+                                    </tr>
+                                    <tr>
+                                        <td>role</td>
+                                        <td>string</td>
+                                        <td>Role of the user</td>
+                                    </tr>
+                                    <tr>
+                                        <td>locale</td>
+                                        <td>string</td>
+                                        <td>Locale of the user</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -333,8 +357,11 @@
                             <td>Validation</td>
                             <td>
                                 <ul class="list-style-inside zero-bottom">
-                                    <li>Must pass the regular expression: <code class="pattern">\d{2}/\d{2}/\d{4}</code></li>
-                                    <li>In the format DD/MM/YYYY (day/month/year). Date should be in the range [today minus 100] years to [today minus 3] years.</li>
+                                    <li>Must pass the regular expression:
+                                        <code class="pattern">\d{2}/\d{2}/\d{4}</code>
+                                    </li>
+                                    <li>In the format DD/MM/YYYY (day/month/year). Date should be in the range [today minus 100]
+                                        years to [today minus 3] years.</li>
                                 </ul>
                             </td>
                         </tr>
@@ -394,7 +421,9 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td>Must pass the regular expression: <code class="pattern">[1-9][0-9]{9}</code></td>
+                            <td>Must pass the regular expression:
+                                <code class="pattern">[1-9][0-9]{9}</code>
+                            </td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -468,7 +497,7 @@
                                             <td>JSON format</td>
                                             <td>
 
-<pre class="m-0">[
+                                                <pre class="m-0">[
     {
         "id": some_id,
         "countryName": "some_country_name",
@@ -554,7 +583,7 @@
                         <tr>
                             <td>Fetch data</td>
                             <td>
-                                <p>To fetch data:</p>                        
+                                <p>To fetch data:</p>
                                 <table class="ptk-table-simple table-valign-top zero-bottom">
                                     <tbody>
                                         <tr>
@@ -574,7 +603,7 @@
                                         <tr>
                                             <td>JSON format</td>
                                             <td>
-<pre class="m-0">[
+                                                <pre class="m-0">[
     {
         "code": "some_locale_code",
         "name": "some_locale_name"
@@ -712,7 +741,8 @@
                         </tr>
                         <tr>
                             <td>Validation</td>
-                            <td>Same as <code>password</code> field.</td>
+                            <td>Same as
+                                <code>password</code> field.</td>
                         </tr>
                         <tr>
                             <td>Error&nbsp;messages</td>
@@ -730,7 +760,9 @@
                                             <td>Required field.</td>
                                         </tr>
                                         <tr>
-                                            <td>doesn't match with <code>password</code></td>
+                                            <td>doesn't match with
+                                                <code>password</code>
+                                            </td>
                                             <td>Passwords didn't match.</td>
                                         </tr>
                                     </tbody>
@@ -884,7 +916,6 @@
             <li>All form fields are valid.</li>
         </ul>
 
-
         <h4>Form data submisssion</h4>
         <table class="ptk-table-simple">
             <tbody>
@@ -941,6 +972,35 @@
                                     <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">document</a>.</li>
                                 <li>Error messages remain same as given above in their description.</li>
                                 <li>The error code 34 indicates there is some problem with UI.</li>
+                                <li>
+                                    <p>
+                                        The error code 36 may be returned for
+                                        <code>&lt;registration_id&gt;</code> in case when
+                                        <code>&lt;registration_id&gt;</code> had expired by the time user submitted the form or
+                                        <code>&lt;registration_id&gt;</code> does not exist in the system. The returned field name will be
+                                        <code>registrationId</code>.
+                                    </p>
+
+                                    <table class="ptk-table-compact">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Error Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <em>registrationId</em>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>36</td>
+                                                <td>Registration was unsuccessful due to expiration of registration id.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
                             </ul>
                         </td>
                     </tr>
