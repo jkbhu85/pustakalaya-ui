@@ -24,13 +24,19 @@
     <ul>
         <li>In-form messages</li>
         <li>In-page messages</li>
-        <li>Popup</li>
+        <li>Popup messages</li>
     </ul>
 
     <h3>In-form messages</h3>
-    <p>The messages that apply for form fields should be displayed as described below.</p>
+    <p>These messages are displayed in response to user input in form fields.</p>
+    <p>The messages that apply for form fields should be displayed as 
+        described below. All form field messages should appear either right
+        next to field or right below the field.</p>
 
-    <table class="ptk-table-compact">
+    <p>The messages that apply for only form should be displayed between last 
+        field of the form and actions buttons of the form.</p>
+
+    <table class="ptk-table">
         <thead>
             <tr>
                 <th>Message type</th>
@@ -56,7 +62,57 @@
             </tr>
         </tbody>
     </table>
-    
+
+    <h3>In-page messages</h3>
+    <p>These messages are shown to the user in response to the action he/she has taken.</p>
+    <p>These messages should be displayed after the navigation bar on top of
+        the page. The page should be scrolled to the message to bring the 
+        message in user view.</p>
+
+    <p>The examples below are only suggestions on how a message can look.
+        These examples are inspired from
+        <a href="https://getbootstrap.com">Bootstrap</a> library.</p>
+
+    <p>On clicking the <span>&times;</span> in the top right corner of the message, message must become hidden from the user.</p>
+
+    <table class="ptk-table">
+        <thead>
+            <tr>
+                <th>Message type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Info</td>
+                <td>
+                    <div class="palert palert-info">This message is just for your information.<button class="pclose">&times;</button></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Success</td>
+                <td>
+                    <div class="palert palert-success">You were successful, whatever it is you were doing.<button class="pclose">&times;</button></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Warning</td>
+                <td>
+                    <div class="palert palert-warn">This is a warning in repsone to your action.<button class="pclose">&times;</button></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Danger</td>
+                <td>
+                    <div class="palert palert-danger">Something bad happened.<button class="pclose">&times;</button></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Popup messages</h3>
+    <p>Popup messages are displayed to the user by showing some content in the box.</p>
+    <p>A popup message may have a header, a set of action buttons and a message text.</p>
   </div>
 
   <footer id="footer"></footer>
