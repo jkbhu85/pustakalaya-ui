@@ -19,9 +19,9 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   font-size: 1rem;
-  color: #222219;
+  color: #373737;
   background-color: #f7f7f7;
-  box-shadow: 0 0 0.14rem #666;
+  box-shadow: 0 0 0.21rem #666;
 }
 noscript {
   background-color: #dd3300;
@@ -32,23 +32,19 @@ noscript {
 }
 a, a:link, a:visited, a:active {
   text-decoration: none;
-  color: #aa2277;
-}/*
-a:hover {
-  background-color: rgba(170, 34, 119, .1);
-}*/
+  color: #283593;
+}
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--ff-serif);
   margin-top: 0;
-  margin-bottom: .5em; /* relative margin */
+  margin-bottom: .5em; /* margin relative to font size */
   padding-top: 0;
   padding-bottom: 0;
+  font-weight: 300;
+  color: #111;
 }
-h1, h2, h3, h4, h5, h6,
 strong, th {
   color: var(--dark-grey);
 }
-p,
 ul, ol, dl, li
 table {
   margin-top: 0;
@@ -98,17 +94,17 @@ dt {
 code, pre {
   font-family: var(--ff-monospace);
 }
+pre {
+  margin: 0;
+  font-size: .9rem;
+}
 code {
   font-size: .95rem;
+  font-weight: 300;
 }
 hr {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  margin-left: -.7rem;
-  margin-right: -.7rem;
-  height: 0;
+  margin-bottom: 2.5rem;
   border: 0;
-  border-top: 0.067rem solid #cccccc;
 }
 /* utility classes */
 .full-width {
@@ -129,6 +125,36 @@ hr {
 .mr-0 {
   margin-right: 0 !important;
 }
+.m-1 {
+  margin: 1rem !important;
+}
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+.mt-1 {
+  margin-top: 1rem !important;
+}
+.ml-1 {
+  margin-left: 1rem !important;
+}
+.mr-1 {
+  margin-right: 1rem !important;
+}
+.m-2 {
+  margin: 2rem !important;
+}
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+.mt-2 {
+  margin-top: 2rem !important;
+}
+.ml-2 {
+  margin-left: 2rem !important;
+}
+.mr-2 {
+  margin-right: 2rem !important;
+}
 .p-0 {
   padding: 0 !important;
 }
@@ -143,6 +169,21 @@ hr {
 }
 .pr-0 {
   padding-right: 0 !important;
+}
+.p-1 {
+  padding: 1rem !important;
+}
+.pb-1 {
+  padding-bottom: 1rem !important;
+}
+.pt-1 {
+  padding-top: 1rem !important;
+}
+.pl-1 {
+  padding-left: 1rem !important;
+}
+.pr-1 {
+  padding-right: 1rem !important;
 }
 .zero-bottom {
   margin-bottom: 0 !important;
@@ -171,21 +212,31 @@ hr {
   caption-side: top;
   margin-bottom: 3rem;
 }
+.ptk-table-name {
+  padding: .5rem;
+  font-size: 1.1em;
+  text-align: left;
+  color: #555555;
+}
+.ptk-table-name > span > span {
+  font-weight: 400;
+  font-style: italic;
+  color: #222219;
+}
 .table-valign-top > tbody > tr > td {
   vertical-align: top;
 }
 .ptk-table-compact {
   border-collapse: collapse;
-  margin: -.25rem -.5rem;
+  margin: -.25rem -.5rem 0 -.5rem;
 }
 .ptk-table-compact > thead > tr > th,
 .ptk-table-compact > tbody > tr > td {
   text-align: left;
   padding: .25rem .5rem;
-  border: 1px solid #eeeeee;
 }
-.ptk-table-simple > tbody > tr > td:first-of-type {
-  text-align: rightt;
+.ptk-table-compact > thead > tr > th{
+  font-weight: 300;
 }
 .ptk-table-simple > caption {
   text-align: left;
@@ -193,28 +244,22 @@ hr {
   padding-bottom: 0.5rem;
   font-size: 1.1rem;
 }
-.ptk-table-name {
-  padding: .5rem;
-  font-size: 1.1em;
-  text-align: left;
-}
-.ptk-table-name > span > span {
-  font-weight: bold;
-  color: #333;
-}
-.ptk-table > thead > tr {
-  border-bottom: .14rem solid #eeeeee;
-  border-top: .14rem solid #eeeeee;
-}
-.ptk-table > tbody > tr {
-  border-bottom: .07rem solid #f2f2f2;
+.ptk-table > tbody > tr:nth-of-type(2n+1) {
+  background-color: #f4f4f0;
 }
 .ptk-table > thead > tr > th {
-  padding: .5rem .5rem;
+  padding: .5rem;
   text-align: left;
+  font-weight: 300;
 }
 .ptk-table > tbody > tr > td {
   padding: .5rem;
+}
+.field-name {
+  width: 20%;
+}
+.field-desc {
+  width: 42%;
 }
 .ptk-table-simple {
   border-collapse: collapse;
@@ -229,8 +274,8 @@ hr {
 }
 /* style elements */
 #header {
-  background: #440044;
-  padding: 1.5rem;
+  background:#F9A825;
+  padding: .5rem 2rem;
 }
 .header-link table {
   border-collapse: collapse;
@@ -238,21 +283,25 @@ hr {
   padding: 0 !important;
 }
 .header-logo {
-  width: 4rem;
-  display: block;
+  width: 10rem;
+  vertical-align: bottom;
+  margin-right: .5rem;
+  margin-left: -.85rem;
+  display: inline-block;
 }
 .header-text {
   color: #ffff9f;
   line-height: 1;
+  color: rgba(255,255,255,.6);
+  text-shadow: .07rem 0 0 rgba(0,0,0,.1);
 }
 .header-text-top {
-  font-size: 2.5rem;
+  text-decoration: none;
+  letter-spacing: .1rem;
+  outline: none;
+  font-size: 4rem;
+  line-height: 1.3;
   font-family: var(--ff-serif);
-}
-.header-text-bottom {
-  font-size: .9rem;
-  line-height: 1rem;
-  color: rgba(255,255,159,0.8);
 }
 .main-content {
   background-color: #fcfcfa;
@@ -269,17 +318,15 @@ hr {
   margin-bottom: 2rem;
 }
 .back-button a:before {
-  content: "←";
+  content: "\2190";
   padding-right: 0.3rem;
 }
 code.url {
   padding: .15rem;
-  color: #0000aa;/*
-  background-color: #e0e0ff;*/
+  color: #EF8C00;
 }
 code.pattern {
-  color: #006400;/*
-  background-color: #e0ece0;*/
+  color: #2E7D32;
   word-break: unset;
   word-wrap: unset;
   overflow-wrap: unset;
@@ -287,7 +334,7 @@ code.pattern {
   -moz-hyphens: unset;
   -ms-hyphens: unset;
   hyphens: unset;
-  padding: .15rem;
+  padding: .15rem 0;
 }
 .error-codes {
   margin-bottom: 2rem;
@@ -297,13 +344,38 @@ code.pattern {
   color: #333;
 }
 .note {
-  border-left: .2rem solid darkgoldenrod;
-  padding: .7rem;
+  padding: 1rem 2rem;
   background: #f4f4e7;
   margin-bottom: 1rem;
 }
-.response > dt {
-  font-style: italic;
+dl.response-list > dt {
+  color: #640;
+}
+dl.response-list > dd {
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+}
+dl.response-list > dt:before {
+  content: "\21E6\20";
+}
+/*  U+02192 */
+div.response {
+  background-color: #f7f7f7;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+div.response-code {
+  border-bottom: .07rem solid #eaeaea;
+  padding-bottom: .5rem;
+  margin-bottom: 1rem;
+}
+div.response-code > span::before {
+  content: "HTTP response code: ";
+}
+div.response-message pre {
+  font-size: .85rem;
+  padding: 0;
+  margin: 0;
 }
 .ctrl-name {
   font-weight: bold;
@@ -344,9 +416,6 @@ code.pattern {
 }
 .ctrl-list + hr {
   border-top-style: dashed;
-}
-p {
-  max-width: 45rem;
 }
 .palert {
   padding: .75rem;

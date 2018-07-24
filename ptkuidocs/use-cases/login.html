@@ -208,20 +208,23 @@
         <h4>Action on response</h4>
 
         <div class="ptk-table-wrapper">
-            <table class="ptk-table table-valign-top">
+            <table class="ptk-table table-valign-top full-width">
                 <thead>
                     <tr>
                         <th>HRC</th>
                         <th>Response</th>
-                        <th>Type</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>200</td>
-                        <td>::JWT is received</td>
-                        <td>base64</td>
+                        <td>
+                            <pre>
+{
+    "data": "&lt;jwt&gt;"
+}</pre>
+                        </td>
                         <td>
                             <ul class="list-style-inside zero-bottom">
                                 <li><p>Store <a href="https://jwt.io/">JWT</a> to browser's local storage.</p>
@@ -265,10 +268,16 @@
                     </tr>
                     <tr>
                         <td>422</td>
-                        <td>2x:ERROR_LOGIN_UNSUCCESSFUL</td>
-                        <td>string</td>
                         <td>
-                            <p>For error codes, see this <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">document</a>.</p>
+                            <pre>
+{
+    "responseCode": 2x,
+    "message": "ERROR_LOGIN_UNSUCCESSFUL"
+}</pre>
+                        </td>
+                        <td>
+                            <p>For error codes, see this <a href="https://github.com/optimus29/pustakalaya/blob/master/src/ptkdocs/error-codes.html">document</a>.
+                            Show messages as recommanded in the <a href="../informing-user.html">this document</a>.</p>
                             <table class="ptk-table-compact">
                                 <thead>
                                     <tr>
@@ -295,14 +304,12 @@
                     </tr>
                     <tr>
                         <td>500</td>
-                        <td>41:ERROR_SYSTEM_INACCESSIBLE</td>
-                        <td>string</td>
-                        <td>Pass response to error handler.</td>
-                    </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>41:ERROR_UNKNOWN</td>
-                        <td>string</td>
+                        <td>
+                            <pre>
+{
+    "message": "ERROR_UNKNOWN"
+}</pre>
+                        </td>
                         <td>Pass response to error handler.</td>
                     </tr>
                 </tbody>
