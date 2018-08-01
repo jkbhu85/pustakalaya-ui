@@ -20,10 +20,6 @@ const userRoutes: Routes = [
       {
         path: 'add',
         component: AddUserComponent
-      },
-      {
-        path: 'modify',
-        component: ModifyUserComponent
       }
     ]
   }

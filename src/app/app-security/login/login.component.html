@@ -7,14 +7,14 @@
 
       <div class="card-body">
         <div class="form-group">
-          <label for="userId">{{'login.userId' | translate}}</label>
+          <label for="username">{{'login.username' | translate}}</label>
           <input type="text"
                  class="form-control"
-                 id="userId"
-                 [formControl]="userId" />
-          <div *ngIf="(userId.touched || userId.dirty) && userId.errors"
+                 id="username"
+                 [formControl]="username" />
+          <div *ngIf="(username.touched || username.dirty) && username.errors"
                class="text-danger">
-            <div *ngIf="userId.errors.required">{{'login.vld.userIdReq' | translate}}</div>
+            <div *ngIf="username.errors['required']">{{'login.vld.usernameReq' | translate}}</div>
           </div>
         </div>
         <div class="form-group">
@@ -25,7 +25,7 @@
                  [formControl]="password" />
           <div *ngIf="(password.touched || password.dirty) && password.errors"
                class="text-danger">
-            <div *ngIf="password.errors.required">{{'login.vld.passwordReq' | translate}}</div>
+            <div *ngIf="password.errors['required']">{{'login.vld.passwordReq' | translate}}</div>
           </div>
         </div>
 
