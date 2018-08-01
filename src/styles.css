@@ -7,6 +7,10 @@ body {
     font-family: 'Fira Sans', Mukta, Ubuntu, 'Segoe UI', Arial, Helvetica, sans-serif;
 }
 
+a:link {
+    outline: 0;
+}
+
 .main-content {
     padding-top: 1rem;
 }

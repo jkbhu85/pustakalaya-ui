@@ -18,11 +18,11 @@
   },
   "login": {
     "title": "Login",
-    "userId": "Username",
+    "username": "Username",
     "password": "Password",
     "vld": {
-      "userIdReq": "Username is required",
-      "userIdInvalid": "Email is invalid",
+      "usernameReq": "Username is required",
+      "usernameInvalid": "Email is invalid",
       "passwordReq": "Password is required",
       "invalidCredentials": "Invalid credentials",
       "accountLocked": "Your account is locked",

@@ -18,11 +18,11 @@
   },
   "login": {
     "title": "लॉगिन करें",
-    "userId": "यूजरनेम",
+    "username": "यूजरनेम",
     "password": "पासवर्ड",
     "vld": {
-      "userIdReq": "यूजरनेम आवश्यक है",
-      "userIdInvalid": "ईमेल गलत है",
+      "usernameReq": "यूजरनेम आवश्यक है",
+      "usernameInvalid": "ईमेल गलत है",
       "passwordReq": "पासवर्ड आवश्यक है",
       "invalidCredentials": "पहचान जानकारी गलत है",
       "accountLocked": "आपका खाता बंद है",

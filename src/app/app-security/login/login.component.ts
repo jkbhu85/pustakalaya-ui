@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { BASE_HREF } from '../../consts';
 import { Observable ,  Subscription } from 'rxjs';
 import { AppTranslateService } from '../../services/app-translate.service';
 import { AuthService } from '../auth.service';
+import { PtkResponse, ResponseCode } from '../../models/ptk-response';
 
-const LOGIN_URL = BASE_HREF + '/api/login';
+const LOGIN_URL = BASE_HREF + '/ptk/login';
 const KEY_ACCESS_REVOKED = 'login.vld.accessRevoked';
 const KEY_INVALID_CREDENTIALS = 'login.vld.invalidCredentials';
 const KEY_ACCOUNT_LOCKED = 'login.vld.accountLocked';
@@ -35,13 +36,13 @@ export class LoginComponent implements OnInit {
 
   createForm(): void {
     this.loginForm = this.fb.group({
-      userId: ['', [Validators.required,Validators.email]],
+      username: ['', [Validators.required,Validators.email]],
       password: ['', Validators.required]
     });
   }
 
-  get userId() {
-    return this.loginForm.get('userId');
+  get username() {
+    return this.loginForm.get('username');
   }
 
   get password() {
@@ -54,10 +55,14 @@ export class LoginComponent implements OnInit {
   prepareData() {
     let l: any = {};
 
-    l.username = this.userId.value;
+    l.username = this.username.value;
     l.password = this.password.value;
 
     return l;
+  }
+
+  private setFormSubmitStatus(status: boolean) {
+    this.submitted = status;
   }
 
   onSubmit() {
@@ -65,7 +70,7 @@ export class LoginComponent implements OnInit {
 
     if (this.loginForm.invalid) return;
 
-    this.submitted = true;
+    this.setFormSubmitStatus(true);
 
     const data = this.prepareData();
 
@@ -73,29 +78,35 @@ export class LoginComponent implements OnInit {
       .post(LOGIN_URL, data, {observe: 'response', responseType: 'text'})
       .subscribe(
         (response: HttpResponse<string>) => this.handleResponse(response),
-        (response: HttpResponse<string>) => this.handleResponse(response)
+        (response: HttpResponse<string>) => this.handleResponse(response),
+        () => this.handleComplete()
       );
+  }
+
+  private handleComplete() {
+    this.setFormSubmitStatus(false);
   }
 
   private handleResponse(response: HttpResponse<string>) {
     this.submitted = false;
+    const res:PtkResponse = JSON.parse(response instanceof HttpErrorResponse ? response.error : response.body);
     
     switch (response.status) {
       case 200:
         // login successful
-        let jwt = response.body;
+        let jwt = res.data;
         console.log('login successful');
         this.authService.login(jwt);
         break;
-      case 400:
+      case 422:
         // invalid credentials or account locked or account revoked
-        let s = response.body;
+        let s = res.responseCode;
 
         switch (s) {
-          case 'account locked':
+          case ResponseCode.ACCOUNT_LOCKED:
             this.showLoginError(KEY_ACCOUNT_LOCKED);
             break;
-          case 'access revoked':
+          case ResponseCode.ACCOUNT_ACCESS_REVOKED:
             this.showLoginError(KEY_ACCESS_REVOKED);
             break;
           default:
