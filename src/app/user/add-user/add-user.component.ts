@@ -5,7 +5,7 @@ import { AppTranslateService } from '../../services/app-translate.service';
 import { HttpResponse, HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_HREF } from '../../consts';
 import { AuthService } from '../../app-security/auth.service';
-import { UserInfo } from '../../models';
+import { UserInfo } from '../../models/models';
 
 const ADD_USER_URL = BASE_HREF + '/api/newUser';
 
