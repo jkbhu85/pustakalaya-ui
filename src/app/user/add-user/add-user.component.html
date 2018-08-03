@@ -6,13 +6,13 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group"> 
               <label for="firstName">{{'profile.firstName' | translate}}</label>
               <input type="text" class="form-control" id="firstName" [formControl]="firstName" />
 
               <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
-                <div *ngIf="firstName.errors.required">{{'user.add.vld.firstNameRequired' | translate}}</div>
-                <div *ngIf="firstName.errors.maxlength">{{'user.add.vld.firstNameMaxLength' | translate:param}}</div>
+                <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameRequired' | translate}}</div>
+                <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLength' | translate:param}}</div>
               </div>
             </div>
           </div>
@@ -23,8 +23,8 @@
               <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
               
               <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
-                <div *ngIf="lastName.errors.required">{{'user.add.vld.lastNameRequired' | translate}}</div>
-                <div *ngIf="lastName.errors.maxlength">{{'user.add.vld.lastNameMaxLength' | translate:param}}</div>
+                <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameRequired' | translate}}</div>
+                <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLength' | translate:param}}</div>
               </div>
             </div>
           </div>
@@ -36,20 +36,21 @@
           <input type="email" class="form-control" id="email" [formControl]="email" />
 
           <div class="text-danger" *ngIf="(email.touched || email.dirty) && email.errors">
-            <div *ngIf="email.errors.required">{{'user.add.vld.emailRequired' | translate}}</div>
-            <div *ngIf="!email.errors.required && email.errors.email">{{'user.add.vld.emailInvalid' | translate}}</div>
+            <div *ngIf="email.errors['required']">{{'user.add.vld.emailRequired' | translate}}</div>
+            <div *ngIf="!email.errors['required'] && email.errors['pattern']">{{'user.add.vld.emailInvalid' | translate}}</div>
           </div>
         </div>
 
         <div class="form-group">
           <label for="locale">{{'profile.locale' | translate}}</label>
-          <select id="locale" class="form-control" [formControl]="locale">
+          <select id="locale" class="form-control" [formControl]="locale"><!--
             <option value="hi_IN">{{'langs.hiIN' | translate}}</option>
-            <option value="en_US">{{'langs.enUS' | translate}}</option>
+            <option value="en_US">{{'langs.enUS' | translate}}</option>-->
+            <option *ngFor="let lc of localeObservable | async as locales" [value]="lc">{{getTranslation(lc) | async}}</option>
           </select>
           
           <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
-            <div *ngIf="firstName.locale.required">{{'user.add.vld.localeRequired' | translate}}</div>
+            <div *ngIf="locale.errors['required']">{{'user.add.vld.localeRequired' | translate}}</div>
           </div>
         </div>
 
@@ -59,11 +60,11 @@
       <div class="card-footer">
         <div class="row">
           <div class="col-md-6 mb-2 mb-md-0">
-            <button class="btn btn-block btn-primary" [disabled]="submitted">{{'navbar.addUser' | translate}}</button>
+            <button class="btn btn-block btn-primary" [disabled]="submitStatus">{{'navbar.addUser' | translate}}</button>
           </div>
 
           <div class="col-md-6 mb-md-0">
-            <button class="btn btn-block btn-secondary" [disabled]="submitted" (click)="reset()">{{'common.reset' | translate}}</button>
+            <button class="btn btn-block btn-secondary" [disabled]="submitStatus" (click)="reset()">{{'common.reset' | translate}}</button>
           </div>
         </div>
       </div>

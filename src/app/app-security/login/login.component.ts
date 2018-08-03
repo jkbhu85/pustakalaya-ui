@@ -67,18 +67,18 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.submitted) return;
-
     if (this.loginForm.invalid) return;
 
     this.setFormSubmitStatus(true);
+    this.hideFormError();
 
     const data = this.prepareData();
 
     this.http
-      .post(LOGIN_URL, data, {observe: 'response', responseType: 'text'})
+      .post(LOGIN_URL, data)
       .subscribe(
-        (response: HttpResponse<string>) => this.handleResponse(response),
-        (response: HttpResponse<string>) => this.handleResponse(response),
+        (response: PtkResponse) => this.handleSuccess(response),
+        (response: HttpErrorResponse) => this.handleFailure(response),
         () => this.handleComplete()
       );
   }
@@ -87,49 +87,50 @@ export class LoginComponent implements OnInit {
     this.setFormSubmitStatus(false);
   }
 
-  private handleResponse(response: HttpResponse<string>) {
-    this.submitted = false;
-    const res:PtkResponse = JSON.parse(response instanceof HttpErrorResponse ? response.error : response.body);
-    
-    switch (response.status) {
-      case 200:
+  private handleSuccess(ptkRes: PtkResponse) {
         // login successful
-        let jwt = res.data;
+        let jwt = ptkRes.data;
         console.log('login successful');
         this.authService.login(jwt);
-        break;
+  }
+
+  private handleFailure(errResponse: HttpErrorResponse) {
+    this.submitted = false;
+    const res: PtkResponse = errResponse.error;
+    
+    switch (errResponse.status) {
       case 422:
         // invalid credentials or account locked or account revoked
         let s = res.responseCode;
 
         switch (s) {
           case ResponseCode.ACCOUNT_LOCKED:
-            this.showLoginError(KEY_ACCOUNT_LOCKED);
+            this.showFormError(KEY_ACCOUNT_LOCKED);
             break;
           case ResponseCode.ACCOUNT_ACCESS_REVOKED:
-            this.showLoginError(KEY_ACCESS_REVOKED);
+            this.showFormError(KEY_ACCESS_REVOKED);
             break;
           default:
-            this.showLoginError(KEY_INVALID_CREDENTIALS);
+            this.showFormError(KEY_INVALID_CREDENTIALS);
         }
-
         break;
       default:
         // some error occurred
-        this.showLoginError('common.errorOccurred');
+        this.showFormError('common.errorOccurred');
     }
   }
 
-  private showLoginError(msgKey: string) {
+  private showFormError(msgKey: string) {
     this.showError = true;
     this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.loginForm.valueChanges.subscribe(() => this.hideLoginError())
+    this.formValueChangeSubscription = this.loginForm.valueChanges.subscribe(() => this.hideFormError())
   }
 
-  private hideLoginError() {
+  private hideFormError() {
+    if (!this.showError) return;
+
     this.showError = false;
     this.errorText$ = undefined;
     this.formValueChangeSubscription.unsubscribe();
   }
-
 }

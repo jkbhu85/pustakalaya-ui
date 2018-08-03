@@ -36,7 +36,8 @@
     "errorOccurred": "Some error occurred.",
     "pageNotFound": "Page not found",
     "submit": "Submit",
-    "reset": "Reset"
+    "reset": "Reset",
+    "validationFailed": "Validation failed for some or all fields."
   },
   "home": {
     "welcomeText": "You are welcome in Pustakalaya."
@@ -61,7 +62,7 @@
     }
   },
   "langs": {
-    "enUS": "English (US)",
-    "hiIN": "Hindi (Bharat)"
+    "en_US": "English (US)",
+    "hi_IN": "Hindi (Bharat)"
   }
 }
