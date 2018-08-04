@@ -3,8 +3,8 @@
     "title": "पुस्तकालय"
   },
   "navbar": {
-    "dashboard": "गृह",
-    "searchBook": "किताब खोजें",
+    "dashboard": "मुख्य पृष्ठ",
+    "searchBook": "पुस्तक खोजें",
     "profile": "रूपरेखा",
     "logout": "लॉगआउट",
     "book": "पुस्तक",
@@ -50,6 +50,7 @@
   },
   "user": {
     "add": {
+      "success": "उपयोगकर्ता को सफलतापूर्वक जोड़ा गया |",
       "vld": {
         "firstNameRequired": "प्रथम नाम आवश्यक है",
         "firstNameMaxLength": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए",

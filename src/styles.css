@@ -4,65 +4,62 @@
 /**/
 
 body {
-    font-family: 'Fira Sans', Mukta, Ubuntu, 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-family: 'Fira Sans', Mukta, Ubuntu, 'Segoe UI', Arial, Helvetica, sans-serif;
 }
-
 a:link {
-    outline: 0;
+  outline: 0;
 }
-
 .main-content {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
-
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 footer {
-    background: #e7e7e7;
+  background: #e7e7e7;
 }
-
 footer>div {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
-
 .ptk-inline-nav {
-    list-style: none;
-    padding: 0;
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
+  list-style: none;
+  padding: 0;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
-
 .ptk-inline-nav:after {
-    content: "";
-    display: block;
-    clear: both;
+  content: "";
+  display: block;
+  clear: both;
 }
-
 .ptk-inline-nav li {
-    float: left;
-    margin-bottom: 1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  float: left;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
-
 .ptk-inline-nav a {
-    display: block;
-    text-decoration: none;
-    outline: 0;
-    background-color: #e7e7ff;
-    padding:0.2rem 0.7rem;
-    border-radius: 0.2rem;
+  display: block;
+  text-decoration: none;
+  outline: 0;
+  background-color: #e7e7ff;
+  padding: 0.2rem 0.7rem;
+  border-radius: 0.2rem;
 }
-
 .ptk-inline-nav a:hover {
-    color: #dd8800;
-    background-color: #fcf3e5;
+  color: #dd8800;
+  background-color: #fcf3e5;
 }
-
 .ptk-inline-nav a.ptk-active {
-    color: #dd8800;
-    background-color: #fcf3e5;
+  color: #dd8800;
+  background-color: #fcf3e5;
+}
+.error-in-form {
+  border-radius: .25rem;
+  padding: .5rem;
+  margin: 0 -.5rem;
+  color: #721c24;
+  background-color: #f8d7da;
+  border: .07rem solid #f5c6cb;
 }

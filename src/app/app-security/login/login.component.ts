@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { finalize } from 'rxjs/operators';
 import { BASE_HREF } from '../../consts';
-import { Observable ,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AppTranslateService } from '../../services/app-translate.service';
 import { AuthService } from '../auth.service';
 import { PtkResponse, ResponseCode } from '../../models/ptk-response';
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
 
   createForm(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required,Validators.email]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -76,6 +77,7 @@ export class LoginComponent implements OnInit {
 
     this.http
       .post(LOGIN_URL, data)
+      .pipe(finalize(() => this.handleComplete()))
       .subscribe(
         (response: PtkResponse) => this.handleSuccess(response),
         (response: HttpErrorResponse) => this.handleFailure(response),
@@ -88,18 +90,16 @@ export class LoginComponent implements OnInit {
   }
 
   private handleSuccess(ptkRes: PtkResponse) {
-        // login successful
-        let jwt = ptkRes.data;
-        console.log('login successful');
-        this.authService.login(jwt);
+    // login successful
+    let jwt = ptkRes.data;
+    console.log('login successful');
+    this.authService.login(jwt);
   }
 
   private handleFailure(errResponse: HttpErrorResponse) {
-    this.submitted = false;
-    const res: PtkResponse = errResponse.error;
-    
     switch (errResponse.status) {
       case 422:
+        const res: PtkResponse = errResponse.error;
         // invalid credentials or account locked or account revoked
         let s = res.responseCode;
 
@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit {
   private showFormError(msgKey: string) {
     this.showError = true;
     this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.loginForm.valueChanges.subscribe(() => this.hideFormError())
+    this.formValueChangeSubscription = this.loginForm.valueChanges.subscribe(() => this.hideFormError());
   }
 
   private hideFormError() {

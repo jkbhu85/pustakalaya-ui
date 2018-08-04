@@ -50,6 +50,7 @@
   },
   "user": {
     "add": {
+      "success": "User was added successfully.",
       "vld": {
         "firstNameRequired": "First name is required",
         "firstNameMaxLength": "Maximum {{firstNameMaxLen}} character are allowed",
@@ -58,6 +59,13 @@
         "emailRequired": "Email is required",
         "emailInvalid": "Email is invalid",
         "localeRequired": "Locale is required"
+      }
+    }
+  },
+  "book": {
+    "add": {
+      "vld": {
+        
       }
     }
   },

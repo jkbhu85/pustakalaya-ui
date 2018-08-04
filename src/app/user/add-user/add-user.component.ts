@@ -26,8 +26,8 @@ export class AddUserComponent implements OnInit {
   private formValueChangeSubscription: Subscription;
   private debug = true;
   private userInfo: UserInfo;
-  private readonly defaultValues:any = {};
-  localeObservable:Observable<string[]>;
+  private readonly defaultValues: any = {};
+  localeObservable: Observable<string[]>;
 
   readonly param = {
     'firstNameMaxLen': 30,
@@ -55,9 +55,9 @@ export class AddUserComponent implements OnInit {
     if (!localeValue) localeValue = 'en-US';
 
     this.addUserForm = this.fb.group({
-      'firstName': ['', [Validators.required]],// Validators.maxLength(this.param.firstNameMaxLen)]],
-      'lastName': ['', [Validators.required]],// Validators.maxLength(this.param.lastNameMaxLen)]],
-      'email': ['', [Validators.required]],//, Validators.pattern(' ^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      'firstName': ['', [Validators.required, Validators.maxLength(this.param.firstNameMaxLen)]],
+      'lastName': ['', [Validators.required, Validators.maxLength(this.param.lastNameMaxLen)]],
+      'email': ['', [Validators.required, Validators.pattern(' ^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       'locale': [localeValue, [Validators.required]]
     });
 
@@ -65,7 +65,6 @@ export class AddUserComponent implements OnInit {
     this.defaultValues.lastName = '';
     this.defaultValues.email = '';
     this.defaultValues.locale = localeValue;
-    
     this.localeObservable = this.http.get<string[]>(GET_LOCALES);
   }
 
@@ -122,18 +121,43 @@ export class AddUserComponent implements OnInit {
   }
 
   private handleSuccess(response: HttpResponse<PtkResponse>) {
-    const ptrRes: PtkResponse = response.body;
+    // const ptrRes: PtkResponse = response.body;
+    this.translate.get('user.add.success').subscribe(
+      (msg) => this.notiService.info(msg)
+    );
+    this.reset();
+  }
+
+  private handleFailure(errResponse: HttpErrorResponse) {
+
+    switch (errResponse.status) {
+      case 422:
+        const response: PtkResponse = errResponse.error;
+        console.log(response);
+        this.showFormError('common.validationFailed');
+        const errors: any = response.errors;
+
+        for (let prop in errors) {
+          if (errors[prop]) {
+            this.setFieldError(prop, errors[prop]);
+          }
+        }
+        break;
+      default:
+        console.log(errResponse);
+        this.showFormError('common.errorOccurred');
+    }
   }
 
   private setFieldError(fieldName: string, errorCode: number) {
     const errorKey = this.getErrorKeyFrom(errorCode);
-    const error:any = {};
+    const error: any = {};
     error[errorKey] = 'true';
     console.log(error);
 
     if (this.addUserForm.get(fieldName)) {
       //this.addUserForm.get(fieldName).markAsTouched();
-      this.addUserForm.get(fieldName).setErrors(error, {emitEvent: true});
+      this.addUserForm.get(fieldName).setErrors(error, { emitEvent: true });
       console.log('Error set.');
     } else {
       console.log(fieldName + ' not found to set errors.');
@@ -141,7 +165,7 @@ export class AddUserComponent implements OnInit {
   }
 
   private getErrorKeyFrom(errorCode: number): string {
-    switch(errorCode) {
+    switch (errorCode) {
       case ResponseCode.VALUE_TOO_LARGE:
         return 'maxlength';
       case ResponseCode.VALUE_TOO_SMALL_OR_EMPTY:
@@ -163,34 +187,16 @@ export class AddUserComponent implements OnInit {
     }
   }
 
-  private handleFailure(errResponse: HttpErrorResponse) {
-    const response: PtkResponse = errResponse.error;
-
-    switch (errResponse.status) {
-      case 422:
-      console.log(response);
-        this.showFormError('common.validationFailed');
-        const errors: any = response.errors;
-        for (let prop in errors) {
-          this.setFieldError(prop, errors[prop]);
-        }
-        break;
-      default:
-        console.log(errResponse);
-        this.showFormError('common.errorOccurred');
-    }
-  }
-
   private setFormSubmitStatus(status: boolean) {
     this.submitStatus = status;
   }
-  
+
   private showFormError(msgKey: string) {
     this.hideFormError(); // hide previous error if any
 
     this.showError = true;
     this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.addUserForm.valueChanges.subscribe(() => this.hideFormError())
+    this.formValueChangeSubscription = this.addUserForm.valueChanges.subscribe(() => this.hideFormError());
   }
 
   private hideFormError() {

@@ -43,9 +43,8 @@
 
         <div class="form-group">
           <label for="locale">{{'profile.locale' | translate}}</label>
-          <select id="locale" class="form-control" [formControl]="locale"><!--
-            <option value="hi_IN">{{'langs.hiIN' | translate}}</option>
-            <option value="en_US">{{'langs.enUS' | translate}}</option>-->
+          <select id="locale" class="form-control" [formControl]="locale">
+            <option value="">Select</option>
             <option *ngFor="let lc of localeObservable | async as locales" [value]="lc">{{getTranslation(lc) | async}}</option>
           </select>
           
@@ -54,7 +53,7 @@
           </div>
         </div>
 
-        <div class="text-danger" *ngIf="showError">{{errorText$ | async}}</div>
+        <div class="error-in-form" *ngIf="showError">{{errorText$ | async}}</div>
       </div> <!-- .card-body -->
 
       <div class="card-footer">

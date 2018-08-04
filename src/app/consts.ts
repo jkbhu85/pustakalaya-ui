@@ -1,2 +1,2 @@
 // no trailing '/'
-export const BASE_HREF = 'http://localhost:8080';
+export const BASE_HREF = 'https://localhost:8443';
