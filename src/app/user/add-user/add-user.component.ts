@@ -6,9 +6,10 @@ import { AppTranslateService } from '../../services/app-translate.service';
 import { HttpResponse, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BASE_HREF } from '../../consts';
 import { AuthService } from '../../app-security/auth.service';
-import { UserInfo } from '../../models';
+import { UserInfo } from '../../models/models';
 import { PtkResponse, ResponseCode } from '../../models/ptk-response';
 import { NotificationService } from '../../notifications/notification.service';
+
 
 const ADD_USER_URL = BASE_HREF + '/ptk/newUser';
 const GET_LOCALES = BASE_HREF + '/ptk/locale';
@@ -61,11 +62,13 @@ export class AddUserComponent implements OnInit {
       'locale': [localeValue, [Validators.required]]
     });
 
+    // specify default values
     this.defaultValues.firstName = '';
     this.defaultValues.lastName = '';
     this.defaultValues.email = '';
     this.defaultValues.locale = localeValue;
     this.localeObservable = this.http.get<string[]>(GET_LOCALES);
+    this.reset(); // reset form with default values
   }
 
   getTranslation(locale: string): Observable<string> {

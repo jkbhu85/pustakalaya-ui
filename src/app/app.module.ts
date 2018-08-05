@@ -5,7 +5,7 @@ import { AppComponent } from './app-base/app.component';
 import { AppBaseModule } from './app-base/app-base.module';
 import { NotificationModule } from './notifications/notifications.module';
 import { AppTranslateService } from './services/app-translate.service';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppSecurityModule } from './app-security/app-security.module';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';

@@ -60,6 +60,9 @@
         "emailInvalid": "ईमेल गलत है",
         "localeRequired": "भाषा आवश्यक है"
       }
+    },
+    "register": {
+      "title": "Complete Registeration"
     }
   },
   "langs": {

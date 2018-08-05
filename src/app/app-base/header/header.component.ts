@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../app-security/auth.service';
 import { Observable ,  Subscription } from 'rxjs';
-import { UserInfo, UserRole } from '../../models';
+import { UserInfo, UserRole } from '../../models/models';
 import { AppTranslateService } from '../../services/app-translate.service';
 
 @Component({

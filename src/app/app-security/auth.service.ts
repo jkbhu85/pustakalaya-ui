@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserInfo, UserRole } from '../models';
+import { UserInfo, UserRole } from '../models/models';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notifications/notification.service';
 import { BehaviorSubject ,  Observable } from 'rxjs';

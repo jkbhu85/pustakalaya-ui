@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { AuthService } from "./auth.service";
-import { UserRole, UserInfo } from "../models";
+import { UserRole, UserInfo } from "../models/models";
 
 @Injectable()
 export class RoleAdminGaurd implements CanActivate, CanActivateChild {
