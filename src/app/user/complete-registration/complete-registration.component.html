@@ -29,11 +29,14 @@
 
       <div class="form-group">
         <label for="gender">{{'profile.gender' | translate}}</label>
-        <input type="gender" class="form-control" id="gender" [formControl]="gender" />
+        <select class="form-control" id="gender" [formControl]="gender">
+          <option value="">{{'gender.male' | translate}}</option>
+          <option value="">{{'gender.female' | translate}}</option>
+          <option value="">{{'gender.other' | translate}}</option>
+        </select>
 
         <div class="text-danger" *ngIf="(gender.touched || gender.dirty) && gender.errors">
           <div *ngIf="gender.errors['required']">{{'user.add.vld.genderRequired' | translate}}</div>
-          <div *ngIf="!gender.errors['required'] && gender.errors['']">{{'user.add.vld.genderInvalid' | translate}}</div>
         </div>
       </div>
 

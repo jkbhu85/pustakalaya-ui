@@ -45,7 +45,7 @@
           <label for="locale">{{'profile.locale' | translate}}</label>
           <select id="locale" class="form-control" [formControl]="locale">
             <option value="">Select</option>
-            <option *ngFor="let lc of localeObservable | async as locales" [value]="lc">{{getTranslation(lc) | async}}</option>
+            <option *ngFor="let lc of localeObservable | async as locales" [value]="lc">{{getTranslation('langs.' + lc) | async}}</option>
           </select>
           
           <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">

@@ -72,7 +72,7 @@ export class AddUserComponent implements OnInit {
   }
 
   getTranslation(locale: string): Observable<string> {
-    return this.translate.get('langs.' + locale);
+    return this.translate.get(locale);
   }
 
   get firstName() {

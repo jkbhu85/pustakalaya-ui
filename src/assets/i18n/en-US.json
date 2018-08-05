@@ -52,17 +52,36 @@
     "add": {
       "success": "User was added successfully.",
       "vld": {
-        "firstNameRequired": "First name is required",
-        "firstNameMaxLength": "Maximum {{firstNameMaxLen}} character are allowed",
+        "firstNameRequired": "First name is required.",
+        "firstNameMaxLength": "Maximum {{firstNameMaxLen}} character are allowed.",
         "lastNameRequired": "Last name is require",
-        "lastNameMaxLength": "Maximum {{lastNameMaxLen}} character are allowed",
-        "emailRequired": "Email is required",
-        "emailInvalid": "Email is invalid",
-        "localeRequired": "Locale is required"
+        "lastNameMaxLength": "Maximum {{lastNameMaxLen}} character are allowed.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Email is invalid.",
+        "localeRequired": "Locale is required."
       }
     },
     "register": {
-      "title": "Complete Registeration"
+      "title": "Complete Registeration",
+      "vld": {
+        "genderRequired": "Gender is required.",
+        "dobRequired": "Date of birth is required.",
+        "dobInvalid": "Date of birth is invalid. It must be in the format {{dobPattern}}.",
+        "dobMin": "Date of birth can not be before {{dobMin}}",
+        "dobMax": "Date of brith can not be after {{dobMax}}",
+        "mobileRequired": "Mobile number is required.",
+        "mobileInvalid": "Mobile should have exactly 10 digits. First digit can not be '0'.",
+        "isdCodeRequired": "ISD code is required.",
+        "passwordRequired": "Password is required.",
+        "passwordMinLen": "Password should be minimum {{passwordMinLen}} characters long.",
+        "passwordMaxLen": "Password should be maximum {{passwordMaxLen}} characters long.",
+        "securityQuestionRequired": "Security question is required.",
+        "securityQuestionMinLen": "Security question should be minimum {{secQuestionMinLen}} characters long.",
+        "securityQuestionMaxLen": "Security question should be maximum {{secQuestionMaxLen}} characters long.",
+        "securityAnswerRequired": "Security answer is required.",
+        "securityAnswerMinLen": "Security answer should be minimum {{secAnswerMinLen}} characters long.",
+        "securityAnswerMaxLen": "Security answer should be maximum {{secAnswerMaxLen}} characters long."
+      }
     }
   },
   "book": {
@@ -71,6 +90,11 @@
         
       }
     }
+  },
+  "gender": {
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
   },
   "langs": {
     "en_US": "English (US)",

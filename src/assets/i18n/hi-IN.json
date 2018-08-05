@@ -52,21 +52,45 @@
     "add": {
       "success": "उपयोगकर्ता को सफलतापूर्वक जोड़ा गया |",
       "vld": {
-        "firstNameRequired": "प्रथम नाम आवश्यक है",
-        "firstNameMaxLength": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए",
-        "lastNameRequired": "अन्तिम नाम आवश्यक है",
-        "lastNameMaxLength": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए",
-        "emailRequired": "ईमेल आवश्यक है",
-        "emailInvalid": "ईमेल गलत है",
-        "localeRequired": "भाषा आवश्यक है"
+        "firstNameRequired": "प्रथम नाम आवश्यक है |",
+        "firstNameMaxLength": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए |",
+        "lastNameRequired": "अन्तिम नाम आवश्यक है |",
+        "lastNameMaxLength": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए |",
+        "emailRequired": "ईमेल आवश्यक है |",
+        "emailInvalid": "ईमेल गलत है |",
+        "localeRequired": "भाषा आवश्यक है |"
       }
     },
     "register": {
-      "title": "Complete Registeration"
+      "title": "नामांकन पूर्ण करें",
+      "vld": {
+        "genderRequired": "लिंग आवश्यक है |",
+        "dobRequired": "जन्मतिथि आवश्यक है |",
+        "dobInvalid": "जन्मतिथि गलत है | ये {{dobPattern}} प्रकार की होनी चाहिए |",
+        "dobMin": "जन्मतिथि {{dobMin}} से पहले की नहीं होनी चाहिए",
+        "dobMax": "जन्मतिथि {{dobMax}} से बाद की नहीं होनी चाहिए",
+        "mobileRequired": "मोबाइल संख्या आवश्यक है",
+        "mobileInvalid": "मोबाइल संख्या 10 अंको की होनी चाहिए | प्रथम अंक '0' नहीं होना चाहिए |",
+        "isdCodeRequired": "ISD कोड आवश्यक है |",
+        "passwordRequired": "पासवर्ड आवश्यक है",
+        "passwordMinLen": "पासवर्ड में कम से कम {{passwordMinLen}} अक्षर होने चाहिए",
+        "passwordMaxLen": "पासवर्ड में अधिकतम {{passwordMaxLen}} अक्षर होने चाहिए",
+        "securityQuestionRequired": " आवश्यक है",
+        "securityQuestionMinLen": "सुरक्षा प्रश्न में कम से कम {{secQuestionMinLen}} अक्षर होने चाहिए",
+        "securityQuestionMaxLen": "सुरक्षा प्रश्न में अधिकतम {{secQuestionMaxLen}} अक्षर होने चाहिए",
+        "securityAnswerRequired": "सुरक्षा उत्तर आवश्यक है",
+        "securityAnswerMinLen": "सुरक्षा उत्तर में कम से कम {{secAnswerMinLen}} अक्षर होने चाहिए",
+        "securityAnswerMaxLen": "सुरक्षा उत्तर में अधिकतम {{secAnswerMaxLen}} अक्षर होने चाहिए"
+      }
     }
   },
+  "gender": {
+    "male": "स्त्री",
+    "female": "पुरुष",
+    "other": "अन्य"
+  },
   "langs": {
-    "en_US": "अंग्रेजी (यूएस)",
+    "en_US": "इंग्लिश (यूएस)",
     "hi_IN": "हिन्दी (भारत)"
   }
 }
