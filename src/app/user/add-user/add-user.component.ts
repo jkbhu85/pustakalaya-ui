@@ -52,13 +52,16 @@ export class AddUserComponent implements OnInit {
       'firstName': ['', [Validators.required, Validators.maxLength(this.param.firstNameMaxLen)]],
       'lastName': ['', [Validators.required, Validators.maxLength(this.param.lastNameMaxLen)]],
       'email': ['', [Validators.required, Validators.email]],
-      'locale': [localeValue, [Validators.required]]
+      'locale': ['', [Validators.required]]
     });
 
+    // specify default values
     this.defaultValues.firstName = '';
     this.defaultValues.lastName = '';
     this.defaultValues.email = '';
     this.defaultValues.locale = localeValue;
+
+    this.reset(); // reset form with default values
   }
 
   get firstName() {

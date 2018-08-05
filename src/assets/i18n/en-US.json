@@ -58,6 +58,9 @@
         "emailInvalid": "Email is invalid",
         "localeRequired": "Locale is required"
       }
+    },
+    "register": {
+      "title": "Complete Registeration"
     }
   },
   "langs": {

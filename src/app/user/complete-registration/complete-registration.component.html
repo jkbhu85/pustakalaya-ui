@@ -1,3 +1,55 @@
-<p>
-  complete-registration works!
-</p>
+<div class="row mb-4 mt-3">
+  <div class="col-md-7 col-lg-5 mx-auto">
+    <form class="card" (ngSubmit)="onSubmit()" [formGroup]="form">
+      <h2 class="card-header">{{'register.title' | translate}}</h2>
+
+      <div class="card-body">
+
+        <div class="form-group">
+          <label for="firstName">{{'profile.firstName' | translate}}</label>
+          <input type="text" class="form-control" id="firstName" [formControl]="firstName" />
+
+          <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
+            <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameRequired' | translate}}</div>
+            <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLength' | translate:LIMITS}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">{{'profile.lastName' | translate}}</label>
+        <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
+
+        <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
+          <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameRequired' | translate}}</div>
+          <div *ngIf="lastName.errors['maxLength']">{{'user.add.vld.lastNameMaxLength' | translate:LIMITS}}</div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="gender">{{'profile.gender' | translate}}</label>
+        <input type="gender" class="form-control" id="gender" [formControl]="gender" />
+
+        <div class="text-danger" *ngIf="(gender.touched || gender.dirty) && gender.errors">
+          <div *ngIf="gender.errors['required']">{{'user.add.vld.genderRequired' | translate}}</div>
+          <div *ngIf="!gender.errors['required'] && gender.errors['']">{{'user.add.vld.genderInvalid' | translate}}</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="locale">{{'profile.locale' | translate}}</label>
+        <select id="locale" class="form-control" [formControl]="locale">
+          <option value="hi_IN">{{'langs.hiIN' | translate}}</option>
+          <option value="en_US">{{'langs.enUS' | translate}}</option>
+        </select>
+
+        <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
+          <div *ngIf="locale.errors['required']">{{'user.add.vld.localeRequired' | translate}}</div>
+        </div>
+      </div>
+
+      <div class="error-in-form" *ngIf="showError">{{errorText$ | async}}</div>
+    </form>
+  </div>
+</div>
