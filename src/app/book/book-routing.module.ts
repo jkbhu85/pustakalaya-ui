@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchBookComponent } from './search-book/search-book.component';
-import { ProfileCompleteGaurd } from '../app-security/profile-complete-gaurd';
 import { AuthGaurd } from '../app-security/auth-gaurd.service';
 import { AddBookComponent } from './add-book/add-book.component';
 import { RoleLibrianGaurd } from '../app-security/role-librarian-gaurd';
@@ -14,7 +12,7 @@ const bookRoutes: Routes = [
   {
     path: 'book',
     component: BookComponent,
-    canActivateChild: [AuthGaurd, ProfileCompleteGaurd],
+    canActivateChild: [AuthGaurd],
     children: [
       {
         path: '',

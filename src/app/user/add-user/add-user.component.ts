@@ -6,7 +6,7 @@ import { AppTranslateService } from '../../services/app-translate.service';
 import { HttpResponse, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BASE_HREF } from '../../consts';
 import { AuthService } from '../../app-security/auth.service';
-import { UserInfo } from '../../models/models';
+import { AuthInfo } from '../../models/user';
 import { PtkResponse, ResponseCode } from '../../models/ptk-response';
 import { NotificationService } from '../../notifications/notification.service';
 
@@ -26,7 +26,7 @@ export class AddUserComponent implements OnInit {
   errorText$: Observable<any>;
   private formValueChangeSubscription: Subscription;
   private debug = true;
-  private userInfo: UserInfo;
+  private userInfo: AuthInfo;
   private readonly defaultValues: any = {};
   localeObservable: Observable<string[]>;
 
@@ -43,7 +43,7 @@ export class AddUserComponent implements OnInit {
     private notiService: NotificationService
   ) {
     this.authService.getUserInfo().subscribe(
-      (userInfo: UserInfo) => this.userInfo = userInfo
+      (userInfo: AuthInfo) => this.userInfo = userInfo
     );
     this.createForm();
   }
@@ -58,7 +58,7 @@ export class AddUserComponent implements OnInit {
     this.addUserForm = this.fb.group({
       'firstName': ['', [Validators.required, Validators.maxLength(this.param.firstNameMaxLen)]],
       'lastName': ['', [Validators.required, Validators.maxLength(this.param.lastNameMaxLen)]],
-      'email': ['', [Validators.required, Validators.pattern(' ^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      'email': ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
       'locale': [localeValue, [Validators.required]]
     });
 

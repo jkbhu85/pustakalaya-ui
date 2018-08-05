@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../app-security/auth.service';
-import { Observable ,  Subscription } from 'rxjs';
-import { UserInfo, UserRole } from '../../models/models';
+import { Subscription } from 'rxjs';
+import { AuthInfo, UserRole } from '../../models/user';
 import { AppTranslateService } from '../../services/app-translate.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnInit {
-  loggedIn:boolean;
-  user: UserInfo;
+export class HeaderComponent implements OnInit, OnDestroy {
+  loggedIn: boolean;
+  user: AuthInfo;
   
   private loginSubscription: Subscription;
   private userSubscription: Subscription;
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.loginSubscription = this.authService.getLoginStatus().subscribe((status) => this.loggedIn = status);
-    this.userSubscription = this.authService.getUserInfo().subscribe((user: UserInfo) => this.user = user);
+    this.userSubscription = this.authService.getUserInfo().subscribe((user: AuthInfo) => this.user = user);
   }
 
   ngOnDestroy() {
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onChangeLang(event: Event) {
-    let ele:any = event.target;
+    let ele: any = event.target;
     let locale = ele.value;
     this.translate.setUserLocale(locale);
   }

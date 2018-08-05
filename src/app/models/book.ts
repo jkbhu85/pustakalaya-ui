@@ -1,0 +1,6 @@
+export enum BookInstanceStatus {
+  ISSUED = 'ISSUED',
+  AVAILABLE = 'AVAILABLE',
+  UNAVAILABLE = 'UNAVAILABLE',
+  REMOVED = 'REMOVED'
+}

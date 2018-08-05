@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UserInfo, UserRole } from '../models/models';
+import { AuthInfo, UserRole } from '../models/user';
 import { Router } from '@angular/router';
 import { NotificationService } from '../notifications/notification.service';
-import { BehaviorSubject ,  Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AppTranslateService } from '../services/app-translate.service';
 
 const HOME_PAGE = '/home';
@@ -14,25 +14,19 @@ export class AuthService {
   private readonly tokenLabel: string = 'json_web_token';
   private readonly userLabel: string = 'user_info';
 
-  private user: UserInfo;
+  private user: AuthInfo;
   private loggedIn: boolean;
 
-  private user$ = new BehaviorSubject<UserInfo>(this.user);
+  private user$ = new BehaviorSubject<AuthInfo>(this.user);
   private loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
-
 
   private timeoutHolder: number;
   private autoLogout = false;
 
-  constructor(
-    private router: Router,
-    private notiService: NotificationService,
-    private translate: AppTranslateService
-  ) {
-    console.log("AuthService created");
+  constructor(private router: Router, private notiService: NotificationService, private translate: AppTranslateService) {
+    console.log('AuthService created');
     this.restore();
   }
-
 
   private onAutoLogout() {
     this.autoLogout = true;
@@ -47,13 +41,11 @@ export class AuthService {
     console.log('autoLogout performed');
   }
 
-
   // auto-logout is activate either from login or reload
   private activateAutoLogout() {
     if (!this.loggedIn) return;
 
     let timeout = (this.user.localExp - Math.floor(Date.now() / 1000)) * 1000;
-
 
     this.timeoutHolder = window.setTimeout(() => {
       this.onAutoLogout();
@@ -61,7 +53,6 @@ export class AuthService {
 
     console.log('autoLogout activated. time remaining: ' + timeout + ' ms');
   }
-
 
   private deactivateAutoLogout() {
     if (this.timeoutHolder) {
@@ -72,22 +63,19 @@ export class AuthService {
     }
   }
 
-
   // save JWT to storage
   private saveJwt(jwt: string) {
     this.storage.setItem(this.tokenLabel, jwt);
   }
-
 
   // remove JWT from storage
   private removeJwt() {
     this.storage.removeItem(this.tokenLabel);
   }
 
-
   // save user to this object's state and to storage
   private saveUser(userJson: string) {
-    let user: UserInfo = JSON.parse(userJson);
+    let user: AuthInfo = JSON.parse(userJson);
 
     // check if local time of token expiration is set
     // if not set, set expiration time
@@ -104,7 +92,6 @@ export class AuthService {
     this.storage.setItem(this.userLabel, JSON.stringify(user));
   }
 
-
   // removes user from this object's state and from storage
   private removeUser() {
     this.updateUser(null);
@@ -115,18 +102,17 @@ export class AuthService {
    * Changes the login status and informs all the subscribers.
    */
   private updateLoginStatus() {
-    this.loggedIn = (this.user ? true : false);
+    this.loggedIn = this.user ? true : false;
     this.loggedIn$.next(this.loggedIn);
   }
 
-  private updateUser(newUser: UserInfo) {
+  private updateUser(newUser: AuthInfo) {
     this.user = newUser;
     this.user$.next(this.user);
     if (newUser != null) {
       this.translate.setUserLocale(this.user.locale);
     }
   }
-
 
   /**
    * Restores user from storage if application reloads.
@@ -146,13 +132,11 @@ export class AuthService {
     this.activateAutoLogout();
   }
 
-
   // remove all user information and JWT from object and storage
   private clearAll() {
     this.removeJwt();
     this.removeUser();
   }
-
 
   private isJwtExpired(): boolean {
     if (!this.user) return true;
@@ -169,7 +153,6 @@ export class AuthService {
 
     return window.atob(base64);
   }
-
 
   /**
    * Stores user authentication information (JWT) to be used by the
@@ -188,43 +171,43 @@ export class AuthService {
     this.router.navigate([HOME_PAGE]);
   }
 
-
   /**
    * Returns JWT string.
    */
-  getJwt(): string { return this.storage.getItem(this.tokenLabel); }
-
+  getJwt(): string {
+    return this.storage.getItem(this.tokenLabel);
+  }
 
   /**
    * Returns user information.
    *
    */
-  getUserInfo(): Observable<UserInfo> { return this.user$; }
+  getUserInfo(): Observable<AuthInfo> {
+    return this.user$;
+  }
 
-  
   isAccountComplete(): boolean {
     if (!this.user) return false;
 
-    return (this.user.name && this.user.name.length > 0);
+    return this.user.name && this.user.name.length > 0;
   }
-
 
   /**
    * Returns `true` if user has the specified role, `false` otherwise.
-   * 
+   *
    * @param role the role to check aginst user information
    */
-  userHasRole(role: UserRole):boolean {
+  userHasRole(role: UserRole): boolean {
     if (!this.user) return false;
 
     let userRoleNum = this.getRoleNumber(UserRole[this.user.role]);
     let roleNum = this.getRoleNumber(role);
 
-    return (userRoleNum >= roleNum);
+    return userRoleNum >= roleNum;
   }
 
   private getRoleNumber(role: UserRole): number {
-    switch(role) {
+    switch (role) {
       case UserRole.ADMIN:
         return 3;
       case UserRole.LIBRARIAN:
@@ -236,20 +219,19 @@ export class AuthService {
     }
   }
 
-
-
-
   /**
    * Returns login status.
    */
-  getLoginStatus(): Observable<boolean> { return this.loggedIn$; }
-
+  getLoginStatus(): Observable<boolean> {
+    return this.loggedIn$;
+  }
 
   /**
    * Returns `true` if user is logged in, `false` otherwise.
    */
-  isLoggedIn(): boolean { return this.loggedIn; }
-
+  isLoggedIn(): boolean {
+    return this.loggedIn;
+  }
 
   /**
    * Logs out user by removing all information.

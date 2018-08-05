@@ -8,7 +8,6 @@ import { AuthGaurd } from './auth-gaurd.service';
 import { NoAuthGaurd } from './no-auth-gaurd';
 import { RoleAdminGaurd } from './role-admin-gaurd';
 import { RoleLibrianGaurd } from './role-librarian-gaurd';
-import { ProfileCompleteGaurd } from './profile-complete-gaurd';
 import { ProfileIncompleteGaurd } from './gaurds/profile-incomplete-gaurd';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './token-interceptor';
@@ -28,7 +27,6 @@ import { TokenInterceptor } from './token-interceptor';
     NoAuthGaurd,
     RoleAdminGaurd,
     RoleLibrianGaurd,
-    ProfileCompleteGaurd,
     ProfileIncompleteGaurd,
     {
       provide: HTTP_INTERCEPTORS,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_HREF } from '../consts';
 import { Observable } from '../../../node_modules/rxjs';
+import { RegistrationInfo } from '../models/user';
 
 const URL_GET_REGISTRATION_INFO = BASE_HREF + '/ptk/newUser';
 

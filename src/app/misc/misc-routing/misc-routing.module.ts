@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SearchBookComponent } from '../../book/search-book/search-book.component';
 
-const miscRoutes:Routes = [
+const miscRoutes: Routes = [
   {
     path: 'bookSearch',
     component: SearchBookComponent
@@ -10,11 +10,7 @@ const miscRoutes:Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(miscRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(miscRoutes)],
+  exports: [RouterModule]
 })
-export class MiscRoutingModule { }
+export class MiscRoutingModule {}
