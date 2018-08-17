@@ -21,23 +21,26 @@
     "username": "यूजरनेम",
     "password": "पासवर्ड",
     "vld": {
-      "usernameReq": "यूजरनेम आवश्यक है",
-      "usernameInvalid": "ईमेल गलत है",
-      "passwordReq": "पासवर्ड आवश्यक है",
-      "invalidCredentials": "पहचान जानकारी गलत है",
-      "accountLocked": "आपका खाता बंद है",
-      "accessRevoked": "आपकी पहुँच रोक दी गयी है"
+      "usernameReq": "यूजरनेम आवश्यक है |",
+      "usernameInvld": "ईमेल गलत है |",
+      "passwordReq": "पासवर्ड आवश्यक है |",
+      "credentialsInvld": "पहचान जानकारी गलत है |",
+      "accountLocked": "आपका खाता बंद है |",
+      "accessRevoked": "आपकी पहुँच रोक दी गयी है |",
+      "loginExpired": "आपके लॉगिन की आयु समाप्त हो गयी है | कृपया पुनः लॉगिन करें |"
     }
   },
   "forgotPwd": {
     "title": "पासवर्ड भूल गए"
   },
   "common": {
-    "errorOccurred": "कोई गड़बड़ हुई है",
-    "pageNotFound": "पेज नहीं मिला",
+    "errorOccurred": "कोई गड़बड़ हुई है |",
+    "pageNotFound": "पेज नहीं मिला |",
     "submit": "भेजें",
     "reset": "पूर्ववत् करें",
-    "validationFailed": "एक या अधिक जानकारियाँ गलत हैं |"
+    "validationFailed": "एक या अधिक जानकारियाँ गलत हैं |",
+    "loading": "जानकारी प्राप्त कर रहे हैं ...",
+    "select": "चुनें"
   },
   "home": {
     "welcomeText": "पुस्तकालय में आपका स्वागत है |"
@@ -46,27 +49,75 @@
     "firstName": "प्रथम नाम",
     "lastName": "अन्तिम नाम",
     "email": "ईमेल",
-    "locale": "भाषा"
+    "locale": "भाषा",
+    "gender": "लिंग",
+    "mobile":"मोबाइल",
+    "isdCode": "आई०एस०डी० कूट",
+    "dateOfBirth": "जन्मतिथि"
   },
   "user": {
+    "gender": {
+      "male": "पुरुष",
+      "female": "महिला",
+      "other": "अन्य"
+    },
     "add": {
       "success": "उपयोगकर्ता को सफलतापूर्वक जोड़ा गया |",
       "vld": {
-        "firstNameRequired": "प्रथम नाम आवश्यक है",
-        "firstNameMaxLength": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए",
-        "lastNameRequired": "अन्तिम नाम आवश्यक है",
-        "lastNameMaxLength": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए",
-        "emailRequired": "ईमेल आवश्यक है",
-        "emailInvalid": "ईमेल गलत है",
-        "localeRequired": "भाषा आवश्यक है"
+        "firstNameReq": "प्रथम नाम आवश्यक है |",
+        "firstNameMaxLen": "अधिकतम {{firstNameMaxLen}} अक्षर होने चाहिए |",
+        "lastNameReq": "अन्तिम नाम आवश्यक है |",
+        "lastNameMaxLen": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए |",
+        "emailReq": "ईमेल आवश्यक है |",
+        "emailInvld": "ईमेल गलत है |",
+        "localeReq": "भाषा आवश्यक है |"
       }
     },
     "register": {
-      "title": "Complete Registeration"
+      "title": "पंजीकरण पूर्ण करें",
+      "securityQuestion": "सुरक्षा प्रश्न",
+      "securityAnswer": "सुरक्षा उत्तर",
+      "confirmPassword": "पासवर्ड पुष्टि",
+      "vld": {
+        "registrationIdInvld": "पंजीकरण आईडी गलत है या इसकी आयु समाप्त हो चुकी है |",
+        "genderRequired": "लिंग आवश्यक है |",
+        "genderInvld": "असम्भव लिंग का चुनाव किया गया है |",
+        "passwordMinLen": "न्यूनतम {{passwordMinLen}} अक्षर होने चाहिए |",
+        "passwordMaxLen": "अधिकतम {{passwordMaxLen}} अक्षर होने चाहिए |",
+        "mobileReq": "मोबाइल आवश्यक है |",
+        "mobileInvld": "मोबाइल गलत है |",
+        "dateOfBirthReq": "जन्मतिथि आवश्यक है |",
+        "dateOfBirthInvld": "जन्मतिथि गलत है |",
+        "dateOfBirthRangeInvld": "जन्मतिथि {{dateOfBirthMin}} व {{dateOfBirthMax}} के बीच होनी चाहिए |",
+        "isdCodeReq": "आई०एस०डी० कूट आवश्यक है |",
+        "isdCodeInvld": "आई०एस०डी० कूट गलत है |",
+        "confirmPasswordReq": "पासवर्ड पुष्टि आवश्यक है |",
+        "confirmPasswordDoesNotMatch": "पासवर्ड व पासवर्ड पुष्टि एक से नहीं हैं |",
+        "securityQuestionReq": "सुरक्षा प्रश्न आवश्यक है |",
+        "securityQuestionMinLen": "न्यूनतम {{securityQuestionMinLen}} अक्षर होने चाहिए |",
+        "securityQuestionMaxLen": "अधिकतम {{securityQuestionMaxLen}} अक्षर होने चाहिए |",
+        "securityAnswerReq": "सुरक्षा उत्तर आवश्यक है |",
+        "securityAnswerMinLen": "न्यूनतम {{securityAnswerMinLen}} अक्षर होने चाहिए |",
+        "securityAnswerMaxLen": "अधिकतम {{securityAnswerMaxLen}} अक्षर होने चाहिए |"
+      }
+    }
+  },
+  "book": {
+    "add": {
+      "vld": {
+        
+      }
     }
   },
   "langs": {
     "en_US": "अंग्रेजी (यूएस)",
     "hi_IN": "हिन्दी (भारत)"
+  },
+  "countries": {
+    "BT": "भूटान",
+    "IN": "भारत",
+    "NP": "नेपाल",
+    "SL": "श्रीलंका",
+    "US": "अमरीका"
   }
 }

@@ -21,8 +21,12 @@ export class NotificationService {
   constructor(
   ) { }
 
-  private notify(message: string, type: NotiType) {
-    this.notifications.push({ message: message, type: type });
+  private notifyMsg(message: string, type: NotiType) {
+    this.notifications.push({ "message": message, "type": type });
+  }
+  
+  private notify(key: string, type: NotiType) {
+    this.notifications.push({ "key": key, "type": type });
   }
 
   getAllNotifications(): Notification[] {
@@ -43,8 +47,12 @@ export class NotificationService {
    * 
    * @param message message to be shown
    */
-  info(message: string) {
-    this.notify(message, NotiType.INFO);
+  infoMsg(message: string) {
+    this.notifyMsg(message, NotiType.INFO);
+  }
+
+  info(key: string) {
+    this.notify(key, NotiType.INFO);
   }
 
   /**
@@ -53,8 +61,12 @@ export class NotificationService {
    * 
    * @param message message to be shown
    */
-  success(message: string) {
-    this.notify(message, NotiType.SUCCESS);
+  successMsg(message: string) {
+    this.notifyMsg(message, NotiType.SUCCESS);
+  }
+
+  success(key: string) {
+    this.notify(key, NotiType.SUCCESS);
   }
 
   /**
@@ -63,8 +75,12 @@ export class NotificationService {
    * 
    * @param message message to be shown
    */
-  warn(message: string) {
-    this.notify(message, NotiType.WARN);
+  warnMsg(message: string) {
+    this.notifyMsg(message, NotiType.WARN);
+  }
+
+  warn(key: string) {
+    this.notify(key, NotiType.WARN);
   }
 
   /**
@@ -72,7 +88,12 @@ export class NotificationService {
    * 
    * @param message  message to be shown
    */
-  danger(message: string) {
-    this.notify(message, NotiType.DANGER);
+  dangerMsg(message: string) {
+    this.notifyMsg(message, NotiType.DANGER);
   }
+
+  danger(key: string) {
+    this.notify(key, NotiType.DANGER);
+  }
+
 }

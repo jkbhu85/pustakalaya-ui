@@ -63,3 +63,6 @@ footer>div {
   background-color: #f8d7da;
   border: .07rem solid #f5c6cb;
 }
+.form-group .text-danger {
+  font-size: .9rem;
+}

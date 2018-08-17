@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotificationComponent } from './notification/notification.component';
 import { NotificationGroupComponent } from './notification-group/notification-group.component';
 import { NotificationService } from './notification.service';
+import { AppCommonModule } from '../modules/app-common.module';
 
 @NgModule({
     declarations: [
@@ -10,7 +11,7 @@ import { NotificationService } from './notification.service';
         NotificationGroupComponent
     ],
     imports: [
-        CommonModule
+        AppCommonModule
     ],
     exports: [
         NotificationGroupComponent

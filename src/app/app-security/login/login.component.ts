@@ -10,7 +10,7 @@ import { PtkResponse, ResponseCode } from '../../models/ptk-response';
 
 const LOGIN_URL = BASE_HREF + '/ptk/login';
 const KEY_ACCESS_REVOKED = 'login.vld.accessRevoked';
-const KEY_INVALID_CREDENTIALS = 'login.vld.invalidCredentials';
+const KEY_INVALID_CREDENTIALS = 'login.vld.credentialsInvld';
 const KEY_ACCOUNT_LOCKED = 'login.vld.accountLocked';
 
 @Component({

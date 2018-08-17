@@ -21,12 +21,13 @@
     "username": "Username",
     "password": "Password",
     "vld": {
-      "usernameReq": "Username is required",
-      "usernameInvalid": "Email is invalid",
-      "passwordReq": "Password is required",
-      "invalidCredentials": "Invalid credentials",
-      "accountLocked": "Your account is locked",
-      "accessRevoked": "Your account access has been revoked"
+      "usernameReq": "Username is required.",
+      "usernameInvld": "Email is invalid.",
+      "passwordReq": "Password is required.",
+      "credentialsInvld": "Invalid credentials.",
+      "accountLocked": "Your account is locked.",
+      "accessRevoked": "Your account access has been revoked.",
+      "loginExpired": "Your login has expired. Please login again."
     }
   },
   "forgotPwd": {
@@ -34,10 +35,12 @@
   },
   "common": {
     "errorOccurred": "Some error occurred.",
-    "pageNotFound": "Page not found",
+    "pageNotFound": "Page not found.",
     "submit": "Submit",
     "reset": "Reset",
-    "validationFailed": "Validation failed for some or all fields."
+    "validationFailed": "Validation failed for some or all fields.",
+    "loading": "Loading details ...",
+    "select": "Select"
   },
   "home": {
     "welcomeText": "You are welcome in Pustakalaya."
@@ -46,23 +49,57 @@
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
-    "locale": "Locale"
+    "locale": "Locale",
+    "gender": "Gender",
+    "mobile":"Mobile",
+    "isdCode": "ISD code",
+    "dateOfBirth": "Date of birth"
   },
   "user": {
+    "gender": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other"
+    },
     "add": {
       "success": "User was added successfully.",
       "vld": {
-        "firstNameRequired": "First name is required",
-        "firstNameMaxLength": "Maximum {{firstNameMaxLen}} character are allowed",
-        "lastNameRequired": "Last name is require",
-        "lastNameMaxLength": "Maximum {{lastNameMaxLen}} character are allowed",
-        "emailRequired": "Email is required",
-        "emailInvalid": "Email is invalid",
-        "localeRequired": "Locale is required"
+        "firstNameReq": "First name is required.",
+        "firstNameMaxLen": "Maximum {{firstNameMaxLen}} character are allowed.",
+        "lastNameReq": "Last name is require.",
+        "lastNameMaxLen": "Maximum {{lastNameMaxLen}} character are allowed.",
+        "emailReq": "Email is required.",
+        "emailInvld": "Email is invalid.",
+        "localeReq": "Locale is required."
       }
     },
     "register": {
-      "title": "Complete Registeration"
+      "title": "Complete Registeration",
+      "securityQuestion": "Security Question",
+      "securityAnswer": "Security Answer",
+      "confirmPassword": "Confirm Password",
+      "vld": {
+        "registrationIdInvld": "The registration id is invalid or has expired.",
+        "genderReq": "Gender is required.",
+        "genderInvld": "Gender is invalid.",
+        "passwordMinLen": "Minimum {{passwordMinLen}} character are allowed.",
+        "passwordMaxLen": "Maximum {{passwordMaxLen}} character are allowed.",
+        "mobileReq": "Mobile is required.",
+        "mobileInvld": "Mobile should have exactly 10 digits.",
+        "dateOfBirthReq": "Date of birth is requried.",
+        "dateOfBirthInvld": "Date of birth is invalid.",
+        "dateOfBirthRangeInvld": "Date of birth should be in between {{dateOfBirthMin}} and {{dateOfBirthMax}}.",
+        "isdCodeReq": "ISD code is required.",
+        "isdCodeInvld": "ISD code is invalid.",
+        "confirmPasswordReq": "Confirm Password is required.",
+        "confirmPasswordDoesNotMatch": "Password and Confirm Password do not match.",
+        "securityQuestionReq": "Security Question is required.",
+        "securityQuestionMinLen": "Minimum {{securityQuestionMinLen}} character are allowed.",
+        "securityQuestionMaxLen": "Maximum {{securityQuestionMaxLen}} character are allowed.",
+        "securityAnswerReq": "Security Answer is required.",
+        "securityAnswerMinLen": "Minimum {{securityAnswerMinLen}} character are allowed.",
+        "securityAnswerMaxLen": "Maximum {{securityAnswerMaxLen}} character are allowed."
+      }
     }
   },
   "book": {
@@ -75,5 +112,12 @@
   "langs": {
     "en_US": "English (US)",
     "hi_IN": "Hindi (Bharat)"
+  },
+  "countries": {
+    "BT": "Bhutan",
+    "IN": "India",
+    "NP": "Nepal",
+    "SL": "Sri Lanka",
+    "US": "United States"
   }
 }

@@ -8,7 +8,12 @@ export interface Notification {
      * This variable holds the text part of a 
      * notification.
      */
-    message: string;
+    message?: string;
+
+    /**
+     * This variable holds a key corressponding to a i18n text message.
+     */
+    key?: string;
 
     /**
      * This variable holds the type part of a

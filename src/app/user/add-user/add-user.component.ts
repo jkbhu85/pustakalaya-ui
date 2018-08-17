@@ -125,9 +125,7 @@ export class AddUserComponent implements OnInit {
 
   private handleSuccess(response: HttpResponse<PtkResponse>) {
     // const ptrRes: PtkResponse = response.body;
-    this.translate.get('user.add.success').subscribe(
-      (msg) => this.notiService.info(msg)
-    );
+    this.notiService.info('user.add.success');
     this.reset();
   }
 

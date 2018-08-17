@@ -14,7 +14,7 @@ import { CompleteProfileComponent } from './components/complete-profile/complete
 import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 import { MiscModule } from './misc/misc.module';
-import { TokenInterceptor } from './app-security/token-interceptor';
+import { CountryModule } from './country/country.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BookModule,
     UserModule,
     MiscModule,
+    CountryModule,
     AppRoutingModule
   ],
   providers: [

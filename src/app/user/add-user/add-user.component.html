@@ -11,8 +11,8 @@
               <input type="text" class="form-control" id="firstName" [formControl]="firstName" />
 
               <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
-                <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameRequired' | translate}}</div>
-                <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLength' | translate:param}}</div>
+                <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameReq' | translate}}</div>
+                <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLen' | translate:param}}</div>
               </div>
             </div>
           </div>
@@ -23,8 +23,8 @@
               <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
               
               <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
-                <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameRequired' | translate}}</div>
-                <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLength' | translate:param}}</div>
+                <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameReq' | translate}}</div>
+                <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLen' | translate:param}}</div>
               </div>
             </div>
           </div>
@@ -36,8 +36,8 @@
           <input type="email" class="form-control" id="email" [formControl]="email" />
 
           <div class="text-danger" *ngIf="(email.touched || email.dirty) && email.errors">
-            <div *ngIf="email.errors['required']">{{'user.add.vld.emailRequired' | translate}}</div>
-            <div *ngIf="!email.errors['required'] && email.errors['pattern']">{{'user.add.vld.emailInvalid' | translate}}</div>
+            <div *ngIf="email.errors['required']">{{'user.add.vld.emailReq' | translate}}</div>
+            <div *ngIf="!email.errors['required'] && email.errors['pattern']">{{'user.add.vld.emailInvld' | translate}}</div>
           </div>
         </div>
 
@@ -49,7 +49,7 @@
           </select>
           
           <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
-            <div *ngIf="locale.errors['required']">{{'user.add.vld.localeRequired' | translate}}</div>
+            <div *ngIf="locale.errors['required']">{{'user.add.vld.localeReq' | translate}}</div>
           </div>
         </div>
 

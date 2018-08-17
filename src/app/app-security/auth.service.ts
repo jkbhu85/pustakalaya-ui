@@ -33,7 +33,7 @@ export class AuthService {
 
     this.logout();
     this.router.navigate(['']);
-    this.notiService.danger('Your login has expired. Please login again.');
+    this.notiService.danger('login.vld.loginExpired');
 
     this.timeoutHolder = 0;
 

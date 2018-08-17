@@ -1,55 +1,153 @@
-<div class="row mb-4 mt-3">
-  <div class="col-md-7 col-lg-5 mx-auto">
-    <form class="card" (ngSubmit)="onSubmit()" [formGroup]="form">
-      <h2 class="card-header">{{'register.title' | translate}}</h2>
+<div class="row">
+  <div class="col-md-10 col-lg-6">
+    <form class="card mb-5" (ngSubmit)="onSubmit()" [formGroup]="form">
+      <h2 class="card-header h4">{{'user.register.title' | translate}}</h2>
 
-      <div class="card-body">
+      <div class="card-body" *ngIf="showLoading">
+        <div class="alert alert-info">{{'common.loading' | translate}}</div>
+      </div>
 
+      <div class="card-body" *ngIf="showForm">
         <div class="form-group">
           <label for="firstName">{{'profile.firstName' | translate}}</label>
           <input type="text" class="form-control" id="firstName" [formControl]="firstName" />
 
           <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
-            <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameRequired' | translate}}</div>
-            <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLength' | translate:LIMITS}}</div>
+            <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameReq' | translate}}</div>
+            <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLen' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">{{'profile.lastName' | translate}}</label>
+          <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
+
+          <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
+            <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameReq' | translate}}</div>
+            <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLen' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="gender">{{'profile.gender' | translate}}</label>
+          <select type="gender" class="form-control" id="gender" [formControl]="gender">
+            <option value="M">{{'user.gender.male' | translate}}</option>
+            <option value="F">{{'user.gender.female' | translate}}</option>
+            <option value="O">{{'user.gender.other' | translate}}</option>
+          </select>
+
+          <div class="text-danger" *ngIf="(gender.touched || gender.dirty) && gender.errors">
+            <div *ngIf="gender.errors['required']">{{'user.register.vld.genderReq' | translate}}</div>
+            <div *ngIf="!gender.errors['required'] && gender.errors['']">{{'user.register.vld.genderInvld' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="dateOfBirth">{{'profile.dateOfBirth' | translate}}</label>
+          <input type="text" id="dateOfBirth" class="form-control" [formControl]="dateOfBirth">
+
+          <div class="text-danger" *ngIf="(dateOfBirth.touched || dateOfBirth.dirty) && dateOfBirth.errors">
+            <div *ngIf="dateOfBirth.errors['required']">{{'user.register.vld.dateOfBirthReq' | translate}}</div>
+            <div *ngIf="!dateOfBirth.errors['required'] && dateOfBirth.errors['pattern']">{{'user.register.vld.dateOfBirthInvld' | translate}}</div>
+            <div *ngIf="!dateOfBirth.errors['required'] && dateOfBirth.errors['dateOfBirthRange']">{{'user.register.vld.dateOfBirthRangeInvld' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mobile">{{'profile.mobile' | translate}}</label>
+          <input type="text" id="mobile" class="form-control" [formControl]="mobile">
+
+          <div class="text-danger" *ngIf="(mobile.touched || mobile.dirty) && mobile.errors">
+            <div *ngIf="mobile.errors['required']">{{'user.register.vld.mobileReq' | translate}}</div>
+            <div *ngIf="mobile.errors['pattern']">{{'user.register.vld.mobileInvld' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="isdCode">{{'profile.isdCode' | translate}}</label>
+          <select id="isdCode" class="form-control" [formControl]="isdCode">
+            <option selected value="0">{{'common.select' | translate}}</option>
+            <option *ngFor="let country of countries$ | async as countries" value="country.id">{{country.isdCode}} ({{'countries.' + country.abbr | translate}})</option>
+          </select>
+
+          <div class="text-danger" *ngIf="(isdCode.touched || isdCode.dirty) && isdCode.errors">
+            <div *ngIf="isdCode.errors['required']">{{'user.register.vld.isdCodeReq' | translate}}</div>
+            <div *ngIf="isdCode.errors['isdCodeInvld']">{{'user.register.vld.isdCodeInvld' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="locale">{{'profile.locale' | translate}}</label>
+          <select id="locale" class="form-control" [formControl]="locale">
+            <option value="hi_IN">{{'langs.hi_IN' | translate}}</option>
+            <option value="en_US">{{'langs.en_US' | translate}}</option>
+          </select>
+
+          <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
+            <div *ngIf="locale.errors['required']">{{'user.add.vld.localeReq' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">{{'login.password' | translate}}</label>
+          <input type="text" id="password" class="form-control" [formControl]="password">
+
+          <div class="text-danger" *ngIf="(password.touched || password.dirty) && password.errors">
+            <div *ngIf="password.errors['required']">{{'login.vld.passwordReq' | translate}}</div>
+            <div *ngIf="!password.errors['required'] && password.errors['minlength']">{{'user.register.vld.passwordMinLen' | translate:LIMITS}}</div>
+            <div *ngIf="password.errors['maxlength']">{{'user.register.vld.passwordMaxLen' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">{{'user.register.confirmPassword' | translate}}</label>
+          <input type="text" id="confirmPassword" class="form-control" [formControl]="confirmPassword">
+
+          <div class="text-danger" *ngIf="(confirmPassword.touched || confirmPassword.dirty) && confirmPassword.errors">
+            <div *ngIf="confirmPassword.errors['required']">{{'user.register.vld.confirmPasswordReq' | translate}}</div>
+          </div>
+
+          <div class="text-danger" *ngIf="(confirmPassword.touched || confirmPassword.dirty) && form.errors">
+            <div *ngIf="!confirmPassword.errors && form.errors['doesNotMatch']">{{'user.register.vld.confirmPasswordDoesNotMatch' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="securityQuestion">{{'user.register.securityQuestion' | translate}}</label>
+          <input type="text" id="securityQuestion" class="form-control" [formControl]="securityQuestion">
+
+          <div class="text-danger" *ngIf="(securityQuestion.touched || securityQuestion.dirty) && securityQuestion.errors">
+            <div *ngIf="securityQuestion.errors['required']">{{'user.register.vld.securityQuestionReq' | translate}}</div>
+            <div *ngIf="!securityQuestion.errors['required'] && securityQuestion.errors['minlength']">{{'user.register.vld.securityQuestionMinLen' | translate:LIMITS}}</div>
+            <div *ngIf="securityQuestion.errors['maxlength']">{{'user.register.vld.securityQuestionMaxLen' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="securityAnswer">{{'user.register.securityAnswer' | translate}}</label>
+          <input type="text" id="securityAnswer" class="form-control" [formControl]="securityAnswer">
+
+          <div class="text-danger" *ngIf="(securityAnswer.touched || securityAnswer.dirty) && securityAnswer.errors">
+            <div *ngIf="securityAnswer.errors['required']">{{'user.register.vld.securityAnswerReq' | translate}}</div>
+            <div *ngIf="!securityAnswer.errors['required'] && securityAnswer.errors['minlength']">{{'user.register.vld.securityAnswerMinLen' | translate:LIMITS}}</div>
+            <div *ngIf="securityAnswer.errors['maxlength']">{{'user.register.vld.securityAnswerMaxLen' | translate:LIMITS}}</div>
+          </div>
+        </div>
+
+        <div class="error-in-form" *ngIf="showError">{{errorText$ | async}}</div>
+      </div>
+
+      <div class="card-footer" *ngIf="showForm">
+        <div class="row">
+          <div class="col-sm-6 mb-2 mb-sm-0">
+            <button class="btn btn-primary btn-block">{{'common.submit' | translate}}</button>
+          </div>
+          <div class="col-sm-6">
+            <button class="btn btn-secondary btn-block">{{'common.reset' | translate}}</button>
           </div>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="lastName">{{'profile.lastName' | translate}}</label>
-        <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
-
-        <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
-          <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameRequired' | translate}}</div>
-          <div *ngIf="lastName.errors['maxLength']">{{'user.add.vld.lastNameMaxLength' | translate:LIMITS}}</div>
-        </div>
-      </div>
-
-
-      <div class="form-group">
-        <label for="gender">{{'profile.gender' | translate}}</label>
-        <input type="gender" class="form-control" id="gender" [formControl]="gender" />
-
-        <div class="text-danger" *ngIf="(gender.touched || gender.dirty) && gender.errors">
-          <div *ngIf="gender.errors['required']">{{'user.add.vld.genderRequired' | translate}}</div>
-          <div *ngIf="!gender.errors['required'] && gender.errors['']">{{'user.add.vld.genderInvalid' | translate}}</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="locale">{{'profile.locale' | translate}}</label>
-        <select id="locale" class="form-control" [formControl]="locale">
-          <option value="hi_IN">{{'langs.hiIN' | translate}}</option>
-          <option value="en_US">{{'langs.enUS' | translate}}</option>
-        </select>
-
-        <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
-          <div *ngIf="locale.errors['required']">{{'user.add.vld.localeRequired' | translate}}</div>
-        </div>
-      </div>
-
-      <div class="error-in-form" *ngIf="showError">{{errorText$ | async}}</div>
     </form>
   </div>
 </div>
