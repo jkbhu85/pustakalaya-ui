@@ -41,8 +41,17 @@ export const PtkValidators = {
     };
   },
 
+  requiredOption: function _requiredOption(invalidValue: string): ValidatorFn {
+    return (control: FormGroup): ValidationErrors | null => {
+      const val = control.value;
+
+      if (!val || val === invalidValue) return { 'required': true };
+
+      return null;
+    }; 
+  },
+
   passwordMatchValidator: function _passwordMatchValidator(): ValidatorFn {
-    console.log('_passwordMatchValidator');
     return (control: FormGroup): ValidationErrors | null => {
       const pwd = control.get('password');
       const cpwd = control.get('confirmPassword');

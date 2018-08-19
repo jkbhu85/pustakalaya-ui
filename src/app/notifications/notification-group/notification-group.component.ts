@@ -15,7 +15,7 @@ import { Notification } from '../notification';
 export class NotificationGroupComponent implements OnInit {
     notifications: Notification[];
 
-    constructor(private notiService: NotificationService) {
+    constructor(notiService: NotificationService) {
         this.notifications = notiService.getAllNotifications();
     }
 

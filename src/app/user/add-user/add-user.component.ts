@@ -105,7 +105,7 @@ export class AddUserComponent implements OnInit {
     if (this.submitStatus) return;
     if (this.addUserForm.invalid) return;
 
-    this.setFormSubmitStatus(true);
+    this.changeFormSubmitStatus(true);
     this.hideFormError();
 
     const data = this.prepareData();
@@ -120,7 +120,7 @@ export class AddUserComponent implements OnInit {
   }
 
   private handleComplete() {
-    this.setFormSubmitStatus(false);
+    this.changeFormSubmitStatus(false);
   }
 
   private handleSuccess(response: HttpResponse<PtkResponse>) {
@@ -135,13 +135,17 @@ export class AddUserComponent implements OnInit {
       case 422:
         const response: PtkResponse = errResponse.error;
         console.log(response);
-        this.showFormError('common.validationFailed');
-        const errors: any = response.errors;
+        if (response.message === 'ERROR_INVALID_FIELDS') {
+          this.showFormError('common.validationFailed');
+          const errors: any = response.errors;
 
-        for (let prop in errors) {
-          if (errors[prop]) {
-            this.setFieldError(prop, errors[prop]);
+          for (let prop in errors) {
+            if (errors[prop]) {
+              this.setFieldError(prop, errors[prop]);
+            }
           }
+        } else {
+          this.showFormError('common.emailDoesNotExist');
         }
         break;
       default:
@@ -157,9 +161,7 @@ export class AddUserComponent implements OnInit {
     console.log(error);
 
     if (this.addUserForm.get(fieldName)) {
-      //this.addUserForm.get(fieldName).markAsTouched();
       this.addUserForm.get(fieldName).setErrors(error, { emitEvent: true });
-      console.log('Error set.');
     } else {
       console.log(fieldName + ' not found to set errors.');
     }
@@ -169,8 +171,8 @@ export class AddUserComponent implements OnInit {
     switch (errorCode) {
       case ResponseCode.VALUE_TOO_LARGE:
         return 'maxlength';
-      case ResponseCode.VALUE_TOO_SMALL_OR_EMPTY:
-        return 'required';
+      case ResponseCode.VALUE_TOO_SMALL:
+        return 'minlength';
       case ResponseCode.INVALID_FORMAT:
         return 'pattern';
       case ResponseCode.UNSUPPORTED_VALUE:
@@ -179,7 +181,7 @@ export class AddUserComponent implements OnInit {
         return '';
       case ResponseCode.RESOURCE_HAS_EXPIRED:
         return '';
-      case ResponseCode.EMPTY_FILE:
+      case ResponseCode.EMPTY_VALUE:
         return 'required';
       case ResponseCode.MAIL_NOT_SENT_INVALID_EMAIL:
         return '';
@@ -188,7 +190,7 @@ export class AddUserComponent implements OnInit {
     }
   }
 
-  private setFormSubmitStatus(status: boolean) {
+  private changeFormSubmitStatus(status: boolean) {
     this.submitStatus = status;
   }
 

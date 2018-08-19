@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-10 col-lg-6">
-    <form class="card mb-5" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <form class="card mb-5" (ngSubmit)="submit()" [formGroup]="form">
       <h2 class="card-header h4">{{'user.register.title' | translate}}</h2>
 
       <div class="card-body" *ngIf="showLoading">
@@ -9,7 +9,12 @@
 
       <div class="card-body" *ngIf="showForm">
         <div class="form-group">
-          <label for="firstName">{{'profile.firstName' | translate}}</label>
+          <label>{{'profile.email' | translate}}</label>
+          <div class="form-control">{{registrationInfo.email}}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="firstName">{{'profile.firstName' | translate}}<span class="required"></span></label>
           <input type="text" class="form-control" id="firstName" [formControl]="firstName" />
 
           <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
@@ -19,7 +24,7 @@
         </div>
 
         <div class="form-group">
-          <label for="lastName">{{'profile.lastName' | translate}}</label>
+          <label for="lastName">{{'profile.lastName' | translate}}<span class="required"></span></label>
           <input type="text" class="form-control" id="lastName" [formControl]="lastName" />
 
           <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
@@ -30,8 +35,9 @@
 
 
         <div class="form-group">
-          <label for="gender">{{'profile.gender' | translate}}</label>
+          <label for="gender">{{'profile.gender' | translate}}<span class="required"></span></label>
           <select type="gender" class="form-control" id="gender" [formControl]="gender">
+            <option selected="selected" value="0">{{'common.select' | translate}}</option>
             <option value="M">{{'user.gender.male' | translate}}</option>
             <option value="F">{{'user.gender.female' | translate}}</option>
             <option value="O">{{'user.gender.other' | translate}}</option>
@@ -44,8 +50,15 @@
         </div>
 
         <div class="form-group">
-          <label for="dateOfBirth">{{'profile.dateOfBirth' | translate}}</label>
-          <input type="text" id="dateOfBirth" class="form-control" [formControl]="dateOfBirth">
+          <label for="dateOfBirth">{{'profile.dateOfBirth' | translate}}<span class="required"></span></label>
+          <div class="input-group">
+              <input type="text" id="dateOfBirth" class="form-control" [formControl]="dateOfBirth" [placeholder]="'user.register.tip.dateOfBirth' | translate:LIMITS">
+              <div class="input-group-append">
+                <span class="input-group-text" id="dateIcon">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
+          </div>
 
           <div class="text-danger" *ngIf="(dateOfBirth.touched || dateOfBirth.dirty) && dateOfBirth.errors">
             <div *ngIf="dateOfBirth.errors['required']">{{'user.register.vld.dateOfBirthReq' | translate}}</div>
@@ -55,20 +68,21 @@
         </div>
 
         <div class="form-group">
-          <label for="mobile">{{'profile.mobile' | translate}}</label>
-          <input type="text" id="mobile" class="form-control" [formControl]="mobile">
+          <label for="mobile">{{'profile.mobile' | translate}}<span class="required"></span></label>
+          <input type="text" id="mobile" class="form-control" [formControl]="mobile" [placeholder]="'user.register.tip.mobile' | translate:LIMITS">
 
           <div class="text-danger" *ngIf="(mobile.touched || mobile.dirty) && mobile.errors">
             <div *ngIf="mobile.errors['required']">{{'user.register.vld.mobileReq' | translate}}</div>
             <div *ngIf="mobile.errors['pattern']">{{'user.register.vld.mobileInvld' | translate}}</div>
+            <div *ngIf="mobile.errors['alreadyexist']">{{'user.register.vld.mobileInvld' | translate}}</div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="isdCode">{{'profile.isdCode' | translate}}</label>
+          <label for="isdCode">{{'profile.isdCode' | translate}}<span class="required"></span></label>
           <select id="isdCode" class="form-control" [formControl]="isdCode">
-            <option selected value="0">{{'common.select' | translate}}</option>
-            <option *ngFor="let country of countries$ | async as countries" value="country.id">{{country.isdCode}} ({{'countries.' + country.abbr | translate}})</option>
+            <option selected="selected" value="0">{{'common.select' | translate}}</option>
+            <option *ngFor="let country of countries$ | async as countries" [value]="country.id">{{country.isdCode}} ({{'countries.' + country.abbr | translate}})</option>
           </select>
 
           <div class="text-danger" *ngIf="(isdCode.touched || isdCode.dirty) && isdCode.errors">
@@ -78,7 +92,7 @@
         </div>
 
         <div class="form-group">
-          <label for="locale">{{'profile.locale' | translate}}</label>
+          <label for="locale">{{'profile.locale' | translate}}<span class="required"></span></label>
           <select id="locale" class="form-control" [formControl]="locale">
             <option value="hi_IN">{{'langs.hi_IN' | translate}}</option>
             <option value="en_US">{{'langs.en_US' | translate}}</option>
@@ -90,8 +104,8 @@
         </div>
 
         <div class="form-group">
-          <label for="password">{{'login.password' | translate}}</label>
-          <input type="text" id="password" class="form-control" [formControl]="password">
+          <label for="password">{{'login.password' | translate}}<span class="required"></span></label>
+          <input type="password" id="password" class="form-control" [formControl]="password" [placeholder]="'user.register.tip.password' | translate:LIMITS">
 
           <div class="text-danger" *ngIf="(password.touched || password.dirty) && password.errors">
             <div *ngIf="password.errors['required']">{{'login.vld.passwordReq' | translate}}</div>
@@ -101,8 +115,8 @@
         </div>
 
         <div class="form-group">
-          <label for="confirmPassword">{{'user.register.confirmPassword' | translate}}</label>
-          <input type="text" id="confirmPassword" class="form-control" [formControl]="confirmPassword">
+          <label for="confirmPassword">{{'user.register.confirmPassword' | translate}}<span class="required"></span></label>
+          <input type="password" id="confirmPassword" class="form-control" [formControl]="confirmPassword" [placeholder]="'user.register.tip.confirmPassword' | translate:LIMITS">
 
           <div class="text-danger" *ngIf="(confirmPassword.touched || confirmPassword.dirty) && confirmPassword.errors">
             <div *ngIf="confirmPassword.errors['required']">{{'user.register.vld.confirmPasswordReq' | translate}}</div>
@@ -114,7 +128,7 @@
         </div>
 
         <div class="form-group">
-          <label for="securityQuestion">{{'user.register.securityQuestion' | translate}}</label>
+          <label for="securityQuestion">{{'user.register.securityQuestion' | translate}}<span class="required"></span></label>
           <input type="text" id="securityQuestion" class="form-control" [formControl]="securityQuestion">
 
           <div class="text-danger" *ngIf="(securityQuestion.touched || securityQuestion.dirty) && securityQuestion.errors">
@@ -125,7 +139,7 @@
         </div>
 
         <div class="form-group">
-          <label for="securityAnswer">{{'user.register.securityAnswer' | translate}}</label>
+          <label for="securityAnswer">{{'user.register.securityAnswer' | translate}}<span class="required"></span></label>
           <input type="text" id="securityAnswer" class="form-control" [formControl]="securityAnswer">
 
           <div class="text-danger" *ngIf="(securityAnswer.touched || securityAnswer.dirty) && securityAnswer.errors">
@@ -141,10 +155,10 @@
       <div class="card-footer" *ngIf="showForm">
         <div class="row">
           <div class="col-sm-6 mb-2 mb-sm-0">
-            <button class="btn btn-primary btn-block">{{'common.submit' | translate}}</button>
+            <button class="btn btn-primary btn-block" [disabled]="submitted">{{'common.submit' | translate}}</button>
           </div>
           <div class="col-sm-6">
-            <button class="btn btn-secondary btn-block">{{'common.reset' | translate}}</button>
+            <button class="btn btn-secondary btn-block" [disabled]="submitted">{{'common.reset' | translate}}</button>
           </div>
         </div>
       </div>

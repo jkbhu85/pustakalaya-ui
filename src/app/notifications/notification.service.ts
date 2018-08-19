@@ -1,16 +1,14 @@
-import { environment } from '../../environments/environment';
 import { NotiType } from './noti-type.enum';
 import { Notification } from './notification';
 import { Injectable } from '@angular/core';
-import { NotificationGroupComponent } from './notification-group/notification-group.component';
 
 /**
  * This class provides a service to show notifications
  * to user in a unified manner.
- * 
+ *
  * All components of the application has access to this
  * service via injection.
- * 
+ *
  * @see {@link NotificationGroupComponent}
  */
 
@@ -18,15 +16,14 @@ import { NotificationGroupComponent } from './notification-group/notification-gr
 export class NotificationService {
   private notifications: Notification[] = [];
 
-  constructor(
-  ) { }
+  constructor() {}
 
   private notifyMsg(message: string, type: NotiType) {
-    this.notifications.push({ "message": message, "type": type });
+    this.notifications.push({ message: message, type: type });
   }
-  
+
   private notify(key: string, type: NotiType) {
-    this.notifications.push({ "key": key, "type": type });
+    this.notifications.push({ key: key, type: type });
   }
 
   getAllNotifications(): Notification[] {
@@ -44,7 +41,7 @@ export class NotificationService {
 
   /**
    * To provide user some information.
-   * 
+   *
    * @param message message to be shown
    */
   infoMsg(message: string) {
@@ -58,7 +55,7 @@ export class NotificationService {
   /**
    * To notify user that the action he made
    * was successful.
-   * 
+   *
    * @param message message to be shown
    */
   successMsg(message: string) {
@@ -72,7 +69,7 @@ export class NotificationService {
   /**
    * To notify user about a situation that
    * may give an unwanted result.
-   * 
+   *
    * @param message message to be shown
    */
   warnMsg(message: string) {
@@ -85,7 +82,7 @@ export class NotificationService {
 
   /**
    * To notify user about an errornous situation.
-   * 
+   *
    * @param message  message to be shown
    */
   dangerMsg(message: string) {
@@ -95,5 +92,4 @@ export class NotificationService {
   danger(key: string) {
     this.notify(key, NotiType.DANGER);
   }
-
 }

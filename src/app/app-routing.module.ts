@@ -12,11 +12,6 @@ const appRoutes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGaurd]
   },
-  {
-    path: 'completeProfile',
-    component: CompleteProfileComponent,
-    canActivate: [AuthGaurd]
-  },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: '**', component: PageNotFoundComponent }
 ];

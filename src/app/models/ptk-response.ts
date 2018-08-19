@@ -40,7 +40,7 @@ export enum ResponseCode {
   /**
    * Code 32.
    */
-  VALUE_TOO_SMALL_OR_EMPTY = 32,
+  VALUE_TOO_SMALL = 32,
 
   /**
    * Code 33.
@@ -65,7 +65,7 @@ export enum ResponseCode {
   /**
    * Code 37.
    */
-  EMPTY_FILE = 37,
+  EMPTY_VALUE = 37,
 
   /**
    * Code 38.

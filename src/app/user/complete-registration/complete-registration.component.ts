@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
-import { HttpErrorResponse } from '../../../../node_modules/@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '../../../../node_modules/@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { AppTranslateService } from '../../services/app-translate.service';
@@ -12,12 +12,14 @@ import { PtkValidators } from '../../util/custom-validators';
 import { DateSeparator, DatePatternType, toString } from '../../util/date-util';
 import { Country } from '../../models/other';
 import { CountryService } from '../../country/country.service';
+import { finalize } from 'rxjs/operators';
+import { AbstractFormComponent } from '../../util/abstract-form-component';
+import { InFormErrorHandler } from '../../util/in-form-errors';
 
 @Component({
   templateUrl: './complete-registration.component.html'
 })
-export class CompleteRegistrationComponent implements OnInit {
-  submitStatus = false;
+export class CompleteRegistrationComponent extends AbstractFormComponent implements OnInit {
   showForm = false;
   showLoading = true;
   showError = false;
@@ -25,9 +27,13 @@ export class CompleteRegistrationComponent implements OnInit {
   errorText$: Observable<string>;
   countries$: Observable<Country[]>;
   registrationInfo: RegistrationInfo;
-  private formValueChangeSubscription: Subscription;
+  private inFormErrorHandler: InFormErrorHandler;
   private readonly dateSeparator: DateSeparator = DateSeparator.HYPHEN;
   private readonly datePatternType = DatePatternType.DDMMYYYY;
+  private readonly defaultValues = {
+    isdCode: '0',
+    gender: '0',
+  };
 
   readonly LIMITS = {
     firstNameMaxLen: 30,
@@ -35,13 +41,14 @@ export class CompleteRegistrationComponent implements OnInit {
     gender: ['M', 'F', 'O'],
     dateOfBirthMin: '', // date of birth min date
     dateOfBirthMax: '', // date of birth max date
+    dateOfBirthFormat: 'DD-MM-YYYY',
     mobilePattern: '[1-9][0-9]{9}',
     passwordMinLen: 6,
     passwordMaxLen: 12,
-    secQuestionMinLen: 15,
-    secQuestionMaxLen: 100,
-    secAnswerMinLen: 3,
-    secAnswerMaxLen: 50
+    securityQuestionMinLen: 15,
+    securityQuestionMaxLen: 100,
+    securityAnswerMinLen: 3,
+    securityAnswerMaxLen: 50
   };
 
   constructor(
@@ -51,11 +58,15 @@ export class CompleteRegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private translate: AppTranslateService,
     private notiService: NotificationService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.form = this.fb.group([]);
     this.getRegistrationInfo();
+    this.inFormErrorHandler = new InFormErrorHandler(this.form);
+    this.errorText$ = this.inFormErrorHandler.getErrorKeyObservable();
   }
 
   private getRegistrationInfo() {
@@ -64,10 +75,7 @@ export class CompleteRegistrationComponent implements OnInit {
     if (id) {
       this.userService
         .getRegistrationInfo(id)
-        .subscribe(
-          info => this.handleRegInfoFetchSuccess(info),
-          error => this.handleRegInfoFetchFail(error)
-        );
+        .subscribe(info => this.handleRegInfoFetchSuccess(info), error => this.handleRegInfoFetchFail(error));
     } else {
       this.showLoading = false;
       this.notiService.danger('user.register.vld.invalidRegistrationId');
@@ -85,6 +93,7 @@ export class CompleteRegistrationComponent implements OnInit {
     this.countries$ = this.countryService.getAllCoutries();
     // create form since registration info is now available
     this.createForm();
+    this.form.patchValue(this.defaultValues);
   }
 
   private handleRegInfoFetchFail(errResponse: HttpErrorResponse) {
@@ -99,12 +108,12 @@ export class CompleteRegistrationComponent implements OnInit {
     }
   }
 
-  private createForm() {
+  protected createForm() {
     this.form = this.fb.group(
       {
         firstName: ['', [Validators.required, Validators.maxLength(this.LIMITS.firstNameMaxLen)]],
         lastName: ['', [Validators.required, Validators.maxLength(this.LIMITS.lastNameMaxLen)]],
-        gender: ['', [Validators.required]],
+        gender: ['', [PtkValidators.requiredOption('0')]],
         dateOfBirth: [
           '',
           [
@@ -118,7 +127,7 @@ export class CompleteRegistrationComponent implements OnInit {
           ]
         ],
         mobile: ['', [Validators.required, Validators.pattern(this.LIMITS.mobilePattern)]],
-        isdCode: ['0', [Validators.required]],
+        isdCode: ['', [PtkValidators.requiredOption('0')]],
         locale: ['', [Validators.required]],
         password: [
           '',
@@ -133,27 +142,92 @@ export class CompleteRegistrationComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.minLength(this.LIMITS.secQuestionMinLen),
-            Validators.maxLength(this.LIMITS.secQuestionMaxLen)
+            Validators.minLength(this.LIMITS.securityQuestionMinLen),
+            Validators.maxLength(this.LIMITS.securityQuestionMaxLen)
           ]
         ],
         securityAnswer: [
           '',
           [
             Validators.required,
-            Validators.minLength(this.LIMITS.secAnswerMinLen),
-            Validators.maxLength(this.LIMITS.secAnswerMaxLen)
+            Validators.minLength(this.LIMITS.securityAnswerMinLen),
+            Validators.maxLength(this.LIMITS.securityAnswerMaxLen)
           ]
         ]
       },
-      {validator: PtkValidators.passwordMatchValidator()}
+      { validator: PtkValidators.passwordMatchValidator() }
     );
 
     // reset form with default values
-    this.reset();
+    this.resetForm();
   }
 
-  onSubmit(): void {}
+  protected prepareData(): { [key: string]: string; } {
+    let u: any = {};
+    u.email = this.registrationInfo.email;
+    u.firstName = this.firstName.value;
+    u.lastName = this.lastName.value;
+    u.gender = this.gender.value;
+    u.dateOfBirth = this.dateOfBirth.value;
+    u.mobile = this.mobile.value;
+    u.isdCode = this.isdCode.value;
+    u.locale = this.locale.value;
+    u.password = this.password.value;
+    u.confirmPassword = this.confirmPassword.value;
+    u.securityQuestion = this.securityQuestion.value;
+    u.securityAnswer = this.securityAnswer.value;
+
+    return u;
+  }
+
+  submit(): void {
+    if (this.form.invalid) return;
+    if (this.submitted) return;
+
+    this.submitted = true;
+    const data = this.prepareData();
+    console.log('Sending add user request');
+
+    this.userService
+      .submitUserData(data) 
+      .pipe(finalize(() => this.handleComplete()))
+      .subscribe(
+        (response: PtkResponse) => this.handleSuccess(response),
+        (response: HttpErrorResponse) => this.handleFailure(response)
+      );
+  }
+
+  protected handleComplete() {
+    this.changeFormSubmissionStatus(false);
+  }
+
+  protected handleSuccess(ptkResponse: PtkResponse) {
+    //this.registrationInfo = null;
+    //this.showForm = false;
+    //this.resetForm();
+    this.notiService.success('user.register.successMsg');
+  }
+
+  protected handleFailure(errResponse: HttpErrorResponse) {
+    console.log(errResponse);
+    switch (errResponse.status) {
+      case 422:
+        const ptkResponse: PtkResponse = errResponse.error;
+        if (ptkResponse.message === 'ERROR_INVALID_FIELDS') {
+          this.setFormErrors(errResponse.error);
+        } else {
+          this.notiService.danger('user.register.vld.registrationIdInvld');
+        }
+        break;
+        default:
+          //console.log(errResponse);
+          this.notiService.danger('common.errorOccurred');
+    }
+  }
+
+  protected changeFormSubmissionStatus(status: boolean) {
+    this.submitted = status;
+  }
 
   get firstName() {
     return this.form.get('firstName');
@@ -210,23 +284,11 @@ export class CompleteRegistrationComponent implements OnInit {
     this.LIMITS.dateOfBirthMax = toString(date, this.datePatternType, this.dateSeparator);
   }
 
-  private showLoginError(msgKey: string) {
-    this.showError = true;
-    this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.form.valueChanges.subscribe(() =>
-      this.hideLoginError()
-    );
-  }
+  resetForm() {
+    this.form.reset();
 
-  private hideLoginError() {
-    this.showError = false;
-    this.errorText$ = undefined;
-    this.formValueChangeSubscription.unsubscribe();
-  }
-
-  reset() {
-    this.form.reset(this.registrationInfo);
-    this.form.markAsPristine();
-    this.form.markAsUntouched();
+    if (this.registrationInfo) {
+      this.form.reset(this.registrationInfo);
+    }
   }
 }

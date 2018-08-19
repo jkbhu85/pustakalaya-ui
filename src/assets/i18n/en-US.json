@@ -36,11 +36,12 @@
   "common": {
     "errorOccurred": "Some error occurred.",
     "pageNotFound": "Page not found.",
+    "select": "Select",
     "submit": "Submit",
     "reset": "Reset",
     "validationFailed": "Validation failed for some or all fields.",
     "loading": "Loading details ...",
-    "select": "Select"
+    "emailDoesNotExist": "Email does not exist."
   },
   "home": {
     "welcomeText": "You are welcome in Pustakalaya."
@@ -78,6 +79,13 @@
       "securityQuestion": "Security Question",
       "securityAnswer": "Security Answer",
       "confirmPassword": "Confirm Password",
+      "successMsg": "Registration completed successfully.",
+      "tip": {
+        "dateOfBirth": "{{dateOfBirthFormat}}",
+        "mobile": "10 digit mobile number",
+        "password": "At least {{passwordMinLen}} characters",
+        "confirmPassword":"Same as Password"
+      },
       "vld": {
         "registrationIdInvld": "The registration id is invalid or has expired.",
         "genderReq": "Gender is required.",
@@ -86,6 +94,7 @@
         "passwordMaxLen": "Maximum {{passwordMaxLen}} character are allowed.",
         "mobileReq": "Mobile is required.",
         "mobileInvld": "Mobile should have exactly 10 digits.",
+        "mobileDuplicate": "Mobile number already registered with another user.",
         "dateOfBirthReq": "Date of birth is requried.",
         "dateOfBirthInvld": "Date of birth is invalid.",
         "dateOfBirthRangeInvld": "Date of birth should be in between {{dateOfBirthMin}} and {{dateOfBirthMax}}.",

@@ -102,7 +102,7 @@ export class AuthService {
    * Changes the login status and informs all the subscribers.
    */
   private updateLoginStatus() {
-    this.loggedIn = this.user ? true : false;
+    this.loggedIn = this.storage.getItem(this.tokenLabel) ? true : false;
     this.loggedIn$.next(this.loggedIn);
   }
 
@@ -230,6 +230,9 @@ export class AuthService {
    * Returns `true` if user is logged in, `false` otherwise.
    */
   isLoggedIn(): boolean {
+    if (!this.storage.getItem(this.tokenLabel)) {
+      this.logout();
+    }
     return this.loggedIn;
   }
 
@@ -237,6 +240,8 @@ export class AuthService {
    * Logs out user by removing all information.
    */
   logout(): void {
+    if (!this.loggedIn) return;
+
     this.clearAll();
     this.updateLoginStatus();
 

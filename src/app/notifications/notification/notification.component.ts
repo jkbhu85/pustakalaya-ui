@@ -1,7 +1,10 @@
 import {
   Component,
   OnInit,
-  Input
+  Input,
+  ViewChild,
+  AfterViewInit,
+  ElementRef
 } from '@angular/core';
 
 import { Notification } from '../notification';
@@ -12,7 +15,7 @@ import { NotificationService } from '../notification.service';
   selector: 'app-notification',
   template:
     `
-<div class="alert alert-dismissible fade show" [ngClass]="{
+<div class="alert alert-dismissible fade show" #alertRef tabindex="-1" [ngClass]="{
   'alert-info': notification.type === notiType.INFO,
   'alert-success': notification.type === notiType.SUCCESS,
   'alert-warning': notification.type === notiType.WARN,
@@ -26,8 +29,9 @@ import { NotificationService } from '../notification.service';
 </div>
 `
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, AfterViewInit {
   @Input() notification: Notification;
+  @ViewChild('alertRef') alertRef: ElementRef;
   notiType = NotiType;
 
   constructor(private notiService: NotificationService) { }
@@ -35,11 +39,12 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => this.alertRef.nativeElement.focus(), 50);
+  }
+
   onDelete() {
-    let that = this;
-    window.setTimeout(function () {
-      that.notiService.removeNotification(this.notification)
-    }, 200);
+    window.setTimeout(() => this.notiService.removeNotification(this.notification), 200);
   }
 
 }

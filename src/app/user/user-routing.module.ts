@@ -20,7 +20,7 @@ const userRoutes: Routes = [
       {
         path: 'add',
         component: AddUserComponent,
-        canActivate: [RoleLibrianGaurd, AuthGaurd]
+        canActivate: [AuthGaurd, RoleLibrianGaurd]
       },
       {
         path: 'register',
