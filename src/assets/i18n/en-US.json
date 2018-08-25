@@ -66,9 +66,9 @@
       "success": "User was added successfully.",
       "vld": {
         "firstNameReq": "First name is required.",
-        "firstNameMaxLen": "Maximum {{firstNameMaxLen}} character are allowed.",
+        "firstNameMaxLen": "Maximum {{firstNameMaxLen}} characters are allowed.",
         "lastNameReq": "Last name is require.",
-        "lastNameMaxLen": "Maximum {{lastNameMaxLen}} character are allowed.",
+        "lastNameMaxLen": "Maximum {{lastNameMaxLen}} characters are allowed.",
         "emailReq": "Email is required.",
         "emailInvld": "Email is invalid.",
         "localeReq": "Locale is required."
@@ -84,14 +84,14 @@
         "dateOfBirth": "{{dateOfBirthFormat}}",
         "mobile": "10 digit mobile number",
         "password": "At least {{passwordMinLen}} characters",
-        "confirmPassword":"Same as Password"
+        "confirmPassword":"Same as password"
       },
       "vld": {
         "registrationIdInvld": "The registration id is invalid or has expired.",
         "genderReq": "Gender is required.",
         "genderInvld": "Gender is invalid.",
-        "passwordMinLen": "Minimum {{passwordMinLen}} character are allowed.",
-        "passwordMaxLen": "Maximum {{passwordMaxLen}} character are allowed.",
+        "passwordMinLen": "Minimum {{passwordMinLen}} characters are allowed.",
+        "passwordMaxLen": "Maximum {{passwordMaxLen}} characters are allowed.",
         "mobileReq": "Mobile is required.",
         "mobileInvld": "Mobile should have exactly 10 digits.",
         "mobileDuplicate": "Mobile number already registered with another user.",
@@ -100,22 +100,61 @@
         "dateOfBirthRangeInvld": "Date of birth should be in between {{dateOfBirthMin}} and {{dateOfBirthMax}}.",
         "isdCodeReq": "ISD code is required.",
         "isdCodeInvld": "ISD code is invalid.",
-        "confirmPasswordReq": "Confirm Password is required.",
-        "confirmPasswordDoesNotMatch": "Password and Confirm Password do not match.",
-        "securityQuestionReq": "Security Question is required.",
-        "securityQuestionMinLen": "Minimum {{securityQuestionMinLen}} character are allowed.",
-        "securityQuestionMaxLen": "Maximum {{securityQuestionMaxLen}} character are allowed.",
-        "securityAnswerReq": "Security Answer is required.",
-        "securityAnswerMinLen": "Minimum {{securityAnswerMinLen}} character are allowed.",
-        "securityAnswerMaxLen": "Maximum {{securityAnswerMaxLen}} character are allowed."
+        "confirmPasswordReq": "Confirm password is required.",
+        "confirmPasswordDoesNotMatch": "Password and confirm password do not match.",
+        "securityQuestionReq": "Security question is required.",
+        "securityQuestionMinLen": "Minimum {{securityQuestionMinLen}} characters are allowed.",
+        "securityQuestionMaxLen": "Maximum {{securityQuestionMaxLen}} characters are allowed.",
+        "securityAnswerReq": "Security answer is required.",
+        "securityAnswerMinLen": "Minimum {{securityAnswerMinLen}} characters are allowed.",
+        "securityAnswerMaxLen": "Maximum {{securityAnswerMaxLen}} characters are allowed."
       }
     }
   },
   "book": {
     "add": {
+      "formTitle": "Add Book",
+      "bookCategory": "Book Category",
+      "title": "Title",
+      "authors": "Authors",
+      "edition": "Edition",
+      "publication": "Publication",
+      "volume": "Volume",
+      "isbn": "ISBN",
+      "price": "Price",
+      "currency": "Currency",
+      "numberOfPages": "Number of Pages",
+      "numberOfCopies": "Number of Copies",
+      "tip": {
+        "authors": "Comma separated list"
+      },
       "vld": {
-        
+        "bookCategoryReq": "Book category is required.",
+        "bookCategoryInvld": "Book category is invalid.",
+        "titleReq": "Title is required.",
+        "titleMaxLen": "Maximum {{titleMaxLen}} characters are allowed.",
+        "authorsMaxLen": "Maximum {{authorsMaxLen}} characters are allowed.",
+        "editionInvld": "Edition is invalid.",
+        "publicationMaxLen":"Maximum {{publicationMaxLen}} characters are allowed.",
+        "volumeInvld": "Volume is invalid.",
+        "isbnInvld": "ISBN is invalid.",
+        "priceReq": "Price is required.",
+        "priceInvld": "Price is invalid.",
+        "priceMax": "Maximum price can be {{priceMax}}.",
+        "currencyReq": "Currency is required.",
+        "currencyInvld": "Currency is invalid.",
+        "numberOfPagesReq": "Number of pages is required.",
+        "numberOfPagesInvld": "Number of pages is invalid.",
+        "numberOfPagesMin": "Minimum value can be {{numberOfPagesMin}}.",
+        "numberOfPagesMax": "Maximum value can be {{numberOfPagesMax}}.",
+        "numberOfCopiesReq": "Number of copies is required.",
+        "numberOfCopiesInvld": "Number of copies is invalid.",
+        "numberOfCopiesMin": "Minimum value can be {{numberOfCopiesMin}}.",
+        "numberOfCopiesMax": "Maximum value can be {{numberOfCopiesMax}}."
       }
+    },
+    "search": {
+      "pageTitle": "Search Book"
     }
   },
   "langs": {
@@ -128,5 +167,12 @@
     "NP": "Nepal",
     "SL": "Sri Lanka",
     "US": "United States"
+  },
+  "currencies": {
+    "INR": "India Rupee (INR)",
+    "NPR": "Nepalese Rupee (NPR)",
+    "LKR": "Srilankan Rupee (LKR)",
+    "BTN": "Bhuatanese Ngultrum (BTN)",
+    "USD": "US Dollar (USD)"
   }
 }

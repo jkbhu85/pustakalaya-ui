@@ -6,9 +6,9 @@
 :root {
   --default-font-family: 'Fira Sans', Mukta, Ubuntu, 'Segoe UI', Arial, Helvetica, sans-serif;
 }
-
 body {
   font-family: var(--default-font-family);
+  overflow-y: scroll;
 }
 button, option, input {
   font-family: var(--default-font-family);
@@ -42,20 +42,18 @@ footer>div {
 }
 .ptk-inline-nav li {
   float: left;
-  margin-bottom: 1rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  margin-bottom: .25rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 .ptk-inline-nav a {
   display: block;
   text-decoration: none;
   outline: 0;
-  background-color: #e7e7ff;
-  padding: 0.2rem 0.7rem;
-  border-radius: 0.2rem;
+  padding: .5rem 1rem;
+  border-radius: .2rem;
 }
 .ptk-inline-nav a:hover {
-  color: #dd8800;
   background-color: #fcf3e5;
 }
 .ptk-inline-nav a.ptk-active {

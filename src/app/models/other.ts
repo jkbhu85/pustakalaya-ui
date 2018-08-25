@@ -16,6 +16,12 @@ export interface Country {
   abbr: string;
 }
 
+export interface Currency {
+  id: number;
+  code: string;
+  description: string;
+}
+
 /**
  * Represents login status.
  */

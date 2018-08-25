@@ -6,18 +6,25 @@ import { Component, OnInit } from '@angular/core';
     <div class="col-12">
       <h1 class="mb-3">{{'navbar.book' | translate}}</h1>
       
-      <ul class="ptk-inline-nav">
-        <li>
-          <a [routerLink]="['/book/add']" routerLinkActive="ptk-active">{{'navbar.addBook' | translate}}</a>
-        </li>
-        <li>
-          <a [routerLink]="['/book/assign']" routerLinkActive="ptk-active">{{'navbar.assignBook' | translate}}</a>
-        </li>
-        <li>
-          <a [routerLink]="['/book/remove']" routerLinkActive="ptk-active">{{'navbar.removeBook' | translate}}</a>
-        </li>
-      </ul>
-      <router-outlet></router-outlet>
+      <div class="row">
+        <div class="col-lg-4 mb-3 mb-md-0">
+          <ul class="ptk-inline-nav">
+            <li class="float-left float-lg-none">
+              <a [routerLink]="['/book/add']" routerLinkActive="ptk-active">{{'navbar.addBook' | translate}}</a>
+            </li>
+            <li class="float-left float-lg-none">
+              <a [routerLink]="['/book/assign']" routerLinkActive="ptk-active">{{'navbar.assignBook' | translate}}</a>
+            </li>
+            <li class="float-left float-lg-none">
+              <a [routerLink]="['/book/remove']" routerLinkActive="ptk-active">{{'navbar.removeBook' | translate}}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-8">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
   </div>
   `,

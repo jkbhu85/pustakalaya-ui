@@ -4,3 +4,8 @@ export enum BookInstanceStatus {
   UNAVAILABLE = 'UNAVAILABLE',
   REMOVED = 'REMOVED'
 }
+
+export interface BookCategory {
+  id: number;
+  name: string;
+}

@@ -113,9 +113,48 @@
   },
   "book": {
     "add": {
+      "formTitle": "पुस्तक जोड़े",
+      "bookCategory": "पुस्तक श्रेणी",
+      "title": "नाम",
+      "authors": "लेखक",
+      "edition": "संस्करण",
+      "publication": "प्रकाशन",
+      "volume": "भाग संख्या",
+      "isbn": "आई०एस०बी०एन०",
+      "price": "मूल्य",
+      "currency": "मुद्रा",
+      "numberOfPages": "पृष्ठों की संख्या",
+      "numberOfCopies": "प्रतियों की संख्या",
+      "tip": {
+        "authors": "Comma separated list"
+      },
       "vld": {
-        
+        "bookCategoryReq": "पुस्तक श्रेणी आवश्यक है |",
+        "bookCategoryInvld": "पुस्तक श्रेणी गलत है |",
+        "titleReq": "नाम आवश्यक है |",
+        "titleMaxLen": "अधिकतम {{titleMaxLen}} अक्षर होने चाहिए |",
+        "authorsMaxLen": "अधिकतम {{authorsMaxLen}} अक्षर होने चाहिए |",
+        "editionInvld": "संस्करण गलत है |",
+        "publicationMaxLen":"अधिकतम {{publicationMaxLen}} अक्षर होने चाहिए |",
+        "volumeInvld": "भाग संख्या गलत है |",
+        "isbnInvld": "आई०एस०बी०एन० गलत है |",
+        "priceReq": "मूल्य आवश्यक है |",
+        "priceInvld": "मूल्य गलत है |",
+        "priceMax": "मूल्य अधिकतम {{priceMax}} हो सकता है |",
+        "currencyReq": "मुद्रा आवश्यक है |",
+        "currencyInvld": "मुद्रा गलत है |",
+        "numberOfPagesReq": "पृष्ठों की संख्या आवश्यक है |",
+        "numberOfPagesInvld": "पृष्ठों की संख्या गलत है |",
+        "numberOfPagesMin": "पृष्ठों की संख्या न्यूनतम {{numberOfPagesMin}} हो सकती है |",
+        "numberOfPagesMax": "पृष्ठों की संख्या अधिकतम {{numberOfPagesMax}} हो सकती है |",
+        "numberOfCopiesReq": "प्रतियों की संख्या आवश्यक है |",
+        "numberOfCopiesInvld": "प्रतियों की संख्या गलत है |",
+        "numberOfCopiesMin": "प्रतियों की संख्या न्यूनतम {{numberOfCopiesMax}} हो सकती है |",
+        "numberOfCopiesMax": "प्रतियों की संख्या अधिकतम {{numberOfCopiesMax}} हो सकती है |"
       }
+    },
+    "search": {
+      "pageTitle": "पुस्तक खोजें"
     }
   },
   "langs": {
@@ -128,5 +167,12 @@
     "NP": "नेपाल",
     "SL": "श्रीलंका",
     "US": "अमरीका"
+  },
+  "currencies": {
+    "INR": "भारतीय रुपया (INR)",
+    "NPR": "नेपाली रुपया (NPR)",
+    "LKR": "श्रीलंकाई रुपया (LKR)",
+    "BTN": "भूटानी ङ्गुलटरम (BTN)",
+    "USD": "अमरीकन डॉलर (USD)"
   }
 }

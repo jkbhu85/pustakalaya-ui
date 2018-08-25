@@ -6,6 +6,8 @@ import { AssignBookComponent } from './assign-book/assign-book.component';
 import { SearchBookComponent } from './search-book/search-book.component';
 import { AppCommonModule } from '../modules/app-common.module';
 import { BookComponent } from './book.component';
+import { BookCategoryService } from './book-category.service';
+import { BookService } from './book.service';
 
 @NgModule({
   imports: [
@@ -21,6 +23,10 @@ import { BookComponent } from './book.component';
   ],
   exports: [
     BookRoutingModule
+  ],
+  providers: [
+    BookService,
+    BookCategoryService
   ]
 })
 export class BookModule { }

@@ -61,5 +61,64 @@ export const PtkValidators = {
       }
       return null;
     };
+  },
+
+  isbnValidator: function _isbnValidator(mandatory: boolean): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const error = { pattern: true };
+
+      if (!mandatory && !control.value ) return null;
+
+      if (isIsbnValid(control.value)) return null;
+
+      return error;
+    };
   }
 };
+
+function isIsbnValid(isbn: string): boolean {
+  if (!isbn) return false;
+
+  isbn = isbn.split('-').join('');
+
+  if (isbn.length !== 13 && isbn.length !== 10) return false;
+
+  if (isbn.length === 10) {
+    try {
+      let tot = 0;
+      
+      for (let i = 0; i < 9; i++) {
+        let digit = parseInt(isbn.substr(i, 1), 10);
+        tot += ((10 - i) * digit);
+      }
+
+      let checksum = ((11 - (tot % 11)) % 11) + '';
+      if ('10' === checksum) {
+        checksum = 'X';
+      }
+
+      return checksum === isbn.substr(9);
+    } catch (e) {
+      return false;
+    }
+  } else {
+    try {
+      let tot = 0;
+      
+      for (let i = 0; i < 12; i++) {
+        let digit = parseInt(isbn.substr(i, 1), 10);
+        tot += (i % 2 === 0) ? digit * 1 : digit * 3;
+      }
+
+      //checksum must be 0-9. If calculated as 10 then = 0
+      let checksum = 10 - (tot % 10);
+      if (checksum === 10) {
+        checksum = 0;
+      }
+
+      return checksum === parseInt(isbn.substr(12), 10);
+    } catch (e) {
+      return false;
+    }
+  }
+}

@@ -15,6 +15,7 @@ import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 import { MiscModule } from './misc/misc.module';
 import { CountryModule } from './country/country.module';
+import { CurrencyService } from './services/currency.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    AppTranslateService
+    AppTranslateService,
+    CurrencyService
   ],
   bootstrap: [AppComponent],
   declarations: [CompleteProfileComponent]

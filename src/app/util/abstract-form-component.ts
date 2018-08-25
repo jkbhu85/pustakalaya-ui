@@ -1,10 +1,29 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { PtkResponse, ResponseCode } from '../models/ptk-response';
 import { FormGroup } from '@angular/forms';
+import { ViewChild, ElementRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 export abstract class AbstractFormComponent {
   submitted = false;
   form: FormGroup;
+  inFormErrorKey = '';
+  private formValueChangeSubscription: Subscription;
+
+  protected showInFormError(key: string) {
+    this.inFormErrorKey = key;
+
+    if (this.form) {
+      this.formValueChangeSubscription = this.form.valueChanges.subscribe(
+        () => this.onValueChanged()
+      );
+    }
+  }
+
+  private onValueChanged() {
+    this.inFormErrorKey = '';
+    this.formValueChangeSubscription.unsubscribe();
+  }
 
   private setFieldError(fieldName: string, errorCode: number) {
     const errorKey = this.errorKeyFrom(errorCode);
@@ -18,6 +37,7 @@ export abstract class AbstractFormComponent {
     error[errorKey] = 'true';
 
     if (this.form.get(fieldName)) {
+      this.form.get(fieldName).markAsTouched();
       this.form.get(fieldName).setErrors(error, { emitEvent: true });
     } else {
       console.error('\'' + fieldName + '\' not found to set errors.');
