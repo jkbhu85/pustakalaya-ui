@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BASE_HREF } from '../consts';
-import { Observable } from '../../../node_modules/rxjs';
 import { PtkResponse } from '../models/ptk-response';
 
-const URL_GET_REGISTRATION_INFO = BASE_HREF + '/ptk/newUser/';
-const URL_POST_REGISTER_USER = BASE_HREF + '/ptk/user';
+const URL_USER_GET_PREREGISTRATION_INFO = BASE_HREF + '/ptk/newUser/';
+const URL_USER_POST_REGISTERATION_INFO = BASE_HREF + '/ptk/user';
+const URL_USER_POST_PREREGISTRATION = BASE_HREF + '/ptk/newUser';
 
 @Injectable()
 export class UserService {
@@ -15,11 +16,15 @@ export class UserService {
   ) { }
 
   getRegistrationInfo(id: string): Observable<PtkResponse> {
-    return this.http.get<PtkResponse>(URL_GET_REGISTRATION_INFO + id);
+    return this.http.get<PtkResponse>(URL_USER_GET_PREREGISTRATION_INFO + id);
+  }
+
+  submitPreRegistrationData(data: any) {
+    return this.http.post<PtkResponse>(URL_USER_POST_PREREGISTRATION, data)
   }
 
   submitUserData(data: any) {
     console.log(data);
-    return this.http.post<PtkResponse>(URL_POST_REGISTER_USER, data);
+    return this.http.post<PtkResponse>(URL_USER_POST_REGISTERATION_INFO, data);
   }
 }

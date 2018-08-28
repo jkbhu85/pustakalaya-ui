@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NotificationComponent } from './notification/notification.component';
-import { NotificationGroupComponent } from './notification-group/notification-group.component';
+import { NotificationComponent } from './notification.component';
+import { NotificationGroupComponent } from './notification-group.component';
 import { NotificationService } from './notification.service';
 import { AppCommonModule } from '../modules/app-common.module';
+import { BlockUiComponent } from './block-ui.component';
+import { BlockUiService } from './block-ui.service';
 
 @NgModule({
     declarations: [
+        BlockUiComponent,
         NotificationComponent,
         NotificationGroupComponent
     ],
@@ -14,10 +16,12 @@ import { AppCommonModule } from '../modules/app-common.module';
         AppCommonModule
     ],
     exports: [
+        BlockUiComponent,
         NotificationGroupComponent
     ],
     providers: [
-        NotificationService
+        NotificationService,
+        BlockUiService
     ]
 })
 export class NotificationModule { }

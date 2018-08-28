@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../user.service';
-import { HttpErrorResponse, HttpResponse } from '../../../../node_modules/@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { AppTranslateService } from '../../services/app-translate.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CountryService } from '../../country/country.service';
+import { Country } from '../../models/other';
+import { PtkResponse } from '../../models/ptk-response';
 import { RegistrationInfo } from '../../models/user';
 import { NotificationService } from '../../notifications/notification.service';
-import { PtkResponse } from '../../models/ptk-response';
-import { PtkValidators } from '../../util/custom-validators';
-import { DateSeparator, DatePatternType, toString } from '../../util/date-util';
-import { Country } from '../../models/other';
-import { CountryService } from '../../country/country.service';
-import { finalize } from 'rxjs/operators';
+import { AppTranslateService } from '../../services/app-translate.service';
 import { AbstractFormComponent } from '../../util/abstract-form-component';
-import { InFormErrorHandler } from '../../util/in-form-errors';
+import { PtkValidators } from '../../util/custom-validators';
+import { DatePatternType, DateSeparator, toString } from '../../util/date-util';
+import { UserService } from '../user.service';
+import { MsgKey } from '../../consts';
 
 @Component({
   templateUrl: './complete-registration.component.html'
@@ -22,12 +22,11 @@ import { InFormErrorHandler } from '../../util/in-form-errors';
 export class CompleteRegistrationComponent extends AbstractFormComponent implements OnInit {
   showForm = false;
   showLoading = true;
-  showError = false;
   form: FormGroup;
+  loginStatus: boolean = false;
   errorText$: Observable<string>;
   countries$: Observable<Country[]>;
   registrationInfo: RegistrationInfo;
-  private inFormErrorHandler: InFormErrorHandler;
   private readonly dateSeparator: DateSeparator = DateSeparator.HYPHEN;
   private readonly datePatternType = DatePatternType.DDMMYYYY;
   private readonly defaultValues = {
@@ -65,8 +64,6 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
   ngOnInit() {
     this.form = this.fb.group([]);
     this.getRegistrationInfo();
-    this.inFormErrorHandler = new InFormErrorHandler(this.form);
-    this.errorText$ = this.inFormErrorHandler.getErrorKeyObservable();
   }
 
   private getRegistrationInfo() {
@@ -104,7 +101,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
         this.notiService.danger('user.register.vld.registrationIdInvld');
         break;
       default:
-        this.notiService.danger('common.errorOccurred');
+        this.notiService.danger(MsgKey.ERROR_OCCURRED);
     }
   }
 
@@ -181,7 +178,10 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
   }
 
   submit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.showInFormError
+      return;
+    }
     if (this.submitted) return;
 
     this.submitted = true;
@@ -221,7 +221,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
         break;
         default:
           //console.log(errResponse);
-          this.notiService.danger('common.errorOccurred');
+          this.notiService.danger(MsgKey.ERROR_OCCURRED);
     }
   }
 

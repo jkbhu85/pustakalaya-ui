@@ -132,7 +132,8 @@
           </div>
         </div>
 
-        <div class="text-danger">{{inFormErrorKey | translate}}</div>
+        <div class="error-in-form" *ngIf="inFormErrorKey">{{inFormErrorKey | translate}}</div>
+        <div class="in-form-info" *ngIf="submitted">{{'common.submitting' | translate}}</div>
       </div>
 
       <div class="card-footer">

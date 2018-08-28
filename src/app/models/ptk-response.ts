@@ -72,6 +72,11 @@ export enum ResponseCode {
    */
   MAIL_NOT_SENT_INVALID_EMAIL = 38,
 
+  /**
+   * Code 39.
+   */
+  DOES_NOT_MATCH = 39,
+
   // System related
   /**
    * Code 51.

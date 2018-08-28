@@ -1,15 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  ElementRef
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { NotiType } from './noti-type.enum';
+import { Notification } from './notification';
+import { NotificationService } from './notification.service';
 
-import { Notification } from '../notification';
-import { NotiType } from '../noti-type.enum';
-import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-notification',

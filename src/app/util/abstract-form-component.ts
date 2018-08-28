@@ -62,6 +62,8 @@ export abstract class AbstractFormComponent {
         return 'required';
       case ResponseCode.MAIL_NOT_SENT_INVALID_EMAIL:
         return 'emailnotsent';
+      case ResponseCode.DOES_NOT_MATCH:
+        return 'doesnotmatch';
       default:
         return '';
     }

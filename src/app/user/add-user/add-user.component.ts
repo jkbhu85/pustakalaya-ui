@@ -1,217 +1,186 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidationErrors } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { AppTranslateService } from '../../services/app-translate.service';
-import { HttpResponse, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BASE_HREF } from '../../consts';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../app-security/auth.service';
 import { AuthInfo } from '../../models/user';
-import { PtkResponse, ResponseCode } from '../../models/ptk-response';
+import { PtkResponse } from '../../models/ptk-response';
 import { NotificationService } from '../../notifications/notification.service';
-
-
-const ADD_USER_URL = BASE_HREF + '/ptk/newUser';
-const GET_LOCALES = BASE_HREF + '/ptk/locale';
+import { AbstractFormComponent } from '../../util/abstract-form-component';
+import { UserService } from '../user.service';
+import { LocaleService } from '../../services/locale.service';
+import { MsgKey } from '../../consts';
 
 @Component({
   templateUrl: './add-user.component.html',
   styles: []
 })
-export class AddUserComponent implements OnInit {
-
-  addUserForm: FormGroup;
-  submitStatus = false;
-  showError = false;
-  errorText$: Observable<any>;
-  private formValueChangeSubscription: Subscription;
-  private debug = true;
+export class AddUserComponent extends AbstractFormComponent implements OnInit {
   private userInfo: AuthInfo;
-  private readonly defaultValues: any = {};
-  localeObservable: Observable<string[]>;
+  private depCount = 0;
+  showForm = false;
+  formLoadSuccessful = true;
+  locales: string[];
 
-  readonly param = {
+  readonly LIMITS = {
     'firstNameMaxLen': 30,
     'lastNameMaxLen': 30
+  };
+  
+  private readonly defaultValues: any = {
+    locale: ''
   };
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
-    private translate: AppTranslateService,
+    private localeService: LocaleService,
+    private userService: UserService,
     private authService: AuthService,
     private notiService: NotificationService
   ) {
+    super();
     this.authService.getUserInfo().subscribe(
       (userInfo: AuthInfo) => this.userInfo = userInfo
     );
-    this.createForm();
   }
 
   ngOnInit() {
+    setTimeout(() => this.beforeFormDepenciesLoadStart(), 500);
+    this.loadFormDependencies();
   }
 
-  createForm() {
+  private beforeFormDepenciesLoadStart() {
+    if (!this.showForm) this.notiService.showUiBlocker();
+  }
+  
+  private loadFormDependencies() {
+    this.depCount++;
+    this.localeService
+      .getAll()
+      .pipe(finalize(() => this.onDependencyLoadComplete()))
+      .subscribe(
+        (locales: string[]) => this.locales = locales,
+        () => this.onDependencyLoadFailure()
+      );
+  }
+
+  private onDependencyLoadFailure() {
+    this.formLoadSuccessful = this.formLoadSuccessful && false;
+  }
+  
+  private onDependencyLoadComplete() {
+    if (this.depCount !== 0) this.depCount--;
+    if (this.depCount === 0) {
+      this.afterFormDependenciesLoaded();
+    }
+  }
+
+  private afterFormDependenciesLoaded() {
+    this.notiService.hideUiBlocker();
+
+    if (this.formLoadSuccessful) {
+      this.showForm = true;
+      this.createForm();
+    } else {
+      this.notiService.danger(MsgKey.FORM_LOAD_ERROR);
+    }
+  }
+
+  protected createForm() {
     let localeValue = this.userInfo.locale;
     if (!localeValue) localeValue = 'en-US';
 
-    this.addUserForm = this.fb.group({
-      'firstName': ['', [Validators.required, Validators.maxLength(this.param.firstNameMaxLen)]],
-      'lastName': ['', [Validators.required, Validators.maxLength(this.param.lastNameMaxLen)]],
-      'email': ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
-      'locale': [localeValue, [Validators.required]]
+    this.form = this.fb.group({
+      'firstName': [null, [Validators.required, Validators.maxLength(this.LIMITS.firstNameMaxLen)]],
+      'lastName': [null, [Validators.required, Validators.maxLength(this.LIMITS.lastNameMaxLen)]],
+      'email': [null, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      'locale': [null, [Validators.required]]
     });
 
     // specify default values
-    this.defaultValues.firstName = '';
-    this.defaultValues.lastName = '';
-    this.defaultValues.email = '';
     this.defaultValues.locale = localeValue;
-    this.localeObservable = this.http.get<string[]>(GET_LOCALES);
-    this.reset(); // reset form with default values
-  }
-
-  getTranslation(locale: string): Observable<string> {
-    return this.translate.get('langs.' + locale);
+    this.resetForm(); // reset form with default values
   }
 
   get firstName() {
-    return this.addUserForm.get('firstName');
+    return this.form.get('firstName');
   }
 
   get lastName() {
-    return this.addUserForm.get('lastName');
+    return this.form.get('lastName');
   }
 
   get email() {
-    return this.addUserForm.get('email');
+    return this.form.get('email');
   }
   get locale() {
-    return this.addUserForm.get('locale');
+    return this.form.get('locale');
   }
 
-  prepareData() {
-    let l: any = {};
+  protected prepareData() {
+    let data: any = {};
 
-    l.firstName = this.firstName.value;
-    l.lastName = this.lastName.value;
-    l.email = this.email.value;
-    l.locale = this.locale.value;
+    data.firstName = this.firstName.value;
+    data.lastName = this.lastName.value;
+    data.email = this.email.value;
+    data.locale = this.locale.value;
 
-    return l;
+    return data;
   }
 
-  onSubmit() {
-    if (this.submitStatus) return;
-    if (this.addUserForm.invalid) return;
+  submit() {
+    if (this.submitted) return;
+    if (this.form.invalid) return;
 
-    this.changeFormSubmitStatus(true);
-    this.hideFormError();
-
+    this.changeFormSubmissionStatus(true);
     const data = this.prepareData();
 
-    this.http
-      .post(ADD_USER_URL, data)
+    this.userService
+      .submitPreRegistrationData(data)
       .pipe(finalize(() => this.handleComplete()))
       .subscribe(
-        (response: HttpResponse<PtkResponse>) => this.handleSuccess(response),
+        (response: PtkResponse) => this.handleSuccess(response),
         (response: HttpErrorResponse) => this.handleFailure(response)
       );
   }
 
-  private handleComplete() {
-    this.changeFormSubmitStatus(false);
+  protected handleComplete() {
+    this.changeFormSubmissionStatus(false);
   }
 
-  private handleSuccess(response: HttpResponse<PtkResponse>) {
-    // const ptrRes: PtkResponse = response.body;
-    this.notiService.info('user.add.success');
-    this.reset();
+  protected handleSuccess(response: PtkResponse) {
+    this.notiService.success('user.add.success');
+    this.resetForm();
   }
 
-  private handleFailure(errResponse: HttpErrorResponse) {
-
+  protected handleFailure(errResponse: HttpErrorResponse) {
     switch (errResponse.status) {
       case 422:
         const response: PtkResponse = errResponse.error;
         console.log(response);
-        if (response.message === 'ERROR_INVALID_FIELDS') {
-          this.showFormError('common.validationFailed');
-          const errors: any = response.errors;
-
-          for (let prop in errors) {
-            if (errors[prop]) {
-              this.setFieldError(prop, errors[prop]);
-            }
-          }
+        if (response.responseCode === 61) {
+          this.setFormErrors(response);
+          this.showInFormError(MsgKey.VALIDATION_FAILED);
         } else {
-          this.showFormError('common.emailDoesNotExist');
+          this.showInFormError(MsgKey.EMAIL_DOES_NOT_EXIST);
         }
         break;
       default:
         console.log(errResponse);
-        this.showFormError('common.errorOccurred');
+        this.showInFormError(MsgKey.ERROR_OCCURRED);
     }
   }
 
-  private setFieldError(fieldName: string, errorCode: number) {
-    const errorKey = this.getErrorKeyFrom(errorCode);
-    const error: any = {};
-    error[errorKey] = 'true';
-    console.log(error);
+  protected changeFormSubmissionStatus(status: boolean) {
+    this.submitted = status;
+  }
 
-    if (this.addUserForm.get(fieldName)) {
-      this.addUserForm.get(fieldName).setErrors(error, { emitEvent: true });
-    } else {
-      console.log(fieldName + ' not found to set errors.');
+  resetForm() {
+    this.form.reset();
+
+    if (this.defaultValues) {
+      this.form.reset(this.defaultValues);
     }
-  }
-
-  private getErrorKeyFrom(errorCode: number): string {
-    switch (errorCode) {
-      case ResponseCode.VALUE_TOO_LARGE:
-        return 'maxlength';
-      case ResponseCode.VALUE_TOO_SMALL:
-        return 'minlength';
-      case ResponseCode.INVALID_FORMAT:
-        return 'pattern';
-      case ResponseCode.UNSUPPORTED_VALUE:
-        return '';
-      case ResponseCode.VALUE_ALREADY_EXIST:
-        return '';
-      case ResponseCode.RESOURCE_HAS_EXPIRED:
-        return '';
-      case ResponseCode.EMPTY_VALUE:
-        return 'required';
-      case ResponseCode.MAIL_NOT_SENT_INVALID_EMAIL:
-        return '';
-      default:
-        return '';
-    }
-  }
-
-  private changeFormSubmitStatus(status: boolean) {
-    this.submitStatus = status;
-  }
-
-  private showFormError(msgKey: string) {
-    this.hideFormError(); // hide previous error if any
-
-    this.showError = true;
-    this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.addUserForm.valueChanges.subscribe(() => this.hideFormError());
-  }
-
-  private hideFormError() {
-    if (!this.showError) return;
-
-    this.showError = false;
-    this.errorText$ = undefined;
-    this.formValueChangeSubscription.unsubscribe();
-  }
-
-  reset() {
-    this.addUserForm.reset(this.defaultValues);
   }
 
 }

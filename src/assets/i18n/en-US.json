@@ -2,6 +2,18 @@
   "app": {
     "title": "Pustakalaya"
   },
+  "common": {
+    "errorOccurred": "Some error occurred.",
+    "pageNotFound": "Page not found.",
+    "select": "Select",
+    "submit": "Submit",
+    "reset": "Reset",
+    "validationFailed": "Validation failed for some or all fields.",
+    "loading": "Loading...",
+    "submitting": "Submitting...",
+    "emailDoesNotExist": "Email does not exist.",
+    "formLoadError": "Error occurred while loading the form. Please try again after some time."
+  },
   "navbar": {
     "dashboard": "Home",
     "searchBook": "Search Book",
@@ -33,16 +45,6 @@
   "forgotPwd": {
     "title": "Forgot Password"
   },
-  "common": {
-    "errorOccurred": "Some error occurred.",
-    "pageNotFound": "Page not found.",
-    "select": "Select",
-    "submit": "Submit",
-    "reset": "Reset",
-    "validationFailed": "Validation failed for some or all fields.",
-    "loading": "Loading details ...",
-    "emailDoesNotExist": "Email does not exist."
-  },
   "home": {
     "welcomeText": "You are welcome in Pustakalaya."
   },
@@ -71,6 +73,7 @@
         "lastNameMaxLen": "Maximum {{lastNameMaxLen}} characters are allowed.",
         "emailReq": "Email is required.",
         "emailInvld": "Email is invalid.",
+        "emailAlreadyExist": "Email already exist.",
         "localeReq": "Locale is required."
       }
     },

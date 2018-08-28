@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row" *ngIf="showForm">
   <div class="col-12">
-    <form class="card mb-5" [formGroup]="addUserForm" (submit)="onSubmit()">
+    <form class="card mb-5" [formGroup]="form" (submit)="submit()">
       <h2 class="card-header h4">{{'navbar.addUser' | translate}}</h2>
 
       <div class="card-body">
@@ -12,7 +12,7 @@
 
               <div class="text-danger" *ngIf="(firstName.touched || firstName.dirty) && firstName.errors">
                 <div *ngIf="firstName.errors['required']">{{'user.add.vld.firstNameReq' | translate}}</div>
-                <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLen' | translate:param}}</div>
+                <div *ngIf="firstName.errors['maxlength']">{{'user.add.vld.firstNameMaxLen' | translate:LIMITS}}</div>
               </div>
             </div>
           </div>
@@ -24,12 +24,11 @@
               
               <div class="text-danger" *ngIf="(lastName.touched || lastName.dirty) && lastName.errors">
                 <div *ngIf="lastName.errors['required']">{{'user.add.vld.lastNameReq' | translate}}</div>
-                <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLen' | translate:param}}</div>
+                <div *ngIf="lastName.errors['maxlength']">{{'user.add.vld.lastNameMaxLen' | translate:LIMITS}}</div>
               </div>
             </div>
           </div>
         </div>
-
 
         <div class="form-group">
           <label for="email">{{'profile.email' | translate}}</label>
@@ -38,6 +37,7 @@
           <div class="text-danger" *ngIf="(email.touched || email.dirty) && email.errors">
             <div *ngIf="email.errors['required']">{{'user.add.vld.emailReq' | translate}}</div>
             <div *ngIf="!email.errors['required'] && email.errors['pattern']">{{'user.add.vld.emailInvld' | translate}}</div>
+            <div *ngIf="!email.errors['required'] && email.errors['alreadyexist']">{{'user.add.vld.emailAlreadyExist' | translate}}</div>
           </div>
         </div>
 
@@ -45,7 +45,7 @@
           <label for="locale">{{'profile.locale' | translate}}</label>
           <select id="locale" class="form-control" [formControl]="locale">
             <option value="">Select</option>
-            <option *ngFor="let lc of localeObservable | async as locales" [value]="lc">{{getTranslation(lc) | async}}</option>
+            <option *ngFor="let lc of locales" [value]="lc">{{'langs.' + lc | translate}}</option>
           </select>
           
           <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
@@ -53,17 +53,18 @@
           </div>
         </div>
 
-        <div class="error-in-form" *ngIf="showError">{{errorText$ | async}}</div>
+        <div class="error-in-form" *ngIf="inFormErrorKey">{{inFormErrorKey | translate}}</div>
+        <div class="in-form-info" *ngIf="submitted">{{'common.submitting' | translate}}</div>
       </div> <!-- .card-body -->
 
       <div class="card-footer">
         <div class="row">
           <div class="col-md-6 mb-2 mb-md-0">
-            <button class="btn btn-block btn-primary" [disabled]="submitStatus">{{'navbar.addUser' | translate}}</button>
+            <button class="btn btn-block btn-primary" [disabled]="submitted">{{'navbar.addUser' | translate}}</button>
           </div>
 
           <div class="col-md-6 mb-md-0">
-            <button class="btn btn-block btn-secondary" [disabled]="submitStatus" (click)="reset()">{{'common.reset' | translate}}</button>
+            <button class="btn btn-block btn-secondary" [disabled]="submitted" (click)="resetForm()">{{'common.reset' | translate}}</button>
           </div>
         </div>
       </div>

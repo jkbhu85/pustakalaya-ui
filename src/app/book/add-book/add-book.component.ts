@@ -12,7 +12,7 @@ import { CurrencyService } from '../../services/currency.service';
 import { BookCategoryService } from '../book-category.service';
 import { BookService } from '../book.service';
 import { finalize } from 'rxjs/operators';
-import { MSG_KEY_ERROR_OCCURRED, MSG_KEY_VALIDATION_FAILED } from '../../consts';
+import { MsgKey } from '../../consts';
 
 @Component({
   selector: 'app-add-book',
@@ -160,7 +160,7 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
   public submit(): void {
     if (this.submitted) return;
     if (this.form.invalid) {
-      this.showInFormError(MSG_KEY_VALIDATION_FAILED);
+      this.showInFormError(MsgKey.VALIDATION_FAILED);
       console.log(this.form);
       return;
     }
@@ -180,13 +180,12 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
     switch (errResponse.status) {
       case 422:
         console.log(errResponse.error);
-
-        this.showInFormError(MSG_KEY_VALIDATION_FAILED);
+        this.showInFormError(MsgKey.VALIDATION_FAILED);
         this.setFormErrors(errResponse.error);
       break;
       default:
       console.error(errResponse);
-      this.notiService.danger(MSG_KEY_ERROR_OCCURRED);
+      this.notiService.danger(MsgKey.ERROR_OCCURRED);
     }
   }
   protected handleSuccess(ptkResponse: PtkResponse): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../app-security/auth.service';
 
 @Component({
   template: `
@@ -6,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
     <div class="col-12">
       <h1 class="mb-3">{{'navbar.user' | translate}}</h1>
 
-      
       <div class="row">
-        <div class="col-lg-4 mb-3 mb-md-0">
+        <div class="col-lg-4 mb-3 mb-md-0" *ngIf="authService.getLoginStatus() | async">
           <ul class="ptk-inline-nav">
             <li class="float-left float-lg-none">
               <a [routerLink]="['/user/add']" routerLinkActive="ptk-active">{{'navbar.addUser' | translate}}</a>
@@ -28,10 +28,7 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class UserComponent implements OnInit {
+  constructor(public authService: AuthService) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

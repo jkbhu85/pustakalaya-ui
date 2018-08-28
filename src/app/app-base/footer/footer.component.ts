@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../app-security/auth.service';
 
@@ -7,26 +7,25 @@ import { AuthService } from '../../app-security/auth.service';
   templateUrl: './footer.component.html',
   styles: [
     `
-    .full-width{
-      width: 100%;
-    }
+      .full-width {
+        width: 100%;
+      }
     `
   ]
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
   loggedIn = false;
   private subscription: Subscription;
 
-  constructor(
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.subscription = this.authService.getLoginStatus().subscribe((status) => this.loggedIn = status);
+    this.subscription = this.authService
+      .getLoginStatus()
+      .subscribe(status => (this.loggedIn = status));
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }

@@ -1,6 +1,7 @@
+import { Injectable } from '@angular/core';
+import { BlockUiService } from './block-ui.service';
 import { NotiType } from './noti-type.enum';
 import { Notification } from './notification';
-import { Injectable } from '@angular/core';
 
 /**
  * This class provides a service to show notifications
@@ -16,7 +17,7 @@ import { Injectable } from '@angular/core';
 export class NotificationService {
   private notifications: Notification[] = [];
 
-  constructor() {}
+  constructor(private blockUiService: BlockUiService) {}
 
   private notifyMsg(message: string, type: NotiType) {
     this.notifications.push({ message: message, type: type });
@@ -37,6 +38,25 @@ export class NotificationService {
         break;
       }
     }
+  }
+
+  /**
+   * Displays UI blocker with default loading message.
+   */
+  showUiBlocker() {
+    this.blockUiService.showBlocker();
+  }
+
+  /**
+   * Displays UI blocker with loading message obtained using the specified message key.
+   * @param msgKey the specified key for the loading message text
+   */
+  showUiBlockerWithMessage(msgKey: string) {
+    this.blockUiService.showBlockerWithMessage(msgKey);
+  }
+
+  hideUiBlocker() {
+    this.blockUiService.hideBlocker();
   }
 
   /**

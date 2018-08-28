@@ -2,6 +2,18 @@
   "app": {
     "title": "पुस्तकालय"
   },
+  "common": {
+    "errorOccurred": "कोई गड़बड़ हुई है |",
+    "pageNotFound": "पेज नहीं मिला |",
+    "select": "चुनें",
+    "submit": "भेजें",
+    "reset": "पूर्ववत् करें",
+    "validationFailed": "एक या अधिक जानकारियाँ गलत हैं |",
+    "loading": "जानकारी प्राप्त कर रहे हैं...",
+    "submitting": "जानकारी भेज रहे हैं...",
+    "emailDoesNotExist": "ईमेल विद्यमान नहीं है |",
+    "formLoadError": "फॉर्म लोड करने में कोई गड़बड़ हुई है | कृपया थोड़ी देर बाद पुनः प्रयास करें |"
+  },
   "navbar": {
     "dashboard": "मुख्य पृष्ठ",
     "searchBook": "पुस्तक खोजें",
@@ -33,16 +45,6 @@
   "forgotPwd": {
     "title": "पासवर्ड भूल गए"
   },
-  "common": {
-    "errorOccurred": "कोई गड़बड़ हुई है |",
-    "pageNotFound": "पेज नहीं मिला |",
-    "select": "चुनें",
-    "submit": "भेजें",
-    "reset": "पूर्ववत् करें",
-    "validationFailed": "एक या अधिक जानकारियाँ गलत हैं |",
-    "loading": "जानकारी प्राप्त कर रहे हैं ...",
-    "emailDoesNotExist": "ईमेल विद्यमान नहीं है |"
-  },
   "home": {
     "welcomeText": "पुस्तकालय में आपका स्वागत है |"
   },
@@ -71,6 +73,7 @@
         "lastNameMaxLen": "अधिकतम {{lastNameMaxLen}} अक्षर होने चाहिए |",
         "emailReq": "ईमेल आवश्यक है |",
         "emailInvld": "ईमेल गलत है |",
+        "emailAlreadyExist": "ईमेल पहले है |",
         "localeReq": "भाषा आवश्यक है |"
       }
     },
