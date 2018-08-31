@@ -6,6 +6,7 @@ import { UserComponent } from './user.component';
 import { AuthGaurd } from '../app-security/auth-gaurd.service';
 import { CompleteRegistrationComponent } from './complete-registration/complete-registration.component';
 import { NoAuthGaurd } from '../app-security/no-auth-gaurd';
+import { ModifyUserComponent } from './modify-user/modify-user.component';
 
 const userRoutes: Routes = [
   {
@@ -20,6 +21,11 @@ const userRoutes: Routes = [
       {
         path: 'add',
         component: AddUserComponent,
+        canActivate: [AuthGaurd, RoleLibrianGaurd]
+      },
+      {
+        path: 'modify',
+        component: ModifyUserComponent,
         canActivate: [AuthGaurd, RoleLibrianGaurd]
       },
       {

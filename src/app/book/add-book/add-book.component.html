@@ -4,145 +4,179 @@
       <h2 class="card-header h4">{{'book.add.formTitle' | translate}}</h2>
 
       <div class="card-body">
-        <div class="form-group">
-          <label for="bookCategory">{{'book.add.bookCategory' | translate}}<span class="required"></span></label>
-          <select id="bookCategory" class="form-control" [formControl]="bookCategory">
-            <option value="0" selected="selected">{{'common.select' | translate}}</option>
-            <option *ngFor="let bookCategory of bookCategories$ | async as bookCategories" [value]="bookCategory.id">{{bookCategory.name}}</option>
-          </select>
+        <div class="form-body" *ngIf="showForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="bookCategory">{{'book.add.bookCategory' | translate}}<span class="required"></span></label>
+                <select id="bookCategory" class="form-control" [formControl]="bookCategory">
+                  <option value="0" selected="selected">{{'common.select' | translate}}</option>
+                  <option *ngFor="let bookCategory of formDeps['bookCategories']" [value]="bookCategory.id">{{'book.category.' + bookCategory.name | translate}}</option>
+                </select>
 
-          <div class="text-danger" *ngIf="(bookCategory.touched || bookCategory.dirty) && bookCategory.errors">
-            <div *ngIf="bookCategory.errors['required']">{{'book.add.vld.bookCategoryReq' | translate}}</div>
-            <div *ngIf="!bookCategory.errors['required'] && bookCategory.errors['unsupported']">{{'book.add.vld.bookCategoryInvld'
-              | translate}}</div>
-          </div>
-        </div>
+                <div class="text-danger" *ngIf="(bookCategory.touched || bookCategory.dirty) && bookCategory.errors">
+                  <div *ngIf="bookCategory.errors['required']">{{'book.add.vld.bookCategoryReq' | translate}}</div>
+                  <div *ngIf="!bookCategory.errors['required'] && bookCategory.errors['unsupported']">{{'book.add.vld.bookCategoryInvld'
+                    | translate}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="isbn">{{'book.add.isbn' | translate}}</label>
+                <input type="text" id="isbn" class="form-control" [formControl]="isbn" />
 
-        <div class="form-group">
-          <label for="title">{{'book.add.title' | translate}}<span class="required"></span></label>
-          <input type="text" id="title" class="form-control" [formControl]="title" />
-
-          <div class="text-danger" *ngIf="(title.touched || title.dirty) && title.errors">
-            <div *ngIf="title.errors['required']">{{'book.add.vld.titleReq' | translate}}</div>
-            <div *ngIf="!title.errors['required'] && title.errors['maxlength']">{{'book.add.vld.titleMaxLen' | translate:LIMITS}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="authors">{{'book.add.authors' | translate}}</label>
-          <input type="text" id="authors" class="form-control" [formControl]="authors" />
-
-          <div class="text-danger" *ngIf="(authors.touched || authors.dirty) && authors.errors">
-            <div *ngIf="authors.errors['maxlength']">{{'book.add.vld.authorsMaxLen' | translate:LIMITS}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="edition">{{'book.add.edition' | translate}}</label>
-          <input type="text" id="edition" class="form-control" [formControl]="edition" />
-
-          <div class="text-danger" *ngIf="(edition.touched || edition.dirty) && edition.errors">
-            <div *ngIf="edition.errors['pattern']">{{'book.add.vld.editionInvld' | translate}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="publication">{{'book.add.publication' | translate}}</label>
-          <input type="text" id="publication" class="form-control" [formControl]="publication" />
-
-          <div class="text-danger" *ngIf="(publication.touched || publication.dirty) && publication.errors">
-            <div *ngIf="publication.errors['maxlength']">{{'book.add.vld.publicationMaxLen' | translate:LIMITS}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="volume">{{'book.add.volume' | translate}}</label>
-          <input type="text" id="volume" class="form-control" [formControl]="volume" />
-
-          <div class="text-danger" *ngIf="(volume.touched || volume.dirty) && volume.errors">
-            <div *ngIf="volume.errors['pattern']">{{'book.add.vld.volumeInvld' | translate:LIMITS}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="isbn">{{'book.add.isbn' | translate}}</label>
-          <input type="text" id="isbn" class="form-control" [formControl]="isbn" />
-
-          <div class="text-danger" *ngIf="(isbn.touched || isbn.dirty) && isbn.errors">
-            <div *ngIf="isbn.errors['pattern']">{{'book.add.vld.isbnInvld' | translate:LIMITS}}</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="price">{{'book.add.price' | translate}}<span class="required"></span></label>
-          <input type="text" id="price" class="form-control" [formControl]="price" />
-
-          <div class="text-danger" *ngIf="(price.touched || price.dirty) && price.errors">
-            <div *ngIf="price.errors['required']">{{'book.add.vld.priceReq' | translate}}</div>
-            <div *ngIf="!price.errors['required']">
-              <div *ngIf="price.errors['pattern']">{{'book.add.vld.priceInvld' | translate:LIMITS}}</div>
-              <div *ngIf="price.errors['max'] || price.errors['maxlength']">{{'book.add.vld.priceMax' | translate:LIMITS}}</div>
+                <div class="text-danger" *ngIf="(isbn.touched || isbn.dirty) && isbn.errors">
+                  <div *ngIf="isbn.errors['pattern']">{{'book.add.vld.isbnInvld' | translate:LIMITS}}</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="currency">{{'book.add.currency' | translate}}<span class="required"></span></label>
-          <select id="currency" class="form-control" [formControl]="currency">
-            <option value="0" selected="selected">{{'common.select' | translate:LIMITS}}</option>
-            <option *ngFor="let currency of currencies$ | async as currencies" [value]="currency.id">{{ 'currencies.' + currency.code
-              | translate}}</option>
-          </select>
+          <div class="form-group">
+            <label for="title">{{'book.add.title' | translate}}<span class="required"></span></label>
+            <input type="text" id="title" class="form-control" [formControl]="title" />
 
-          <div class="text-danger" *ngIf="(currency.touched || currency.dirty) && currency.errors">
-            <div *ngIf="currency.errors['required']">{{'book.add.vld.currencyReq' | translate}}</div>
-            <div *ngIf="!currency.errors['required'] && currency.errors['unsupported']">{{'book.add.vld.currencyInvld' |
-              translate}}
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="numberOfPages">{{'book.add.numberOfPages' | translate}}<span class="required"></span></label>
-          <input type="text" id="numberOfPages" class="form-control" [formControl]="numberOfPages" />
-
-          <div class="text-danger" *ngIf="(numberOfPages.touched || numberOfPages.dirty) && numberOfPages.errors">
-            <div *ngIf="numberOfPages.errors['required']">{{'book.add.vld.numberOfPagesReq' | translate}}</div>
-            <div *ngIf="!numberOfPages.errors['required']">
-              <div *ngIf="numberOfPages.errors['pattern']">{{'book.add.vld.numberOfPagesInvld' | translate}}</div>
-              <div *ngIf="numberOfPages.errors['min'] || numberOfPages.errors['minlength']">{{'book.add.vld.numberOfPagesMin'
-                | translate:LIMITS}}</div>
-              <div *ngIf="numberOfPages.errors['max'] || numberOfPages.errors['maxlength']">{{'book.add.vld.numberOfPagesMax'
+            <div class="text-danger" *ngIf="(title.touched || title.dirty) && title.errors">
+              <div *ngIf="title.errors['required']">{{'book.add.vld.titleReq' | translate}}</div>
+              <div *ngIf="!title.errors['required'] && title.errors['maxlength']">{{'book.add.vld.titleMaxLen'
                 | translate:LIMITS}}</div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="numberOfCopies">{{'book.add.numberOfCopies' | translate}}<span class="required"></span></label>
-          <input type="text" id="numberOfCopies" class="form-control" [formControl]="numberOfCopies" />
+          <div class="form-group">
+            <label for="authors">{{'book.add.authors' | translate}}</label>
+            <input type="text" id="authors" class="form-control" [formControl]="authors" />
 
-          <div class="text-danger" *ngIf="(numberOfCopies.touched || numberOfCopies.dirty) && numberOfCopies.errors">
-            <div *ngIf="numberOfCopies.errors['required']">{{'book.add.vld.numberOfCopiesReq' | translate}}</div>
-            <div *ngIf="!numberOfCopies.errors['required']">
-              <div *ngIf="numberOfCopies.errors['pattern']">{{'book.add.vld.numberOfCopiesInvld' | translate}}</div>
-              <div *ngIf="numberOfCopies.errors['min'] || numberOfCopies.errors['minlength']">{{'book.add.vld.numberOfCopiesMin' | translate:LIMITS}}</div>
-              <div *ngIf="numberOfCopies.errors['max'] || numberOfCopies.errors['maxlength']">{{'book.add.vld.numberOfCopiesMax' | translate:LIMITS}}</div>
+            <div class="text-danger" *ngIf="(authors.touched || authors.dirty) && authors.errors">
+              <div *ngIf="authors.errors['maxlength']">{{'book.add.vld.authorsMaxLen' | translate:LIMITS}}</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="publication">{{'book.add.publication' | translate}}</label>
+            <input type="text" id="publication" class="form-control" [formControl]="publication" />
+
+            <div class="text-danger" *ngIf="(publication.touched || publication.dirty) && publication.errors">
+              <div *ngIf="publication.errors['maxlength']">{{'book.add.vld.publicationMaxLen' | translate:LIMITS}}</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="edition">{{'book.add.edition' | translate}}</label>
+                <input type="text" id="edition" class="form-control" [formControl]="edition" />
+
+                <div class="text-danger" *ngIf="(edition.touched || edition.dirty) && edition.errors">
+                  <div *ngIf="edition.errors['pattern']">{{'book.add.vld.editionInvld' | translate}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="volume">{{'book.add.volume' | translate}}</label>
+                <input type="text" id="volume" class="form-control" [formControl]="volume" />
+
+                <div class="text-danger" *ngIf="(volume.touched || volume.dirty) && volume.errors">
+                  <div *ngIf="volume.errors['pattern']">{{'book.add.vld.volumeInvld' | translate:LIMITS}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="price">{{'book.add.price' | translate}}<span class="required"></span></label>
+                <input type="text" id="price" class="form-control" [formControl]="price" />
+
+                <div class="text-danger" *ngIf="(price.touched || price.dirty) && price.errors">
+                  <div *ngIf="price.errors['required']">{{'book.add.vld.priceReq' | translate}}</div>
+                  <div *ngIf="!price.errors['required']">
+                    <div *ngIf="price.errors['pattern']">{{'book.add.vld.priceInvld' | translate:LIMITS}}</div>
+                    <div *ngIf="price.errors['max'] || price.errors['maxlength']">{{'book.add.vld.priceMax'
+                      | translate:LIMITS}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="currency">{{'book.add.currency' | translate}}<span class="required"></span></label>
+                <select id="currency" class="form-control" [formControl]="currency">
+                  <option value="0" selected="selected">{{'common.select' | translate:LIMITS}}</option>
+                  <option *ngFor="let currency of formDeps['currencies']" [value]="currency.id">{{ 'currencies.'
+                    + currency.code | translate}}</option>
+                </select>
+
+                <div class="text-danger" *ngIf="(currency.touched || currency.dirty) && currency.errors">
+                  <div *ngIf="currency.errors['required']">{{'book.add.vld.currencyReq' | translate}}</div>
+                  <div *ngIf="!currency.errors['required'] && currency.errors['unsupported']">{{'book.add.vld.currencyInvld'
+                    | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="numberOfPages">{{'book.add.numberOfPages' | translate}}<span class="required"></span></label>
+                <input type="text" id="numberOfPages" class="form-control" [formControl]="numberOfPages" />
+
+                <div class="text-danger" *ngIf="(numberOfPages.touched || numberOfPages.dirty) && numberOfPages.errors">
+                  <div *ngIf="numberOfPages.errors['required']">{{'book.add.vld.numberOfPagesReq' | translate}}</div>
+                  <div *ngIf="!numberOfPages.errors['required']">
+                    <div *ngIf="numberOfPages.errors['pattern']">{{'book.add.vld.numberOfPagesInvld'
+                      | translate}}</div>
+                    <div *ngIf="numberOfPages.errors['min'] || numberOfPages.errors['minlength']">{{'book.add.vld.numberOfPagesMin'
+                      | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfPages.errors['max'] || numberOfPages.errors['maxlength']">{{'book.add.vld.numberOfPagesMax'
+                      | translate:LIMITS}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="numberOfCopies">{{'book.add.numberOfCopies' | translate}}<span class="required"></span></label>
+                <input type="text" id="numberOfCopies" class="form-control" [formControl]="numberOfCopies" />
+
+                <div class="text-danger" *ngIf="(numberOfCopies.touched || numberOfCopies.dirty) && numberOfCopies.errors">
+                  <div *ngIf="numberOfCopies.errors['required']">{{'book.add.vld.numberOfCopiesReq' |
+                    translate}}
+                  </div>
+                  <div *ngIf="!numberOfCopies.errors['required']">
+                    <div *ngIf="numberOfCopies.errors['pattern']">{{'book.add.vld.numberOfCopiesInvld'
+                      | translate}}
+                    </div>
+                    <div *ngIf="numberOfCopies.errors['min'] || numberOfCopies.errors['minlength']">{{'book.add.vld.numberOfCopiesMin'
+                      | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfCopies.errors['max'] || numberOfCopies.errors['maxlength']">{{'book.add.vld.numberOfCopiesMax'
+                      | translate:LIMITS}}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="error-in-form" *ngIf="inFormErrorKey">{{inFormErrorKey | translate}}</div>
-        <div class="in-form-info" *ngIf="submitted">{{'common.submitting' | translate}}</div>
+        <div *ngIf="inFormNoti.msgKey" [ngClass]="inFormNoti.cssClass">{{inFormNoti.msgKey | translate}}</div>
       </div>
 
-      <div class="card-footer">
-        <div class="row ">
+      <div class="card-footer" *ngIf="showForm">
+        <div class="row">
           <div class="col-md-6 mb-2 mb-md-0">
-            <button class="btn btn-block btn-primary" type="submit" [disabled]="submitted">{{'common.submit' | translate}}</button>
+            <button class="btn btn-block btn-primary" type="submit" [disabled]="form.invalid || submitted">{{'common.submit'
+              | translate}}</button>
           </div>
           <div class="col-md-6">
-            <button class="btn btn-block btn-secondary" type="button" [disabled]="submitted" (click)="resetForm()">{{'common.reset' | translate}}</button>
+            <button class="btn btn-block btn-secondary" type="button" [disabled]="submitted" (click)="resetForm()">{{'common.reset'
+              | translate}}</button>
           </div>
         </div>
       </div>

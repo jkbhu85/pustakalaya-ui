@@ -109,7 +109,7 @@ export class AuthService {
   private updateUser(newUser: AuthInfo) {
     this.user = newUser;
     this.user$.next(this.user);
-    if (newUser != null) {
+    if (newUser) {
       this.translate.setUserLocale(this.user.locale);
     }
   }

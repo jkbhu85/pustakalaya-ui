@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../app-security/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   template: `
   <div class="row">
-    <div class="col-12">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
       <h1 class="mb-3">{{'navbar.user' | translate}}</h1>
 
-      <div class="row">
-        <div class="col-lg-4 mb-3 mb-md-0" *ngIf="authService.getLoginStatus() | async">
-          <ul class="ptk-inline-nav">
-            <li class="float-left float-lg-none">
-              <a [routerLink]="['/user/add']" routerLinkActive="ptk-active">{{'navbar.addUser' | translate}}</a>
-            </li>
-            <li class="float-left float-lg-none">
-              <a [routerLink]="['/user/modify']" routerLinkActive="ptk-active">{{'navbar.modifyUser' | translate}}</a>
-            </li>
-          </ul>
-        </div>
+      <ul class="ptk-inline-nav" *ngIf="loggedIn$ | async">
+        <li>
+          <a [routerLink]="['/user/add']" routerLinkActive="ptk-active">{{'navbar.addUser' | translate}}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/user/modify']" routerLinkActive="ptk-active">{{'navbar.modifyUser' | translate}}</a>
+        </li>
+      </ul>
 
-        <div class="col-lg-8">
-          <router-outlet></router-outlet>
-        </div>
+      <router-outlet></router-outlet>
     </div>
   </div>
   `,
   styles: []
 })
 export class UserComponent implements OnInit {
+  loggedIn$: Observable<boolean>;
+
   constructor(public authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loggedIn$ = this.authService.getLoginStatus();
+  }
 }

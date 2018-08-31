@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BlockUiService } from './block-ui.service';
 import { NotiType } from './noti-type.enum';
 import { Notification } from './notification';
+import { TIME_DELAY_DISPLAY_LOAD_SCREEN } from '../consts';
 
 /**
  * This class provides a service to show notifications

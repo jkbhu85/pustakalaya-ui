@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AppTranslateService } from '../../services/app-translate.service';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NotificationService } from '../../notifications/notification.service';
 
 @Component({
-  templateUrl: './home.component.html',
-  styles: []
+  templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
-
-  constructor(
-  ) { }
+export class HomeComponent implements OnInit, AfterViewInit {
+  constructor(private notiService: NotificationService) {}
 
   ngOnInit() {
+    this.notiService.showUiBlocker();
   }
 
+  ngAfterViewInit() {
+    this.notiService.hideUiBlocker();
+  }
 }

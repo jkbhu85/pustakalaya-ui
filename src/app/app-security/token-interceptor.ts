@@ -1,12 +1,10 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
-import { AuthService } from "./auth.service";
-import { Observable } from "rxjs";
-import { Injectable } from "@angular/core";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-
-  constructor() { }
+  constructor() {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url.indexOf('/ptk/') > -1) {
@@ -14,7 +12,7 @@ export class TokenInterceptor implements HttpInterceptor {
       if (jwt) {
         request = request.clone({
           setHeaders: {
-            'Authorization': jwt
+            Authorization: jwt
           }
         });
       }

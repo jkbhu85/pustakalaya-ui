@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AppTranslateService {
   readonly supportedLangs = ['en-US', 'hi-IN'];
-  readonly defaultLang = this.supportedLangs[1];
+  readonly defaultLang = this.supportedLangs[0];
 
   constructor(
     private translate: TranslateService
@@ -40,9 +40,9 @@ export class AppTranslateService {
     if (!locale) return;
 
     try {
-      locale = locale.split('_').join('-');
+      if (locale.indexOf('_') === 2) locale = locale.split('_').join('-');
     } catch (e) {
-      return '';
+      locale = '';
     }
 
     return locale;

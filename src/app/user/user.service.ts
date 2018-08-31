@@ -7,6 +7,7 @@ import { PtkResponse } from '../models/ptk-response';
 const URL_USER_GET_PREREGISTRATION_INFO = BASE_HREF + '/ptk/newUser/';
 const URL_USER_POST_REGISTERATION_INFO = BASE_HREF + '/ptk/user';
 const URL_USER_POST_PREREGISTRATION = BASE_HREF + '/ptk/newUser';
+const URL_USER_GET_INFO = BASE_HREF + '/ptk/user?';
 
 @Injectable()
 export class UserService {
@@ -15,16 +16,21 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  getRegistrationInfo(id: string): Observable<PtkResponse> {
+  getPreRegistrationInfo(id: string): Observable<PtkResponse> {
     return this.http.get<PtkResponse>(URL_USER_GET_PREREGISTRATION_INFO + id);
   }
 
   submitPreRegistrationData(data: any) {
-    return this.http.post<PtkResponse>(URL_USER_POST_PREREGISTRATION, data)
+    return this.http.post<PtkResponse>(URL_USER_POST_PREREGISTRATION, data);
   }
 
   submitUserData(data: any) {
-    console.log(data);
     return this.http.post<PtkResponse>(URL_USER_POST_REGISTERATION_INFO, data);
   }
+
+  getUserInfo(email: string) {
+    console.log('profile url: ' + URL_USER_GET_INFO + 'email=' + email);
+    return this.http.get<any>(URL_USER_GET_INFO + 'email=' + email);
+  }
+
 }

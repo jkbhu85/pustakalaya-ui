@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { BASE_HREF } from '../consts';
 
 const URL_BOOK_SAVE = BASE_HREF + '/ptk/book';

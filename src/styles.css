@@ -48,7 +48,6 @@ footer>div {
   padding-right: .25rem;
 }
 .ptk-inline-nav a {
-  display: block;
   text-decoration: none;
   outline: 0;
   padding: .5rem 1.25rem;
@@ -61,7 +60,7 @@ footer>div {
   color: #dd8800;
   background-color: #fcf3e5;
 }
-.error-in-form {
+.in-form-error {
   border-radius: .25rem;
   padding: .5rem 1rem;
   margin: 0;

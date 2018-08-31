@@ -6,6 +6,7 @@ import { RoleLibrianGaurd } from '../app-security/role-librarian-gaurd';
 import { RemoveBookComponent } from './remove-book/remove-book.component';
 import { AssignBookComponent } from './assign-book/assign-book.component';
 import { BookComponent } from './book.component';
+import { SearchBookComponent } from './search-book/search-book.component';
 
 
 const bookRoutes: Routes = [

@@ -27,6 +27,7 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
     private notiService: NotificationService
   ) {
     super();
+    this.loadFormDependencies();
   }
 
   readonly LIMITS: any = {
@@ -47,18 +48,13 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
     currency: '0'
   };
 
-  bookCategories$: Observable<BookCategory[]>;
-  currencies$: Observable<Currency[]>;
-
   ngOnInit() {
-    this.fetchFormData();
     this.createForm();
-    this.resetForm();
   }
 
-  private fetchFormData() {
-    this.currencies$ = this.currencyService.getAll();
-    this.bookCategories$ = this.bookCategoryService.getAll();
+  private loadFormDependencies() {
+    this.loadDependency('currencies', this.currencyService.getAll());
+    this.loadDependency('bookCategories', this.bookCategoryService.getAll());
   }
 
   protected changeFormSubmissionStatus(status: boolean) {
@@ -95,6 +91,8 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
         ]
       ]
     });
+
+    this.resetForm();
   }
 
   get bookCategory() {
@@ -160,11 +158,11 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
   public submit(): void {
     if (this.submitted) return;
     if (this.form.invalid) {
-      this.showInFormError(MsgKey.VALIDATION_FAILED);
+      this.showInFormError(MsgKey.VALIDATION_FAILED, true);
       console.log(this.form);
       return;
     }
-    
+    this.showInFormError(MsgKey.SUBMITTING, false);
     this.changeFormSubmissionStatus(true);
     const data = this.prepareData();
 
@@ -180,7 +178,7 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
     switch (errResponse.status) {
       case 422:
         console.log(errResponse.error);
-        this.showInFormError(MsgKey.VALIDATION_FAILED);
+        this.showInFormError(MsgKey.VALIDATION_FAILED, true);
         this.setFormErrors(errResponse.error);
       break;
       default:
@@ -194,6 +192,7 @@ export class AddBookComponent extends AbstractFormComponent implements OnInit {
   }
   protected handleComplete(): void {
     this.changeFormSubmissionStatus(false);
+    this.hideInFormNoti();
   }
 
   public resetForm(): void {

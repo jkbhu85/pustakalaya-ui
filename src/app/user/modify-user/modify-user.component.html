@@ -1,3 +1,27 @@
-<p>
-  modify-user works!
-</p>
+<div class="row">
+    <div class="col-12">
+      <form class="card mb-5" [formGroup]="form" (submit)="submit()">
+        <h2 class="card-header h4">{{'navbar.modifyUser' | translate}}</h2>
+  
+        <div class="card-body">
+          <div class="form-body" *ngIf="showForm">
+          </div>
+
+          <div *ngIf="inFormNoti.msgKey" [ngClass]="inFormNoti.cssClass">{{inFormNoti.msgKey | translate}}</div>
+        </div> <!-- .card-body -->
+
+        <div class="card-footer" *ngIf="showForm">
+          <div class="row">
+            <div class="col-md-6 mb-2 mb-md-0">
+              <button class="btn btn-block btn-primary" [disabled]="submitted">{{'navbar.addUser' | translate}}</button>
+            </div>
+  
+            <div class="col-md-6 mb-md-0">
+              <button class="btn btn-block btn-secondary" [disabled]="submitted" (click)="resetForm()">{{'common.reset'
+                | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </form> <!-- .card -->
+    </div>
+  </div>

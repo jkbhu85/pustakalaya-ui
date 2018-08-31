@@ -1,15 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../app-security/auth.service';
-import { AuthInfo } from '../../models/user';
+import { MsgKey } from '../../consts';
 import { PtkResponse } from '../../models/ptk-response';
+import { AuthInfo } from '../../models/user';
 import { NotificationService } from '../../notifications/notification.service';
+import { LocaleService } from '../../services/locale.service';
 import { AbstractFormComponent } from '../../util/abstract-form-component';
 import { UserService } from '../user.service';
-import { LocaleService } from '../../services/locale.service';
-import { MsgKey } from '../../consts';
 
 @Component({
   templateUrl: './add-user.component.html',
@@ -17,10 +17,6 @@ import { MsgKey } from '../../consts';
 })
 export class AddUserComponent extends AbstractFormComponent implements OnInit {
   private userInfo: AuthInfo;
-  private depCount = 0;
-  showForm = false;
-  formLoadSuccessful = true;
-  locales: string[];
 
   readonly LIMITS = {
     'firstNameMaxLen': 30,
@@ -28,7 +24,7 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
   };
   
   private readonly defaultValues: any = {
-    locale: ''
+    locale: '0'
   };
 
   constructor(
@@ -42,54 +38,18 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
     this.authService.getUserInfo().subscribe(
       (userInfo: AuthInfo) => this.userInfo = userInfo
     );
-  }
-
-  ngOnInit() {
-    setTimeout(() => this.beforeFormDepenciesLoadStart(), 500);
     this.loadFormDependencies();
   }
 
-  private beforeFormDepenciesLoadStart() {
-    if (!this.showForm) this.notiService.showUiBlocker();
+  ngOnInit() {
+    this.createForm();
   }
   
   private loadFormDependencies() {
-    this.depCount++;
-    this.localeService
-      .getAll()
-      .pipe(finalize(() => this.onDependencyLoadComplete()))
-      .subscribe(
-        (locales: string[]) => this.locales = locales,
-        () => this.onDependencyLoadFailure()
-      );
-  }
-
-  private onDependencyLoadFailure() {
-    this.formLoadSuccessful = this.formLoadSuccessful && false;
-  }
-  
-  private onDependencyLoadComplete() {
-    if (this.depCount !== 0) this.depCount--;
-    if (this.depCount === 0) {
-      this.afterFormDependenciesLoaded();
-    }
-  }
-
-  private afterFormDependenciesLoaded() {
-    this.notiService.hideUiBlocker();
-
-    if (this.formLoadSuccessful) {
-      this.showForm = true;
-      this.createForm();
-    } else {
-      this.notiService.danger(MsgKey.FORM_LOAD_ERROR);
-    }
+    this.loadDependency('locales', this.localeService.getAll());
   }
 
   protected createForm() {
-    let localeValue = this.userInfo.locale;
-    if (!localeValue) localeValue = 'en-US';
-
     this.form = this.fb.group({
       'firstName': [null, [Validators.required, Validators.maxLength(this.LIMITS.firstNameMaxLen)]],
       'lastName': [null, [Validators.required, Validators.maxLength(this.LIMITS.lastNameMaxLen)]],
@@ -98,8 +58,9 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
     });
 
     // specify default values
-    this.defaultValues.locale = localeValue;
-    this.resetForm(); // reset form with default values
+    if (this.userInfo.locale) this.defaultValues.locale = this.userInfo.locale;
+    // reset form with default values
+    this.resetForm();
   }
 
   get firstName() {
@@ -129,9 +90,13 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
   }
 
   submit() {
+    if (this.form.invalid) {
+      this.showInFormError(MsgKey.VALIDATION_FAILED, true);
+      return;
+    }
     if (this.submitted) return;
-    if (this.form.invalid) return;
 
+    this.showInFormInfo(MsgKey.SUBMITTING, true);
     this.changeFormSubmissionStatus(true);
     const data = this.prepareData();
 
@@ -146,6 +111,7 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
 
   protected handleComplete() {
     this.changeFormSubmissionStatus(false);
+    this.hideInFormNoti();
   }
 
   protected handleSuccess(response: PtkResponse) {
@@ -160,14 +126,14 @@ export class AddUserComponent extends AbstractFormComponent implements OnInit {
         console.log(response);
         if (response.responseCode === 61) {
           this.setFormErrors(response);
-          this.showInFormError(MsgKey.VALIDATION_FAILED);
+          this.showInFormError(MsgKey.VALIDATION_FAILED, true);
         } else {
-          this.showInFormError(MsgKey.EMAIL_DOES_NOT_EXIST);
+          this.showInFormError(MsgKey.EMAIL_DOES_NOT_EXIST, true);
         }
         break;
       default:
         console.log(errResponse);
-        this.showInFormError(MsgKey.ERROR_OCCURRED);
+        this.showInFormError(MsgKey.ERROR_OCCURRED, true);
     }
   }
 

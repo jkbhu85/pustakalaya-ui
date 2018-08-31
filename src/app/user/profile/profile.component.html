@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-10 col-lg-6 mx-auto">
+    <h1 class="mb-3">{{'profile.pageTitle' | translate}}</h1>
+
+    <table class="table" *ngIf="user">
+      <tbody>
+        <tr>
+          <td>{{'profile.email' | translate}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.firstName' | translate}}</td>
+          <td>{{user.firstName}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.lastName' | translate}}</td>
+          <td>{{user.lastName}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.mobile' | translate}}</td>
+          <td>({{user.isdCode}}) {{user.mobile}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.gender' | translate}}</td>
+          <td>{{'user.gender.' + user.gender | translate}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.bookQuota' | translate}}</td>
+          <td>{{user.bookQuota}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.locale' | translate}}</td>
+          <td>{{'langs.' + user.locale | translate}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.dateOfBirth' | translate}}</td>
+          <td>{{dateOfBirth()}}</td>
+        </tr>
+        <tr>
+          <td>{{'profile.acCreatedOn' | translate}}</td>
+          <td>{{acCreatedOn()}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

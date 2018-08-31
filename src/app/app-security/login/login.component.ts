@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
-import { BASE_HREF } from '../../consts';
+import { BASE_HREF, MsgKey } from '../../consts';
 import { Observable, Subscription } from 'rxjs';
 import { AppTranslateService } from '../../services/app-translate.service';
 import { AuthService } from '../auth.service';
 import { PtkResponse, ResponseCode } from '../../models/ptk-response';
+import { AbstractFormComponent } from '../../util/abstract-form-component';
+import { NotificationService } from '../../notifications/notification.service';
 
 const LOGIN_URL = BASE_HREF + '/ptk/login';
 const KEY_ACCESS_REVOKED = 'login.vld.accessRevoked';
@@ -18,60 +20,51 @@ const KEY_ACCOUNT_LOCKED = 'login.vld.accountLocked';
   templateUrl: './login.component.html',
   styles: []
 })
-export class LoginComponent implements OnInit {
-
-  loginForm: FormGroup;
-  submitted = false;
-  showError = false;
-  errorText$: Observable<any>;
-  private formValueChangeSubscription: Subscription;
-
+export class LoginComponent extends AbstractFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private translate: AppTranslateService,
+    private notiService: NotificationService,
     private authService: AuthService
   ) {
-    this.createForm();
-  }
-
-  createForm(): void {
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+    super();
   }
 
   get username() {
-    return this.loginForm.get('username');
+    return this.form.get('username');
   }
 
   get password() {
-    return this.loginForm.get('password');
+    return this.form.get('password');
   }
 
   ngOnInit() {
+    this.createForm();
+    this.showForm = true;
+  }
+  
+  protected createForm() {
+    this.form = this.fb.group({
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
   }
 
-  prepareData() {
-    let l: any = {};
+  protected prepareData() {
+    let data: any = {};
 
-    l.username = this.username.value;
-    l.password = this.password.value;
+    data.username = this.username.value;
+    data.password = this.password.value;
 
-    return l;
+    return data;
   }
 
-  private setFormSubmitStatus(status: boolean) {
-    this.submitted = status;
-  }
-
-  onSubmit() {
+  submit() {
+    if (this.form.invalid) return;
     if (this.submitted) return;
-    if (this.loginForm.invalid) return;
 
-    this.setFormSubmitStatus(true);
-    this.hideFormError();
+    this.changeFormSubmissionStatus(true);
+    this.showInFormInfo(MsgKey.SUBMITTING, false);
 
     const data = this.prepareData();
 
@@ -80,23 +73,26 @@ export class LoginComponent implements OnInit {
       .pipe(finalize(() => this.handleComplete()))
       .subscribe(
         (response: PtkResponse) => this.handleSuccess(response),
-        (response: HttpErrorResponse) => this.handleFailure(response),
-        () => this.handleComplete()
+        (response: HttpErrorResponse) => this.handleFailure(response)
       );
   }
 
-  private handleComplete() {
-    this.setFormSubmitStatus(false);
+  protected changeFormSubmissionStatus(status: boolean) {
+    this.submitted = status;
   }
 
-  private handleSuccess(ptkRes: PtkResponse) {
+  protected handleComplete() {
+    this.changeFormSubmissionStatus(false);
+    this.hideInFormNoti();
+  }
+
+  protected handleSuccess(ptkRes: PtkResponse) {
     // login successful
     let jwt = ptkRes.data;
-    console.log('login successful');
     this.authService.login(jwt);
   }
 
-  private handleFailure(errResponse: HttpErrorResponse) {
+  protected handleFailure(errResponse: HttpErrorResponse) {
     switch (errResponse.status) {
       case 422:
         const res: PtkResponse = errResponse.error;
@@ -105,32 +101,22 @@ export class LoginComponent implements OnInit {
 
         switch (s) {
           case ResponseCode.ACCOUNT_LOCKED:
-            this.showFormError(KEY_ACCOUNT_LOCKED);
+            this.showInFormError(KEY_ACCOUNT_LOCKED, true);
             break;
           case ResponseCode.ACCOUNT_ACCESS_REVOKED:
-            this.showFormError(KEY_ACCESS_REVOKED);
+            this.showInFormError(KEY_ACCESS_REVOKED, true);
             break;
           default:
-            this.showFormError(KEY_INVALID_CREDENTIALS);
+            this.showInFormError(KEY_INVALID_CREDENTIALS, true);
         }
         break;
       default:
         // some error occurred
-        this.showFormError('common.errorOccurred');
+        this.notiService.danger(MsgKey.ERROR_OCCURRED);
     }
   }
-
-  private showFormError(msgKey: string) {
-    this.showError = true;
-    this.errorText$ = this.translate.get(msgKey);
-    this.formValueChangeSubscription = this.loginForm.valueChanges.subscribe(() => this.hideFormError());
-  }
-
-  private hideFormError() {
-    if (!this.showError) return;
-
-    this.showError = false;
-    this.errorText$ = undefined;
-    this.formValueChangeSubscription.unsubscribe();
+ 
+  resetForm(): void {
+    this.form.reset();
   }
 }

@@ -12,7 +12,8 @@
     "loading": "जानकारी प्राप्त कर रहे हैं...",
     "submitting": "जानकारी भेज रहे हैं...",
     "emailDoesNotExist": "ईमेल विद्यमान नहीं है |",
-    "formLoadError": "फॉर्म लोड करने में कोई गड़बड़ हुई है | कृपया थोड़ी देर बाद पुनः प्रयास करें |"
+    "formLoadError": "फॉर्म लोड करने में कोई गड़बड़ हुई है | कृपया थोड़ी देर बाद पुनः प्रयास करें |",
+    "notAvailable": "उपलब्ध नहीं है |"
   },
   "navbar": {
     "dashboard": "मुख्य पृष्ठ",
@@ -49,6 +50,7 @@
     "welcomeText": "पुस्तकालय में आपका स्वागत है |"
   },
   "profile": {
+    "pageTitle": "रूपरेखा",
     "firstName": "प्रथम नाम",
     "lastName": "अन्तिम नाम",
     "email": "ईमेल",
@@ -56,7 +58,9 @@
     "gender": "लिंग",
     "mobile":"मोबाइल",
     "isdCode": "आई०एस०डी० कूट",
-    "dateOfBirth": "जन्मतिथि"
+    "dateOfBirth": "जन्मतिथि",
+    "bookQuota": "पुस्तक कोटा",
+    "acCreatedOn": "अकाउंट बनने का समय"
   },
   "user": {
     "gender": {
@@ -87,10 +91,10 @@
         "dateOfBirth": "{{dateOfBirthFormat}}",
         "mobile": "10 अंकों की  मोबाइल संख्या",
         "password": "न्यूनतम {{passwordMinLen}} अक्षर ",
-        "confirmPassword":"एक दम पासवर्ड जैसा"
+        "confirmPassword":"एक दम पासवर्ड जैसा हो"
       },
       "vld": {
-        "registrationIdInvld": "पंजीकरण आईडी गलत है या इसकी आयु समाप्त हो चुकी है |",
+        "registrationIdInvld": "पंजीकरण गलत है या इसकी आयु समाप्त हो चुकी है |",
         "genderRequired": "लिंग आवश्यक है |",
         "genderInvld": "असम्भव लिंग का चुनाव किया गया है |",
         "passwordMinLen": "न्यूनतम {{passwordMinLen}} अक्षर होने चाहिए |",
@@ -112,9 +116,16 @@
         "securityAnswerMinLen": "न्यूनतम {{securityAnswerMinLen}} अक्षर होने चाहिए |",
         "securityAnswerMaxLen": "अधिकतम {{securityAnswerMaxLen}} अक्षर होने चाहिए |"
       }
+    },
+    "modify": {
+      "title": ""
     }
   },
   "book": {
+    "category": {
+      "TEXTBOOK": "पाठयपुस्तक",
+      "MAGAZINE": "पत्रिका"
+    },
     "add": {
       "formTitle": "पुस्तक जोड़े",
       "bookCategory": "पुस्तक श्रेणी",

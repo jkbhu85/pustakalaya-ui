@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { AppTranslateService } from '../services/app-translate.service';
-import { AuthService } from '../app-security/auth.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../app-security/auth.service';
+import { AppTranslateService } from '../services/app-translate.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   loggedIn = false;
   private subscription: Subscription;
 
@@ -18,7 +17,9 @@ export class AppComponent {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.authService.getLoginStatus().subscribe((status) => this.loggedIn = status);
+    this.subscription = this.authService
+      .getLoginStatus()
+      .subscribe(status => (this.loggedIn = status));
   }
 
   ngOnDestroy() {

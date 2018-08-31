@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CountryService } from '../../country/country.service';
-import { Country } from '../../models/other';
 import { PtkResponse } from '../../models/ptk-response';
 import { RegistrationInfo } from '../../models/user';
 import { NotificationService } from '../../notifications/notification.service';
@@ -15,23 +13,24 @@ import { PtkValidators } from '../../util/custom-validators';
 import { DatePatternType, DateSeparator, toString } from '../../util/date-util';
 import { UserService } from '../user.service';
 import { MsgKey } from '../../consts';
+import { LocaleService } from '../../services/locale.service';
 
 @Component({
   templateUrl: './complete-registration.component.html'
 })
 export class CompleteRegistrationComponent extends AbstractFormComponent implements OnInit {
-  showForm = false;
-  showLoading = true;
-  form: FormGroup;
-  loginStatus: boolean = false;
-  errorText$: Observable<string>;
-  countries$: Observable<Country[]>;
+  loginStatus = false;
   registrationInfo: RegistrationInfo;
   private readonly dateSeparator: DateSeparator = DateSeparator.HYPHEN;
   private readonly datePatternType = DatePatternType.DDMMYYYY;
+  private readonly DEP_PRE_REGISTRATION_INFO = 'registrationInfo';
+  private readonly DEP_COUNTRIES = 'countries';
+  private readonly DEP_LOCALES = 'locales';
+
   private readonly defaultValues = {
     isdCode: '0',
     gender: '0',
+    locale: '0'
   };
 
   readonly LIMITS = {
@@ -53,6 +52,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
   constructor(
     private userService: UserService,
     private countryService: CountryService,
+    private localeService: LocaleService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private translate: AppTranslateService,
@@ -62,47 +62,53 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
   }
 
   ngOnInit() {
-    this.form = this.fb.group([]);
-    this.getRegistrationInfo();
+    this.createForm();
+    this.loadPreRegistrationInfo();
   }
 
-  private getRegistrationInfo() {
+  private loadPreRegistrationInfo() {
     const id = this.route.snapshot.queryParamMap.get('id');
-
+    
     if (id) {
-      this.userService
-        .getRegistrationInfo(id)
-        .subscribe(info => this.handleRegInfoFetchSuccess(info), error => this.handleRegInfoFetchFail(error));
+        this.loadDependencyNoFormDisplay(
+          this.DEP_PRE_REGISTRATION_INFO,
+          this.userService.getPreRegistrationInfo(id),
+          (err) => this.onLoadPreRegistrationInfo(err)
+        );
     } else {
-      this.showLoading = false;
-      this.notiService.danger('user.register.vld.invalidRegistrationId');
+      this.notiService.danger(MsgKey.INVALID_REGISTRATION_ID);
     }
   }
 
-  private handleRegInfoFetchSuccess(info: PtkResponse) {
-    this.showForm = true;
-    this.showLoading = false;
-    this.registrationInfo = info.data;
+  private onLoadPreRegistrationInfo(errResponse?: HttpErrorResponse) {
+    if (!errResponse) {
+      this.registrationInfo = (this.formDeps[this.DEP_PRE_REGISTRATION_INFO])['data'];
+      this.translate.setUserLocale(this.registrationInfo.locale);
+      this.createDateOfBirthRange();
+      this.loadFormDependencies();
+      return;
+    }
 
-    // changle locale to user's locale
-    this.translate.setUserLocale(this.registrationInfo.locale);
-    this.createDateOfBirthRange();
-    this.countries$ = this.countryService.getAllCoutries();
-    // create form since registration info is now available
-    this.createForm();
-    this.form.patchValue(this.defaultValues);
-  }
-
-  private handleRegInfoFetchFail(errResponse: HttpErrorResponse) {
-    this.showLoading = false;
-
+    this.hideInFormNoti();
     switch (errResponse.status) {
       case 422:
-        this.notiService.danger('user.register.vld.registrationIdInvld');
+        this.notiService.danger(MsgKey.INVALID_REGISTRATION_ID);
         break;
       default:
         this.notiService.danger(MsgKey.ERROR_OCCURRED);
     }
+  }
+
+  private loadFormDependencies() {
+    this.loadDependency(
+      this.DEP_LOCALES,
+      this.localeService.getAll()
+    );
+
+    this.loadDependency(
+      this.DEP_COUNTRIES,
+      this.countryService.getAllCoutries()
+    );
   }
 
   protected createForm() {
@@ -179,14 +185,14 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
 
   submit(): void {
     if (this.form.invalid) {
-      this.showInFormError
+      this.showInFormError(MsgKey.VALIDATION_FAILED, true);
       return;
     }
     if (this.submitted) return;
 
-    this.submitted = true;
+    this.showInFormInfo(MsgKey.SUBMITTING, true);
+    this.changeFormSubmissionStatus(true);
     const data = this.prepareData();
-    console.log('Sending add user request');
 
     this.userService
       .submitUserData(data) 
@@ -199,12 +205,13 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
 
   protected handleComplete() {
     this.changeFormSubmissionStatus(false);
+    this.hideInFormNoti();
   }
 
   protected handleSuccess(ptkResponse: PtkResponse) {
-    //this.registrationInfo = null;
-    //this.showForm = false;
-    //this.resetForm();
+    this.registrationInfo = null;
+    this.formDeps[this.DEP_PRE_REGISTRATION_INFO] = null;
+    this.resetForm();
     this.notiService.success('user.register.successMsg');
   }
 
@@ -216,7 +223,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
         if (ptkResponse.message === 'ERROR_INVALID_FIELDS') {
           this.setFormErrors(errResponse.error);
         } else {
-          this.notiService.danger('user.register.vld.registrationIdInvld');
+          this.notiService.danger(MsgKey.INVALID_REGISTRATION_ID);
         }
         break;
         default:
@@ -286,9 +293,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
 
   resetForm() {
     this.form.reset();
-
-    if (this.registrationInfo) {
-      this.form.reset(this.registrationInfo);
-    }
+    this.form.reset(this.defaultValues);
+    if (this.registrationInfo) this.form.patchValue(this.registrationInfo);
   }
 }

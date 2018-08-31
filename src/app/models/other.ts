@@ -28,3 +28,8 @@ export interface Currency {
 export class LoginStatus {
   status: boolean;
 }
+
+export interface FormDependencies {
+  loadedSuccessfully: boolean;
+  //[key: string]: any;
+}

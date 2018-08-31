@@ -12,7 +12,8 @@
     "loading": "Loading...",
     "submitting": "Submitting...",
     "emailDoesNotExist": "Email does not exist.",
-    "formLoadError": "Error occurred while loading the form. Please try again after some time."
+    "formLoadError": "Error occurred while loading the form. Please try again after some time.",
+    "notAvailable": "Not available."
   },
   "navbar": {
     "dashboard": "Home",
@@ -49,14 +50,17 @@
     "welcomeText": "You are welcome in Pustakalaya."
   },
   "profile": {
+    "pageTitle": "Profile",
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
-    "locale": "Locale",
+    "locale": "Language",
     "gender": "Gender",
     "mobile":"Mobile",
     "isdCode": "ISD code",
-    "dateOfBirth": "Date of birth"
+    "dateOfBirth": "Date of birth",
+    "bookQuota": "Book Quota",
+    "acCreatedOn": "Account created on"
   },
   "user": {
     "gender": {
@@ -90,7 +94,7 @@
         "confirmPassword":"Same as password"
       },
       "vld": {
-        "registrationIdInvld": "The registration id is invalid or has expired.",
+        "registrationIdInvld": "The registration link is invalid or has expired.",
         "genderReq": "Gender is required.",
         "genderInvld": "Gender is invalid.",
         "passwordMinLen": "Minimum {{passwordMinLen}} characters are allowed.",
@@ -112,9 +116,16 @@
         "securityAnswerMinLen": "Minimum {{securityAnswerMinLen}} characters are allowed.",
         "securityAnswerMaxLen": "Maximum {{securityAnswerMaxLen}} characters are allowed."
       }
+    },
+    "modify": {
+      "title": ""
     }
   },
   "book": {
+    "category": {
+      "TEXTBOOK": "Textbook",
+      "MAGAZINE": "Magazine"
+    },
     "add": {
       "formTitle": "Add Book",
       "bookCategory": "Book Category",
