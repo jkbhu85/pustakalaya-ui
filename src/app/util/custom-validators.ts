@@ -10,9 +10,6 @@ export const PtkValidators = {
   ): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const dobStr = control.value;
-      const outOfRangeError: ValidationErrors = {
-        dateOfBirthRange: 'date of birth is out of range'
-      };
 
       const dob = dateParser(dobStr, datePatternType, dateSeparator);
 
@@ -21,7 +18,8 @@ export const PtkValidators = {
       const minDate = dateParser(minDateStr, datePatternType, dateSeparator);
       const maxDate = dateParser(maxDateStr, datePatternType, dateSeparator);
 
-      if (compareDates(dob, minDate) < 0 || compareDates(dob, maxDate) > 0) return outOfRangeError;
+      if (compareDates(dob, minDate) < 0) return {min: true};
+      if (compareDates(dob, maxDate) > 0) return {max: true};
 
       return null;
     };
@@ -51,10 +49,10 @@ export const PtkValidators = {
     }; 
   },
 
-  passwordMatchValidator: function _passwordMatchValidator(): ValidatorFn {
+  passwordMatchValidator: function _passwordMatchValidator(pwdControlName: string, confirmPwdControlName: string): ValidatorFn {
     return (control: FormGroup): ValidationErrors | null => {
-      const pwd = control.get('password');
-      const cpwd = control.get('confirmPassword');
+      const pwd = control.get(pwdControlName);
+      const cpwd = control.get(confirmPwdControlName);
 
       if (pwd && cpwd && pwd.value !== cpwd.value) {
         return { doesNotMatch: true };

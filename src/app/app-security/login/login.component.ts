@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
-import { BASE_HREF, MsgKey } from '../../consts';
+import { API_BASE_HREF, MsgKey } from '../../consts';
 import { Observable, Subscription } from 'rxjs';
 import { AppTranslateService } from '../../services/app-translate.service';
 import { AuthService } from '../auth.service';
@@ -10,7 +10,7 @@ import { PtkResponse, ResponseCode } from '../../models/ptk-response';
 import { AbstractFormComponent } from '../../util/abstract-form-component';
 import { NotificationService } from '../../notifications/notification.service';
 
-const LOGIN_URL = BASE_HREF + '/ptk/login';
+const LOGIN_URL = API_BASE_HREF + '/ptk/login';
 const KEY_ACCESS_REVOKED = 'login.vld.accessRevoked';
 const KEY_INVALID_CREDENTIALS = 'login.vld.credentialsInvld';
 const KEY_ACCOUNT_LOCKED = 'login.vld.accountLocked';
@@ -83,23 +83,26 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
 
   protected handleComplete() {
     this.changeFormSubmissionStatus(false);
-    this.hideInFormNoti();
   }
 
   protected handleSuccess(ptkRes: PtkResponse) {
     // login successful
     let jwt = ptkRes.data;
     this.authService.login(jwt);
+    console.log('login successful');
+    this.hideInFormNoti();
   }
 
   protected handleFailure(errResponse: HttpErrorResponse) {
+    console.log(errResponse);
+
     switch (errResponse.status) {
       case 422:
         const res: PtkResponse = errResponse.error;
         // invalid credentials or account locked or account revoked
         let s = res.responseCode;
 
-        switch (s) {
+        switch (+s) {
           case ResponseCode.ACCOUNT_LOCKED:
             this.showInFormError(KEY_ACCOUNT_LOCKED, true);
             break;
@@ -113,6 +116,7 @@ export class LoginComponent extends AbstractFormComponent implements OnInit {
       default:
         // some error occurred
         this.notiService.danger(MsgKey.ERROR_OCCURRED);
+        this.hideInFormNoti();
     }
   }
  

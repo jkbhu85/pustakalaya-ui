@@ -17,6 +17,7 @@ modules/.settings
 .bazelrc
 .vscode
 modules/.vscode
+ng-ssl.*
 
 # Don't check in secret files
 *secret.js

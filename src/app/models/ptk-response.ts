@@ -32,10 +32,11 @@ export enum ResponseCode {
   SECURITY_ANSWER_DID_NOT_MATCH = 25,
 
   // Validation related
+
   /**
    * Code 31.
    */
-  VALUE_TOO_LARGE = 31,
+  EMPTY_VALUE = 31,
 
   /**
    * Code 32.
@@ -45,37 +46,47 @@ export enum ResponseCode {
   /**
    * Code 33.
    */
-  INVALID_FORMAT = 33,
+  VALUE_TOO_LARGE = 33,
 
   /**
    * Code 34.
    */
-  UNSUPPORTED_VALUE = 34,
+  LENGTH_TOO_SHORT = 34,
 
   /**
    * Code 35.
    */
-  VALUE_ALREADY_EXIST = 35,
+  LENGTH_TOO_LONG = 35,
 
   /**
    * Code 36.
    */
-  RESOURCE_HAS_EXPIRED = 36,
+  INVALID_FORMAT = 36,
 
   /**
    * Code 37.
    */
-  EMPTY_VALUE = 37,
+  UNSUPPORTED_VALUE = 37,
 
   /**
    * Code 38.
    */
-  MAIL_NOT_SENT_INVALID_EMAIL = 38,
+  VALUE_ALREADY_EXIST = 38,
 
   /**
    * Code 39.
    */
-  DOES_NOT_MATCH = 39,
+  RESOURCE_HAS_EXPIRED = 39,
+
+  /**
+   * Code 40.
+   */
+  DOES_NOT_MATCH = 40,
+
+  /**
+   * Code 41.
+   */
+  MAIL_NOT_SENT_INVALID_EMAIL = 41,
 
   // System related
   /**

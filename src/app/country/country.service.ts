@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Country } from '../models/other';
-import { BASE_HREF } from '../consts';
+import { API_BASE_HREF } from '../consts';
 
-const URL_GET_ALL_COUNTRIES = BASE_HREF + '/ptk/country';
+const URL_GET_ALL_COUNTRIES = API_BASE_HREF + '/ptk/country';
 
 @Injectable()
 export class CountryService {

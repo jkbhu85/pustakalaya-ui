@@ -7,8 +7,14 @@ import { AuthGaurd } from '../app-security/auth-gaurd.service';
 import { CompleteRegistrationComponent } from './complete-registration/complete-registration.component';
 import { NoAuthGaurd } from '../app-security/no-auth-gaurd';
 import { ModifyUserComponent } from './modify-user/modify-user.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const userRoutes: Routes = [
+  {
+    path: 'changePassword',
+    component: ChangePasswordComponent,
+    canActivate: [AuthGaurd]
+  },
   {
     path: 'user',
     component: UserComponent,

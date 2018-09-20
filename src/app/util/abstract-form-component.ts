@@ -12,9 +12,8 @@ enum InFormNotiCssClass {
 }
 
 export abstract class AbstractFormComponent {
-  submitted = false;
   form: FormGroup;
-  inFormErrorKey = '';
+  submitted = false;
   showForm = false;
 
   formDeps: FormDependencies = {
@@ -167,26 +166,18 @@ export abstract class AbstractFormComponent {
 
   private errorKeyFrom(errorCode: number): string {
     switch (errorCode) {
-      case ResponseCode.VALUE_TOO_LARGE:
-        return 'maxlength';
-      case ResponseCode.VALUE_TOO_SMALL:
-        return 'minlength';
-      case ResponseCode.INVALID_FORMAT:
-        return 'pattern';
-      case ResponseCode.UNSUPPORTED_VALUE:
-        return 'unsupported';
-      case ResponseCode.VALUE_ALREADY_EXIST:
-        return 'alreadyexist';
-      case ResponseCode.RESOURCE_HAS_EXPIRED:
-        return 'expired';
-      case ResponseCode.EMPTY_VALUE:
-        return 'required';
-      case ResponseCode.MAIL_NOT_SENT_INVALID_EMAIL:
-        return 'emailnotsent';
-      case ResponseCode.DOES_NOT_MATCH:
-        return 'doesnotmatch';
-      default:
-        return '';
+      case ResponseCode.EMPTY_VALUE: return 'required';
+      case ResponseCode.LENGTH_TOO_SHORT: return 'minlength';
+      case ResponseCode.LENGTH_TOO_LONG: return 'maxlength';
+      case ResponseCode.VALUE_TOO_SMALL: return 'min';
+      case ResponseCode.VALUE_TOO_LARGE: return 'max';
+      case ResponseCode.INVALID_FORMAT: return 'pattern';
+      case ResponseCode.UNSUPPORTED_VALUE: return 'unsupported';
+      case ResponseCode.VALUE_ALREADY_EXIST: return 'alreadyexist';
+      case ResponseCode.RESOURCE_HAS_EXPIRED: return 'expired';
+      case ResponseCode.MAIL_NOT_SENT_INVALID_EMAIL: return 'emailnotsent';
+      case ResponseCode.DOES_NOT_MATCH: return 'doesnotmatch';
+      default: return '';
     }
   }
 
@@ -213,7 +204,7 @@ export abstract class AbstractFormComponent {
 
   protected abstract handleFailure(errResponse: HttpErrorResponse): void;
 
-  protected abstract handleSuccess(ptkResponse: PtkResponse): void;
+  protected abstract handleSuccess(ptkResponse?: PtkResponse): void;
 
   protected abstract handleComplete(): void;
 

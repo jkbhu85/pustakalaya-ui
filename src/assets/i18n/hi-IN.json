@@ -78,7 +78,8 @@
         "emailReq": "ईमेल आवश्यक है |",
         "emailInvld": "ईमेल गलत है |",
         "emailAlreadyExist": "ईमेल पहले है |",
-        "localeReq": "भाषा आवश्यक है |"
+        "localeReq": "भाषा आवश्यक है |",
+        "localeInvld": "भाषा गलत है |"
       }
     },
     "register": {
@@ -104,7 +105,7 @@
         "mobileDuplicate": "मोबाइल किसी दूसरे उपयोगकर्ता के पास पहले से पंजीकृत है |",
         "dateOfBirthReq": "जन्मतिथि आवश्यक है |",
         "dateOfBirthInvld": "जन्मतिथि गलत है |",
-        "dateOfBirthRangeInvld": "जन्मतिथि {{dateOfBirthMin}} व {{dateOfBirthMax}} के बीच होनी चाहिए |",
+        "dateOfBirthRangeInvld": "जन्मतिथि {{dateOfBirthMin}} से {{dateOfBirthMax}} के बीच होनी चाहिए |",
         "isdCodeReq": "आई०एस०डी० कूट आवश्यक है |",
         "isdCodeInvld": "आई०एस०डी० कूट गलत है |",
         "confirmPasswordReq": "पासवर्ड पुष्टि आवश्यक है |",
@@ -119,6 +120,22 @@
     },
     "modify": {
       "title": ""
+    },
+    "changePassword": {
+      "title": "पासवर्ड बदलें",
+      "currentPassword": "वर्तमान पासवर्ड",
+      "newPassword": "नया पासवर्ड",
+      "confirmNewPassword": "नया पासवर्ड पुष्टि",
+      "successMsg": "पासवर्ड बदल गया है |",
+      "tip": {
+        "passwordLen": "{{passwordMinLen}} से {{passwordMaxLen}} अक्षर"
+      },
+      "vld": {
+        "currentPasswordReq": "वर्तमान पासवर्ड आवश्यक है |",
+        "newPasswordReq": "नया पासवर्ड आवश्यक है |",
+        "confirmNewPasswordReq": "पुनः नया पासवर्ड आवश्यक है |",
+        "passwordDoesNotMatch": "नया पासवर्ड व नया पासवर्ड पुष्टि एक से नहीं हैं |"
+      }
     }
   },
   "book": {

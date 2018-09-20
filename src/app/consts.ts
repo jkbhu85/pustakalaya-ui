@@ -1,5 +1,5 @@
 // no trailing '/'
-export const BASE_HREF = 'https://192.168.0.103:8443';
+export const API_BASE_HREF = 'https://192.168.0.103:8443';
 
 /**
  * Time delay in milliseconds before the loading screeen is shown.
@@ -15,5 +15,7 @@ export enum MsgKey {
   EMAIL_DOES_NOT_EXIST = 'common.emailDoesNotExist',
   FORM_LOAD_ERROR = 'common.formLoadError',
   INVALID_REGISTRATION_ID = 'user.register.vld.registrationIdInvld',
-  NOT_AVAILABLE = 'common.notAvailable'
+  NOT_AVAILABLE = 'common.notAvailable',
+
+  USER_CHANGE_PASSWORD_SUCCESS = 'user.changePassword.successMsg'
 }

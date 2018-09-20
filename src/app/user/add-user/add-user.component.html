@@ -37,10 +37,10 @@
 
             <div class="text-danger" *ngIf="(email.touched || email.dirty) && email.errors">
               <div *ngIf="email.errors['required']">{{'user.add.vld.emailReq' | translate}}</div>
-              <div *ngIf="!email.errors['required'] && email.errors['pattern']">{{'user.add.vld.emailInvld'
-                | translate}}</div>
-              <div *ngIf="!email.errors['required'] && email.errors['alreadyexist']">{{'user.add.vld.emailAlreadyExist'
-                | translate}}</div>
+              <div *ngIf="!email.errors['required']">
+                <div *ngIf="email.errors['pattern']">{{'user.add.vld.emailInvld' | translate}}</div>
+                <div *ngIf="email.errors['alreadyexist']">{{'user.add.vld.emailAlreadyExist' | translate}}</div>
+              </div>
             </div>
           </div>
 
@@ -53,6 +53,10 @@
 
             <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
               <div *ngIf="locale.errors['required']">{{'user.add.vld.localeReq' | translate}}</div>
+              <div *ngIf="!locale.errors['required']">
+                <div *ngIf="locale.errors['pattern'] || locale.errors['unsupported']">{{'user.add.vld.localeInvld'
+                  | translate}}</div>
+              </div>
             </div>
           </div>
         </div><!-- .form-body -->
@@ -63,7 +67,8 @@
       <div class="card-footer" *ngIf="showForm">
         <div class="row">
           <div class="col-md-6 mb-2 mb-md-0">
-            <button class="btn btn-block btn-primary" type="submit" [disabled]="form.invalid || submitted">{{'navbar.addUser' | translate}}</button>
+            <button class="btn btn-block btn-primary" type="submit" [disabled]="form.invalid || submitted">{{'navbar.addUser'
+              | translate}}</button>
           </div>
 
           <div class="col-md-6 mb-md-0">

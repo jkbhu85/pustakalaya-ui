@@ -4,7 +4,7 @@ import { AuthService } from '../../app-security/auth.service';
 import { MsgKey } from '../../consts';
 import { AuthInfo } from '../../models/user';
 import { NotificationService } from '../../notifications/notification.service';
-import { DatePatternType, DateSeparator, toString } from '../../util/date-util';
+import { DatePatternType, DateSeparator, toString, dateParser } from '../../util/date-util';
 import { UserService } from '../user.service';
 
 @Component({
@@ -20,8 +20,8 @@ export class UserProfileComponent implements OnInit {
     isdCode?: string;
     mobile?: string;
     bookQuota?: number;
-    dateOfBirth?: number[];
-    createdOn?: number[];
+    dateOfBirth?: string;
+    createdOn?: string;
     locale?: string;
   };
   private authInfo: AuthInfo;
@@ -75,8 +75,7 @@ export class UserProfileComponent implements OnInit {
 
   dateOfBirth() {
     if (this.user && this.user.dateOfBirth) {
-      const arr = this.user.dateOfBirth;
-      const dob = new Date(arr[0], arr[1] - 1, arr[2]);
+      const dob = dateParser(this.user.dateOfBirth, DatePatternType.YYYYMMDD, DateSeparator.HYPHEN);
       return toString(dob, DatePatternType.DDMMYYYY, DateSeparator.HYPHEN);
     }
 
@@ -85,9 +84,8 @@ export class UserProfileComponent implements OnInit {
 
   acCreatedOn() {
     if (this.user && this.user.createdOn) {
-      const arr = this.user.createdOn;
-      const date = new Date(arr[0], arr[1] - 1, arr[2]);
-      return toString(date, DatePatternType.DDMMYYYY, DateSeparator.HYPHEN);
+      const createdOn = dateParser(this.user.createdOn.split('T')[0], DatePatternType.YYYYMMDD, DateSeparator.HYPHEN);
+      return toString(createdOn, DatePatternType.DDMMYYYY, DateSeparator.HYPHEN);
     }
 
     return '';

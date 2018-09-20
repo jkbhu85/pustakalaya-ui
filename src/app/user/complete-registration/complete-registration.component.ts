@@ -158,7 +158,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
           ]
         ]
       },
-      { validator: PtkValidators.passwordMatchValidator() }
+      { validator: PtkValidators.passwordMatchValidator('password', 'newPassword') }
     );
 
     // reset form with default values
@@ -208,7 +208,7 @@ export class CompleteRegistrationComponent extends AbstractFormComponent impleme
     this.hideInFormNoti();
   }
 
-  protected handleSuccess(ptkResponse: PtkResponse) {
+  protected handleSuccess(ptkResponse?: PtkResponse) {
     this.registrationInfo = null;
     this.formDeps[this.DEP_PRE_REGISTRATION_INFO] = null;
     this.resetForm();

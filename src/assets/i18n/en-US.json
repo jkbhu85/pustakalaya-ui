@@ -78,7 +78,8 @@
         "emailReq": "Email is required.",
         "emailInvld": "Email is invalid.",
         "emailAlreadyExist": "Email already exist.",
-        "localeReq": "Locale is required."
+        "localeReq": "Locale is required.",
+        "localeInvld": "Locale is invalid."
       }
     },
     "register": {
@@ -104,7 +105,7 @@
         "mobileDuplicate": "Mobile number already registered with another user.",
         "dateOfBirthReq": "Date of birth is requried.",
         "dateOfBirthInvld": "Date of birth is invalid.",
-        "dateOfBirthRangeInvld": "Date of birth should be in between {{dateOfBirthMin}} and {{dateOfBirthMax}}.",
+        "dateOfBirthRangeInvld": "Date of birth should be in between {{dateOfBirthMin}} to {{dateOfBirthMax}}.",
         "isdCodeReq": "ISD code is required.",
         "isdCodeInvld": "ISD code is invalid.",
         "confirmPasswordReq": "Confirm password is required.",
@@ -119,6 +120,22 @@
     },
     "modify": {
       "title": ""
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "successMsg": "Password changed successfully.",
+      "tip": {
+        "passwordLen": "{{passwordMinLen}} to {{passwordMaxLen}} characters"
+      },
+      "vld": {
+        "currentPasswordReq": "Current Password is required.",
+        "newPasswordReq": "New Password is required.",
+        "confirmNewPasswordReq": "Confirm new password is required.",
+        "passwordDoesNotMatch": "New password and confirm new password does not match."
+      }
     }
   },
   "book": {

@@ -7,6 +7,7 @@ import { UserProfileComponent } from './profile/profile.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { UserService } from './user.service';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [AppCommonModule, UserRoutingModule],
@@ -15,7 +16,8 @@ import { UserService } from './user.service';
     ModifyUserComponent,
     UserComponent,
     CompleteRegistrationComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChangePasswordComponent
   ],
   providers: [UserService]
 })

@@ -48,23 +48,27 @@
 
                 <div class="text-danger" *ngIf="(gender.touched || gender.dirty) && gender.errors">
                   <div *ngIf="gender.errors['required']">{{'user.register.vld.genderReq' | translate}}</div>
-                  <div *ngIf="!gender.errors['required'] && gender.errors['']">{{'user.register.vld.genderInvld'
+                  <div *ngIf="!gender.errors['required'] && gender.errors['unsupported']">{{'user.register.vld.genderInvld'
                     | translate}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                  <label for="dateOfBirth">{{'profile.dateOfBirth' | translate}}<span class="required"></span></label>
-                  <input type="text" class="form-control" id="dateOfBirth" [placeholder]="'user.register.tip.dateOfBirth' | translate:LIMITS" [formControl]="dateOfBirth" />
+                <label for="dateOfBirth">{{'profile.dateOfBirth' | translate}}<span class="required"></span></label>
+                <input type="text" class="form-control" id="dateOfBirth" [placeholder]="'user.register.tip.dateOfBirth' | translate:LIMITS"
+                  [formControl]="dateOfBirth" />
 
                 <div class="text-danger" *ngIf="(dateOfBirth.touched || dateOfBirth.dirty) && dateOfBirth.errors">
                   <div *ngIf="dateOfBirth.errors['required']">{{'user.register.vld.dateOfBirthReq' |
-                    translate}}</div>
-                  <div *ngIf="!dateOfBirth.errors['required'] && dateOfBirth.errors['pattern']">{{'user.register.vld.dateOfBirthInvld'
-                    | translate}}</div>
-                  <div *ngIf="!dateOfBirth.errors['required'] && dateOfBirth.errors['dateOfBirthRange']">{{'user.register.vld.dateOfBirthRangeInvld'
-                    | translate:LIMITS}}</div>
+                    translate}}
+                  </div>
+                  <div *ngIf="!dateOfBirth.errors['required']">
+                    <div *ngIf="dateOfBirth.errors['pattern']">{{'user.register.vld.dateOfBirthInvld'
+                      | translate}}</div>
+                    <div *ngIf="dateOfBirth.errors['min'] && dateOfBirth.errors['max']">{{'user.register.vld.dateOfBirthRangeInvld'
+                      | translate:LIMITS}}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -82,7 +86,7 @@
 
                 <div class="text-danger" *ngIf="(isdCode.touched || isdCode.dirty) && isdCode.errors">
                   <div *ngIf="isdCode.errors['required']">{{'user.register.vld.isdCodeReq' | translate}}</div>
-                  <div *ngIf="isdCode.errors['isdCodeInvld']">{{'user.register.vld.isdCodeInvld' | translate}}</div>
+                  <div *ngIf="isdCode.errors['unsupported']">{{'user.register.vld.isdCodeInvld' | translate}}</div>
                 </div>
               </div>
             </div>
@@ -93,7 +97,8 @@
 
                 <div class="text-danger" *ngIf="(mobile.touched || mobile.dirty) && mobile.errors">
                   <div *ngIf="mobile.errors['required']">{{'user.register.vld.mobileReq' | translate}}</div>
-                  <div *ngIf="mobile.errors['pattern']">{{'user.register.vld.mobileInvld' | translate}}</div>
+                  <div *ngIf="!mobile.errors['required'] && mobile.errors['pattern']">{{'user.register.vld.mobileInvld'
+                    | translate}}</div>
                   <div *ngIf="mobile.errors['alreadyexist']">{{'user.register.vld.mobileInvld' | translate}}</div>
                 </div>
               </div>
@@ -109,6 +114,10 @@
 
             <div class="text-danger" *ngIf="(locale.touched || locale.dirty) && locale.errors">
               <div *ngIf="locale.errors['required']">{{'user.add.vld.localeReq' | translate}}</div>
+              <div *ngIf="!locale.errors['required']">
+                <div *ngIf="locale.errors['pattern'] || locale.errors['unsupported']">{{'user.add.vld.localeInvld'
+                  | translate}}</div>
+              </div>
             </div>
           </div>
 
@@ -131,14 +140,20 @@
                 <label for="confirmPassword">{{'user.register.confirmPassword' | translate}}<span class="required"></span></label>
                 <input type="password" id="confirmPassword" class="form-control" [formControl]="confirmPassword" [placeholder]="'user.register.tip.confirmPassword' | translate:LIMITS">
 
-                <div class="text-danger" *ngIf="(confirmPassword.touched || confirmPassword.dirty) && confirmPassword.errors">
-                  <div *ngIf="confirmPassword.errors['required']">{{'user.register.vld.confirmPasswordReq'
-                    | translate}}</div>
-                </div>
-
-                <div class="text-danger" *ngIf="(confirmPassword.touched || confirmPassword.dirty) && form.errors">
-                  <div *ngIf="!confirmPassword.errors && form.errors['doesNotMatch']">{{'user.register.vld.confirmPasswordDoesNotMatch'
-                    | translate:LIMITS}}</div>
+                <div class="text-danger" *ngIf="confirmPassword.touched || confirmPassword.dirty">
+                  <div *ngIf="confirmPassword.errors">
+                    <div *ngIf="confirmPassword.errors['required']">
+                      {{'user.register.vld.confirmPasswordReq' | translate}}
+                    </div>
+                    <div *ngIf="!confirmPassword.errors['required'] && confirmPassword.errors['doesNotMatch']">
+                      {{'user.register.vld.confirmPasswordDoesNotMatch' | translate}}
+                    </div>
+                  </div>
+                  <div *ngIf="form.errors">
+                    <div *ngIf="!confirmPassword.errors && form.errors['doesNotMatch']">
+                      {{'user.register.vld.confirmPasswordDoesNotMatch' | translate}}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

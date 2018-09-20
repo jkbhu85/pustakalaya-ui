@@ -95,8 +95,7 @@
                   <div *ngIf="price.errors['required']">{{'book.add.vld.priceReq' | translate}}</div>
                   <div *ngIf="!price.errors['required']">
                     <div *ngIf="price.errors['pattern']">{{'book.add.vld.priceInvld' | translate:LIMITS}}</div>
-                    <div *ngIf="price.errors['max'] || price.errors['maxlength']">{{'book.add.vld.priceMax'
-                      | translate:LIMITS}}</div>
+                    <div *ngIf="price.errors['max']">{{'book.add.vld.priceMax' | translate:LIMITS}}</div>
                   </div>
                 </div>
               </div>
@@ -121,7 +120,6 @@
           </div>
 
 
-
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -133,10 +131,8 @@
                   <div *ngIf="!numberOfPages.errors['required']">
                     <div *ngIf="numberOfPages.errors['pattern']">{{'book.add.vld.numberOfPagesInvld'
                       | translate}}</div>
-                    <div *ngIf="numberOfPages.errors['min'] || numberOfPages.errors['minlength']">{{'book.add.vld.numberOfPagesMin'
-                      | translate:LIMITS}}</div>
-                    <div *ngIf="numberOfPages.errors['max'] || numberOfPages.errors['maxlength']">{{'book.add.vld.numberOfPagesMax'
-                      | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfPages.errors['min']">{{'book.add.vld.numberOfPagesMin' | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfPages.errors['max']">{{'book.add.vld.numberOfPagesMax' | translate:LIMITS}}</div>
                   </div>
                 </div>
               </div>
@@ -154,10 +150,8 @@
                     <div *ngIf="numberOfCopies.errors['pattern']">{{'book.add.vld.numberOfCopiesInvld'
                       | translate}}
                     </div>
-                    <div *ngIf="numberOfCopies.errors['min'] || numberOfCopies.errors['minlength']">{{'book.add.vld.numberOfCopiesMin'
-                      | translate:LIMITS}}</div>
-                    <div *ngIf="numberOfCopies.errors['max'] || numberOfCopies.errors['maxlength']">{{'book.add.vld.numberOfCopiesMax'
-                      | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfCopies.errors['min']">{{'book.add.vld.numberOfCopiesMin' | translate:LIMITS}}</div>
+                    <div *ngIf="numberOfCopies.errors['max']">{{'book.add.vld.numberOfCopiesMax' | translate:LIMITS}}</div>
                   </div>
                 </div>
               </div>

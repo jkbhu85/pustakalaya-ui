@@ -72,19 +72,46 @@ export function dateParser(
   let separator = separatorFor(dateSeparator);
 
   const multiple: string[] = dateStr.split(separator);
-  const day = +multiple[0];
-  const month = +multiple[1] - 1; // month starts with 0 in date object
-  const year = +multiple[2];
+  const tuple = getDateComponents(multiple, datePattern);
   const date: Date = new Date();
 
-  date.setDate(day);
-  date.setMonth(month);
-  date.setFullYear(year);
+  date.setDate(tuple.day);
+  date.setMonth(tuple.month);
+  date.setFullYear(tuple.year);
 
-  if (date.getDate() === day && month === date.getMonth() && year === date.getFullYear())
+  if (date.getDate() === tuple.day && tuple.month === date.getMonth() && tuple.year === date.getFullYear())
     return date;
 
   return null;
+}
+
+function getDateComponents(multiple: string[], datePatternType: DatePatternType) {
+  if (!multiple || !multiple.length || multiple.length !== 3 || !datePatternType) return null;
+
+  let day, month, year;
+
+  switch (+datePatternType) {
+    case DatePatternType.DDMMYYYY:
+      day = +multiple[0];
+      month = +multiple[1] - 1;
+      year = +multiple[2];
+      break;
+    case DatePatternType.MMDDYYYY:
+      day = +multiple[1];
+      month = +multiple[0] - 1;
+      year = +multiple[2];
+      break;
+    case DatePatternType.YYYYMMDD:
+      day = +multiple[2];
+      month = +multiple[1] - 1;
+      year = +multiple[0];
+      break;
+    default:
+      console.error('Invalid date pattern', datePatternType);
+      return null;
+  }
+
+  return {day: day, month: month, year: year};
 }
 
 /**
