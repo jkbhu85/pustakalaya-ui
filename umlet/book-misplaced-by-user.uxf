@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>90</x>
+      <y>50</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Start</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>130</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>User Email</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>210</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>List of books
+assigned</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>80</x>
+      <y>290</y>
+      <w>120</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>type=decision
+Is one of
+the books
+misplaced</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>80</x>
+      <y>450</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Select book that
+was misplaced</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>80</x>
+      <y>540</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Display book
+and user details</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>630</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Mark book
+as deleted</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>660</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>90</x>
+      <y>710</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>End</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>580</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>490</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>400</y>
+      <w>50</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Yes</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>240</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>160</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>80</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>20</x>
+      <y>340</y>
+      <w>140</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+No</panel_attributes>
+    <additional_attributes>120.0;350.0;10.0;350.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>280</w>
+      <h>780</h>
+    </coordinates>
+    <panel_attributes>Book misplaced by user (UI)
+valign=top
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>0</x>
+      <y>760</y>
+      <w>280</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Last updated: 25 Sep 2018
+style=wordwrap
+fontsize=10
+fg=#aaaaaa</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
