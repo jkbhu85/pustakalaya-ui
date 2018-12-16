@@ -15,7 +15,7 @@ import { NotificationService } from './notification.service';
   'alert-danger': notification.type === notiType.DANGER
 }" role="alert">
 <span *ngIf="notification.message">{{ notification.message }}</span>
-<span *ngIf="notification.key">{{ notification.key | translate }}</span>
+<span *ngIf="notification.key" [innerHTML]="notification.key | translate:notification.data"></span>
 <button type="button" (click)="onDelete()" data-dismiss="alert" class="close" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>

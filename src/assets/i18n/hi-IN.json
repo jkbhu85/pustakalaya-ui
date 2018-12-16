@@ -13,7 +13,10 @@
     "submitting": "जानकारी भेज रहे हैं...",
     "emailDoesNotExist": "ईमेल विद्यमान नहीं है |",
     "formLoadError": "फॉर्म लोड करने में कोई गड़बड़ हुई है | कृपया थोड़ी देर बाद पुनः प्रयास करें |",
-    "notAvailable": "उपलब्ध नहीं है |"
+    "notAvailable": "उपलब्ध नहीं है |",
+    "comments": "टिप्पणी",
+    "userDetails": "उपयोगकर्त्ता की जानकारी",
+    "bookDetails": "पुस्तक की जानकारी"
   },
   "navbar": {
     "dashboard": "मुख्य पृष्ठ",
@@ -24,6 +27,7 @@
     "addBook": "पुस्तक जोड़ें",
     "removeBook": "पुस्तक हटाएं",
     "assignBook": "पुस्तक सौपें",
+    "returnBook": "पुस्तक वापसी",
     "user": "उपयोगकर्ता",
     "addUser": "उपयोगकर्ता जोड़े",
     "modifyUser": "उपयोगकर्ता संपादन",
@@ -59,8 +63,10 @@
     "mobile":"मोबाइल",
     "isdCode": "आई०एस०डी० कूट",
     "dateOfBirth": "जन्मतिथि",
+    "bookAssignCount": "जारी पुस्तकों की संख्या",
     "bookQuota": "पुस्तक कोटा",
-    "acCreatedOn": "अकाउंट बनने का समय"
+    "acCreatedOn": "अकाउंट बनने का समय",
+    "accountStatus": "खाता स्तिथि"
   },
   "user": {
     "gender": {
@@ -140,7 +146,7 @@
   },
   "book": {
     "category": {
-      "TEXTBOOK": "पाठयपुस्तक",
+      "TEXTBOOK": "पाठ्यपुस्तक",
       "MAGAZINE": "पत्रिका"
     },
     "add": {
@@ -186,6 +192,24 @@
     },
     "search": {
       "pageTitle": "पुस्तक खोजें"
+    },
+    "assign": {
+      "formTitle": "पुस्तक सौपें",
+      "bookId": "पुस्तक आईoडीo",
+      "username": "सौंपें जाने वाले का यूजरनेम",
+      "vld": {
+        "bookIdReq": "पुस्तक आईoडीo आवश्यक है |",
+        "bookIdInvld": "पुस्तक आईoडीo गलत है |",
+        "bookIdAlreadyAssigned": "पुस्तक पहले ही सौंपी जा चुकी है |",
+        "bookIdNotAvailable": "पुस्तक अनुपलब्ध है |",
+        "usernameReq": "सौंपें जाने वाले का यूजरनेम आवश्यक है |",
+        "usernameInvld": "सौंपें जाने वाले का यूजरनेम गलत है |",
+        "usernameNotAvailable": "उपयोगकर्त्ता को पुस्तक नहीं सौपीं जा सकती |",
+        "usernameBookQuotaMax": "उपयोगकर्त्ता का कोटा समाप्त हो गया है |"
+      },
+      "msg": {
+        "assignedSuccessfully": "<strong>{{user}}</strong> को <strong>{{title}}</strong> सफलतापूर्वक सौंपी गयी |"
+      }
     }
   },
   "langs": {

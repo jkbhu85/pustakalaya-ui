@@ -1,3 +1,117 @@
-<p>
-  assign-book works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <form class="card mb-5" [formGroup]="form" (submit)="submit()" autocomplete="off">
+      <h2 class="card-header h4">{{'book.assign.formTitle' | translate}}</h2>
+
+      <div class="card-body">
+        <div class="form-body" *ngIf="showForm">
+          <div class="form-group">
+            <label for="bookId">{{'book.assign.bookId' | translate}}<span class="required"></span></label>
+            <input type="text" name="bookId" id="bookId" class="form-control" [formControl]="bookId" (blur)="searchBook()" />
+
+            <div  class="text-danger" *ngIf="(bookId.touched || bookId.dirty) && bookId.errors">
+              <div *ngIf="bookId.errors['required']">{{'book.assign.vld.bookIdReq' | translate}}</div>
+              <div *ngIf="bookId.errors['invalid']">{{'book.assign.vld.bookIdInvld' | translate}}</div>
+              <div *ngIf="bookId.errors['alreadyAssigned']">{{'book.assign.vld.bookIdAlreadyAssigned' | translate}}</div>
+              <div *ngIf="bookId.errors['notAvailable']">{{'book.assign.vld.bookIdNotAvailable' | translate}}</div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="book">
+            <div class="ptk-in-form-table-wrapper">
+              <table class="ptk-in-form-table">
+                <caption>{{'common.bookDetails' | translate}}</caption>
+                <tbody>
+                  <tr>
+                    <td>{{'book.add.title' | translate}}</td>
+                    <td>{{book.title}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'book.add.authors' | translate}}</td>
+                    <td>{{book.authors}}</td>
+                  </tr>
+                  <tr *ngIf="book.volume">
+                    <td>{{'book.add.volume' | translate}}</td>
+                    <td>{{book.volume}}</td>
+                  </tr>
+                  <tr *ngIf="book.edition">
+                    <td>{{'book.add.edition' | translate}}</td>
+                    <td>{{book.edition}}</td>
+                  </tr>
+                  <tr *ngIf="book.publication">
+                    <td>{{'book.add.publication' | translate}}</td>
+                    <td>{{book.publication}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{'book.add.bookCategory' | translate}}</td>
+                    <td>{{book.bookCategory}}</td>
+                  </tr>
+                  <tr *ngIf="book.comments">
+                    <td>{{'common.comments' | translate}}</td>
+                    <td>{{book.comments}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="enableUserInput">
+            <label for="username">{{'book.assign.username' | translate}}<span class="required"></span></label>
+            <input type="text" name="username" id="username" class="form-control" [formControl]="username" (blur)="searchUser()"/>
+
+            <div  class="text-danger" *ngIf="(username.touched || username.dirty) && username.errors">
+              <div *ngIf="username.errors['required']">{{'book.assign.vld.usernameReq' | translate}}</div>
+              <div *ngIf="username.errors['invalid']">{{'book.assign.vld.usernameInvld' | translate}}</div>
+              <div *ngIf="username.errors['notAvailable']">{{'book.assign.vld.usernameNotAvailable' | translate}}</div>
+              <div *ngIf="username.errors['quotaMax']">{{'book.assign.vld.usernameBookQuotaMax' | translate}}</div>
+            </div>
+          </div>
+
+            <div class="form-group" *ngIf="user">
+              <div class="ptk-in-form-table-wrapper">
+                <table class="ptk-in-form-table">
+                  <caption>{{'common.userDetails' | translate}}</caption>
+                  <tbody>
+                    <tr>
+                      <td>{{'profile.firstName' | translate}}</td>
+                      <td>{{user.firstName}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'profile.lastName' | translate}}</td>
+                      <td>{{user.lastName}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'profile.bookAssignCount' | translate}}</td>
+                      <td>{{user.bookAssignCount}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'profile.bookQuota' | translate}}</td>
+                      <td>{{user.bookQuota}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{'profile.accountStatus' | translate}}</td>
+                      <td>{{user.accountStatus}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+
+        <div *ngIf="inFormNoti.msgKey" [ngClass]="inFormNoti.cssClass">{{inFormNoti.msgKey | translate}}</div>
+      </div>
+      <div class="card-footer" *ngIf="showForm">
+        <div class="row">
+          <div class="col-md-6 mb-2 mb-md-0">
+            <button class="btn btn-block btn-primary" type="submit" [disabled]="!validUser || form.invalid || submitted">{{'book.assign.formTitle'
+              | translate}}</button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-block btn-secondary" type="button" [disabled]="submitted" (click)="resetForm()">{{'common.reset'
+              | translate}}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

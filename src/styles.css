@@ -84,6 +84,7 @@ footer>div {
   color: #721c24;
   font-size: .8rem;
   vertical-align: super;
+  padding-left: .25rem;
 }
 .block-ui {
   position: fixed;
@@ -109,4 +110,37 @@ footer>div {
   width: 100%;
   padding-left: 1rem;
   height: 2rem;
+}
+.ptk-in-form-table-wrapper {
+  background: #ffffd0;
+  padding: .75rem;
+  margin-left: -1.25rem;
+  margin-right: -1.25rem;
+  font-size: .9rem;
+  border-radius: .25rem;
+}
+
+.ptk-in-form-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ptk-in-form-table caption {
+  caption-side: top;
+  font-weight: bold;
+  color: #666;
+  padding-top: 0;
+  padding-left: .75rem;
+  padding-right: .75rem;
+}
+
+.ptk-in-form-table td {
+  padding-left: .75rem;
+  padding-right: .75rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  width: 50%;
+}
+.ptk-in-form-table > tbody > tr:nth-child(2n+1) {
+  background-color: rgba(0, 0, 0, .05);
 }

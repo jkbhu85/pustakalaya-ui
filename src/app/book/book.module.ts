@@ -8,6 +8,7 @@ import { AppCommonModule } from '../modules/app-common.module';
 import { BookComponent } from './book.component';
 import { BookCategoryService } from './book-category.service';
 import { BookService } from './book.service';
+import { ReturnBookComponent } from './return-book/return-book.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { BookService } from './book.service';
     RemoveBookComponent,
     AssignBookComponent,
     SearchBookComponent,
-    BookComponent
+    BookComponent,
+    ReturnBookComponent
   ],
   exports: [
     BookRoutingModule

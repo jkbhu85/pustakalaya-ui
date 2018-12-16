@@ -1,18 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { PtkResponse } from '../../models/ptk-response';
-import { NotificationService } from '../../notifications/notification.service';
-import { AbstractFormComponent } from '../../util/abstract-form-component';
-import { PtkValidators } from '../../util/custom-validators';
-import { Observable } from 'rxjs';
-import { BookCategory } from '../../models/book';
-import { Currency } from '../../models/other';
-import { CurrencyService } from '../../services/currency.service';
-import { BookCategoryService } from '../book-category.service';
-import { BookService } from '../book.service';
 import { finalize } from 'rxjs/operators';
 import { MsgKey } from '../../consts';
+import { PtkResponse } from '../../models/ptk-response';
+import { NotificationService } from '../../notifications/notification.service';
+import { CurrencyService } from '../../services/currency.service';
+import { AbstractFormComponent } from '../../util/abstract-form-component';
+import { PtkValidators } from '../../util/custom-validators';
+import { BookCategoryService } from '../book-category.service';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-add-book',

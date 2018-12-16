@@ -13,7 +13,10 @@
     "submitting": "Submitting...",
     "emailDoesNotExist": "Email does not exist.",
     "formLoadError": "Error occurred while loading the form. Please try again after some time.",
-    "notAvailable": "Not available."
+    "notAvailable": "Not available.",
+    "comments": "Comments",
+    "userDetails": "User Details",
+    "bookDetails": "Book Details"
   },
   "navbar": {
     "dashboard": "Home",
@@ -24,6 +27,7 @@
     "addBook": "Add book",
     "removeBook": "Remove book",
     "assignBook": "Assign book",
+    "returnBook": "Collect book",
     "user": "User",
     "addUser": "Add user",
     "modifyUser": "Modify user",
@@ -60,7 +64,9 @@
     "isdCode": "ISD code",
     "dateOfBirth": "Date of birth",
     "bookQuota": "Book Quota",
-    "acCreatedOn": "Account created on"
+    "bookAssignCount": "No. of books assigned",
+    "acCreatedOn": "Account created on",
+    "accountStatus": "Account Status"
   },
   "user": {
     "gender": {
@@ -186,6 +192,24 @@
     },
     "search": {
       "pageTitle": "Search Book"
+    },
+    "assign": {
+      "formTitle": "Assign Book",
+      "bookId": "Book ID",
+      "username": "Username of Assignee",
+      "vld": {
+        "bookIdReq": "Book ID is required.",
+        "bookIdInvld": "Book ID is invalid.",
+        "bookIdAlreadyAssigned": "Book is already assgined.",
+        "bookIdNotAvailable": "Book is not available to be assigned.",
+        "usernameReq": "Username of assignee is required.",
+        "usernameInvld": "Username of assignee is invalid.",
+        "usernameNotAvailable": "User can not be assigned a book.",
+        "usernameBookQuotaMax": "User's book quota has exhausted."
+      },
+      "msg": {
+        "assignedSuccessfully": "<strong>{{title}}</strong> was assigned successfully to <strong>{{user}}</strong>"
+      }
     }
   },
   "langs": {

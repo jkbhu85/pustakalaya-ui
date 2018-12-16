@@ -10,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
         <div class="col-12">
           <ul class="ptk-inline-nav">
             <li>
-              <a [routerLink]="['/book/add']" routerLinkActive="ptk-active">{{'navbar.addBook' | translate}}</a>
+              <a [routerLink]="['/book/assign']" routerLinkActive="ptk-active">{{'navbar.assignBook' | translate}}</a>
             </li>
             <li>
-              <a [routerLink]="['/book/assign']" routerLinkActive="ptk-active">{{'navbar.assignBook' | translate}}</a>
+              <a [routerLink]="['/book/return']" routerLinkActive="ptk-active">{{'navbar.returnBook' | translate}}</a>
+            </li>
+            <li>
+              <a [routerLink]="['/book/add']" routerLinkActive="ptk-active">{{'navbar.addBook' | translate}}</a>
             </li>
             <li>
               <a [routerLink]="['/book/remove']" routerLinkActive="ptk-active">{{'navbar.removeBook' | translate}}</a>

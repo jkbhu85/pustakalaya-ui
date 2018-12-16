@@ -6,18 +6,17 @@ import { PtkResponse } from '../../models/ptk-response';
 import { AbstractFormComponent } from '../../util/abstract-form-component';
 
 @Component({
-  selector: 'app-remove-book',
-  templateUrl: './remove-book.component.html',
-  styles: []
+  selector: 'app-return-book',
+  templateUrl: './return-book.component.html'
 })
-export class RemoveBookComponent extends AbstractFormComponent implements OnInit {
+export class ReturnBookComponent extends AbstractFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder
   ) {
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group([]);
     this.showInFormError(MsgKey.NOT_AVAILABLE, false);
   }
@@ -25,28 +24,32 @@ export class RemoveBookComponent extends AbstractFormComponent implements OnInit
   protected changeFormSubmissionStatus(status: boolean) {
     throw new Error('Method not implemented.');
   }
+
   protected createForm() {
     throw new Error('Method not implemented.');
   }
-  protected prepareData(): { [key: string]: string; } {
+
+  protected prepareData(): { [key: string]: string } {
     throw new Error('Method not implemented.');
   }
+
   public submit(): void {
     throw new Error('Method not implemented.');
   }
+
   protected handleSuccess(ptkResponse?: PtkResponse): void {
-    throw new Error('Method not implemented.');
-  }
-  protected handleComplete(): void {
     throw new Error('Method not implemented.');
   }
 
   protected handleFailure(errResponse: HttpErrorResponse): void {
-    
+
   }
-  
-  public resetForm(): void {
+
+  protected handleComplete(): void {
     throw new Error('Method not implemented.');
   }
 
+  public resetForm(): void {
+    throw new Error('Method not implemented.');
+  }
 }

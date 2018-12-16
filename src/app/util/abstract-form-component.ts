@@ -145,16 +145,16 @@ export abstract class AbstractFormComponent {
     this.formValueChangeSubscription = null;
   }
 
-  private setFieldError(fieldName: string, errorCode: number) {
-    const errorKey = this.errorKeyFrom(errorCode);
+  protected setFieldError(fieldName: string, errorCode: number, errorKey: string) {
+    const errKey = this.errorKeyFrom(errorCode) || errorKey;
 
-    if (!errorKey) {
+    if (!errKey) {
       console.error('Error key for error code ' + errorCode + ' not found.');
       return;
     }
 
     const error: any = {};
-    error[errorKey] = 'true';
+    error[errKey] = 'true';
 
     if (this.form.get(fieldName)) {
       this.form.get(fieldName).markAsTouched();
@@ -189,7 +189,7 @@ export abstract class AbstractFormComponent {
     for (let fieldName in errors) {
       if (errors[fieldName]) {
         errorCode = errors[fieldName];
-        this.setFieldError(fieldName, errorCode);
+        this.setFieldError(fieldName, errorCode, null);
       }
     }
   }

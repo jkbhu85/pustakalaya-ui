@@ -24,8 +24,8 @@ export class NotificationService {
     this.notifications.push({ message: message, type: type });
   }
 
-  private notify(key: string, type: NotiType) {
-    this.notifications.push({ key: key, type: type });
+  private notify(key: string, type: NotiType, data?: any) {
+    this.notifications.push({ key: key, type: type, data: data });
   }
 
   getAllNotifications(): Notification[] {
@@ -69,8 +69,8 @@ export class NotificationService {
     this.notifyMsg(message, NotiType.INFO);
   }
 
-  info(key: string) {
-    this.notify(key, NotiType.INFO);
+  info(key: string, data?: any) {
+    this.notify(key, NotiType.INFO, data);
   }
 
   /**
@@ -83,8 +83,8 @@ export class NotificationService {
     this.notifyMsg(message, NotiType.SUCCESS);
   }
 
-  success(key: string) {
-    this.notify(key, NotiType.SUCCESS);
+  success(key: string, data?: any) {
+    this.notify(key, NotiType.SUCCESS, data);
   }
 
   /**
@@ -97,8 +97,8 @@ export class NotificationService {
     this.notifyMsg(message, NotiType.WARN);
   }
 
-  warn(key: string) {
-    this.notify(key, NotiType.WARN);
+  warn(key: string, data?: any) {
+    this.notify(key, NotiType.WARN, data);
   }
 
   /**
@@ -110,7 +110,7 @@ export class NotificationService {
     this.notifyMsg(message, NotiType.DANGER);
   }
 
-  danger(key: string) {
-    this.notify(key, NotiType.DANGER);
+  danger(key: string, data?: any) {
+    this.notify(key, NotiType.DANGER, data);
   }
 }

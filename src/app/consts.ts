@@ -1,5 +1,5 @@
 // no trailing '/'
-export const API_BASE_HREF = 'https://192.168.0.103:8443';
+export const API_BASE_HREF = 'http://localhost:8080/pustakalaya';
 
 /**
  * Time delay in milliseconds before the loading screeen is shown.

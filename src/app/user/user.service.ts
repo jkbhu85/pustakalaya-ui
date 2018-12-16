@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE_HREF } from '../consts';
 import { PtkResponse } from '../models/ptk-response';
+import { User } from '../models/user';
 
 const URL_USER_GET_PREREGISTRATION_INFO = API_BASE_HREF + '/ptk/newUser/';
 const URL_USER_POST_REGISTERATION_INFO = API_BASE_HREF + '/ptk/user';
@@ -30,8 +31,10 @@ export class UserService {
     return this.http.post<PtkResponse>(URL_USER_POST_REGISTERATION_INFO, data);
   }
 
-  getUserInfo(email: string) {
-    return this.http.get<any>(URL_USER_GET_INFO + 'email=' + email);
+  getUserInfo(email: string): Observable<User> {
+    const encodedUri = 'email=' + email;
+    console.log('get user info encodedUri', encodedUri);
+    return this.http.get<User>(URL_USER_GET_INFO + encodedUri);
   }
 
   updatePassword(data: any) {

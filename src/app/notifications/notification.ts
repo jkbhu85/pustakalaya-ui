@@ -11,9 +11,14 @@ export interface Notification {
     message?: string;
 
     /**
-     * This variable holds a key corressponding to a i18n text message.
+     * This variable holds a key corressponding to an i18n text message.
      */
     key?: string;
+
+    /**
+     * Data to replace placeholders if any, in the message pointed to by the key.
+     */
+    data?: any;
 
     /**
      * This variable holds the type part of a

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../app-security/auth.service';
 import { MsgKey } from '../../consts';
-import { AuthInfo } from '../../models/user';
+import { AuthInfo, User, getGenderFullName } from '../../models/user';
 import { NotificationService } from '../../notifications/notification.service';
 import { DatePatternType, DateSeparator, toString, dateParser } from '../../util/date-util';
 import { UserService } from '../user.service';
@@ -11,19 +11,7 @@ import { UserService } from '../user.service';
   templateUrl: './profile.component.html'
 })
 export class UserProfileComponent implements OnInit {
-  user: {
-    email?: string;
-    firstName?: string;
-    lastName?: string;
-    gender?: string;
-    imagePath?: string;
-    isdCode?: string;
-    mobile?: string;
-    bookQuota?: number;
-    dateOfBirth?: string;
-    createdOn?: string;
-    locale?: string;
-  };
+  user: User;
   private authInfo: AuthInfo;
 
   constructor(
@@ -51,26 +39,14 @@ export class UserProfileComponent implements OnInit {
         finalize(() => this.notiService.hideUiBlocker())
       )
       .subscribe(
-        (data) => this.onDataReceived(data),
+        (data: User) => this.onDataReceived(data),
         () => this.notiService.danger(MsgKey.ERROR_OCCURRED)
       );
   }
 
-  onDataReceived(data) {
-    data.gender = this.findGenderFullName(data.gender);
+  onDataReceived(data: User) {
+    data.gender = getGenderFullName(data.gender);
     this.user = data;
-  }
-
-  private findGenderFullName(abbr: string) {
-    if (!abbr) return null;
-
-    abbr = abbr.toUpperCase();
-    switch (abbr) {
-      case 'M': return 'male';
-      case 'F': return 'female';
-      case 'O': return 'other';
-      default: return null;
-    }
   }
 
   dateOfBirth() {

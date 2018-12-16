@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   template: `
   <div class="row">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-8">
+    <div class="col-md-10 col-lg-8 mx-auto">
       <h1 class="mb-3">{{'navbar.user' | translate}}</h1>
 
       <ul class="ptk-inline-nav" *ngIf="loggedIn$ | async">

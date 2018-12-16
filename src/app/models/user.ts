@@ -28,6 +28,18 @@ export enum Gender {
   OTHER = 'O'
 }
 
+export function getGenderFullName(abbr: string): string {
+  if (!abbr) return null;
+
+    abbr = abbr.toUpperCase();
+    switch (abbr) {
+      case 'M': return 'male';
+      case 'F': return 'female';
+      case 'O': return 'other';
+      default: return null;
+    }
+}
+
 export class AuthInfo {
   // fields below are as received from server
   /**
@@ -94,4 +106,21 @@ export class Address {
   state: string;
   pin: string;
   country: string;
+}
+
+
+export interface User {
+  email: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  imagePath: string;
+  isdCode: string;
+  mobile: string;
+  bookQuota: number;
+  bookAssignCount: number;
+  dateOfBirth: string;
+  createdOn: string;
+  locale: string;
+  accountStatus: UserAcStatus;
 }

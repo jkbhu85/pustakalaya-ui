@@ -7,6 +7,7 @@ import { RemoveBookComponent } from './remove-book/remove-book.component';
 import { AssignBookComponent } from './assign-book/assign-book.component';
 import { BookComponent } from './book.component';
 import { SearchBookComponent } from './search-book/search-book.component';
+import { ReturnBookComponent } from './return-book/return-book.component';
 
 
 const bookRoutes: Routes = [
@@ -18,7 +19,7 @@ const bookRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'add'
+        redirectTo: 'assign'
       },
       {
         path: '',
@@ -35,6 +36,10 @@ const bookRoutes: Routes = [
           {
             path: 'assign',
             component: AssignBookComponent
+          },
+          {
+            path: 'return',
+            component: ReturnBookComponent
           }
         ]
       }
