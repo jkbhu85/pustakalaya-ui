@@ -32,7 +32,7 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "rxjs": "^6.1.0",
-    "rxjs-tslint": "^0.1.4",
+    "rxjs-tslint": "0.1.5",
     "zone": "^0.3.4",
     "zone.js": "^0.8.26"
   },
